@@ -1,0 +1,9 @@
+{
+  "schema": "flow.gate.polygon/v1",
+  "gate_id": "gate.lymphocytes",
+  "name": "Lymphocytes",
+  "space": { "x": { "channel": "FSC-A", "basis": "linear", "unit": "ADC counts (a.u.)" },
+             "y": { "channel": "SSC-A", "basis": "linear", "unit": "ADC counts (a.u.)" } },
+  "boundary_rule": "half-open: left/bottom edges inclusive, top/right edges exclusive; exact edge points become boundary candidates",
+  "vertices": [[50000, 10000], [95000, 10000], [95000, 11666], [55000, 78333], [50000, 78333]]
+}

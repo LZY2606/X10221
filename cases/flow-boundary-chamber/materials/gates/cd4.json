@@ -1,0 +1,9 @@
+{
+  "schema": "flow.gate.polygon/v1",
+  "gate_id": "gate.cd4",
+  "name": "CD4+",
+  "space": { "x": { "channel": "FITC-A", "basis": "asinh(c=1500)", "unit": "dimensionless" },
+             "y": { "channel": "PE-A", "basis": "asinh(c=1500)", "unit": "dimensionless" } },
+  "boundary_rule": "half-open; bottom edge y=0 exclusive -> exact-zero compensated events are boundary candidates",
+  "vertices": [[1.911, 0.0], [6, 0.0], [6, 1.2], [1.911, 1.2]]
+}

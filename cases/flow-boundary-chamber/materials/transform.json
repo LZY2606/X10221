@@ -1,0 +1,10 @@
+{
+  "schema": "flow.transform/v1",
+  "transforms": [
+    { "channels": ["FSC-A", "SSC-A"], "function": "identity", "coordinate_basis": "linear ADC counts (a.u.)" },
+    { "channels": ["FITC-A", "PE-A"], "function": "asinh",
+      "cofactor": 1500, "cofactor_unit": "ADC counts (a.u.)",
+      "formula": "asinh(compensated / cofactor)",
+      "output_basis": "dimensionless transformed coordinate used by fluorescence gates" }
+  ]
+}

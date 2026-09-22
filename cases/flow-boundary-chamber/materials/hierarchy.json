@@ -1,0 +1,11 @@
+{
+  "schema": "flow.hierarchy/v1",
+  "denominator_pinning": "each population percentage records an immutable parent generation id (rule GATE-DENOM-PIN)",
+  "root": { "node_id": "pop.ungated", "name": "Ungated", "gate_id": null },
+  "edges": [
+    { "child_node_id": "pop.lymphocytes", "name": "Lymphocytes", "gate_id": "gate.lymphocytes", "parent_node_id": "pop.ungated" },
+    { "child_node_id": "pop.cd3", "name": "CD3+", "gate_id": "gate.cd3-l", "parent_node_id": "pop.lymphocytes" },
+    { "child_node_id": "pop.cd4", "name": "CD4+", "gate_id": "gate.cd4", "parent_node_id": "pop.cd3" },
+    { "child_node_id": "pop.cd8", "name": "CD8+", "gate_id": "gate.cd8", "parent_node_id": "pop.cd3" }
+  ]
+}

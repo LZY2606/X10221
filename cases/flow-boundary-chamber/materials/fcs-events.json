@@ -1,0 +1,39 @@
+{
+  "schema": "flow.fcs.events/v1",
+  "acquisition": {
+    "file_name": "boundary-chamber-v1.fcs",
+    "instrument": "FACSMock-A3",
+    "date": "2026-09-19",
+    "byte_range": "HEADER=$BEGINDATA..$ENDDATA (synthetic, values are the imported raw representation)"
+  },
+  "coordinate_basis": {
+    "FSC-A": { "unit": "ADC counts (a.u.)", "range": [0, 262144], "scale": "linear", "role": "scatter" },
+    "SSC-A": { "unit": "ADC counts (a.u.)", "range": [0, 262144], "scale": "linear", "role": "scatter" },
+    "FITC-A": { "unit": "ADC counts (a.u.)", "range": [0, 262143], "scale": "linear", "role": "fluorescence", "fluorophore": "FITC", "marker": "CD4" },
+    "PE-A": { "unit": "ADC counts (a.u.)", "range": [0, 262143], "scale": "linear", "role": "fluorescence", "fluorophore": "PE", "marker": "CD8" }
+  },
+  "events": [
+    { "id": "EV001", "FSC-A": 120000, "SSC-A": 150000, "FITC-A": 800,    "PE-A": 600 },
+    { "id": "EV002", "FSC-A": 90000,  "SSC-A": 35000,  "FITC-A": 54697,  "PE-A": -2784 },
+    { "id": "EV003", "FSC-A": 82000,  "SSC-A": 42000,  "FITC-A": 45590,  "PE-A": -2479 },
+    { "id": "EV004", "FSC-A": 55000,  "SSC-A": 78333,  "FITC-A": 1200,   "PE-A": 800 },
+    { "id": "EV005", "FSC-A": 76000,  "SSC-A": 53000,  "FITC-A": -2479,  "PE-A": 62117 },
+    { "id": "EV006", "FSC-A": 88000,  "SSC-A": 38000,  "FITC-A": 38309,  "PE-A": -2331 },
+    { "id": "EV007", "FSC-A": 70000,  "SSC-A": 58000,  "FITC-A": -1344,  "PE-A": 49639 },
+    { "id": "EV008", "FSC-A": 93000,  "SSC-A": 28000,  "FITC-A": 31013,  "PE-A": -1896 },
+    { "id": "EV009", "FSC-A": 68000,  "SSC-A": 60000,  "FITC-A": -1357,  "PE-A": 38212 },
+    { "id": "EV010", "FSC-A": 95000,  "SSC-A": 10000,  "FITC-A": "overflow", "PE-A": 1800 },
+    { "id": "EV011", "FSC-A": 74000,  "SSC-A": 48000,  "FITC-A": 1743,   "PE-A": 1374 },
+    { "id": "EV012", "FSC-A": 92000,  "SSC-A": 12000,  "FITC-A": 29190,  "PE-A": -2502 },
+    { "id": "EV013", "FSC-A": 80000,  "SSC-A": 48000,  "FITC-A": 444,    "PE-A": 28533 },
+    { "id": "EV014", "FSC-A": 78000,  "SSC-A": 36000,  "FITC-A": 1002,   "PE-A": 1628 },
+    { "id": "EV015", "FSC-A": 130000, "SSC-A": 40000,  "FITC-A": 1500,   "PE-A": 1000 },
+    { "id": "EV016", "FSC-A": 60000,  "SSC-A": 140000, "FITC-A": 2000,   "PE-A": 900 },
+    { "id": "EV017", "FSC-A": 94000,  "SSC-A": 22000,  "FITC-A": 182516, "PE-A": -12787 }
+  ],
+  "diagnostics": [
+    { "event_id": "EV010", "channel": "FITC-A", "raw": "overflow", "code": "RAW-OVERFLOW",
+      "severity": "warning",
+      "message": "检测器溢出标记；原始表示保留在原位，补偿/变换置 null 并保持该事件可见，不做任何插值或截断。" }
+  ]
+}

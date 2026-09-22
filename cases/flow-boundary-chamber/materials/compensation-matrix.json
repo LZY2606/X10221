@@ -1,0 +1,13 @@
+{
+  "schema": "flow.compensation.matrix/v1",
+  "derived_from": { "material": "spillover-metadata", "version": 1 },
+  "matrix_unit": "fraction (dimensionless)",
+  "channels": ["FITC-A", "PE-A"],
+  "compensation_matrix": [
+    [1.10, 0.06],
+    [0.09, 1.05]
+  ],
+  "determinant": 1.1496,
+  "min_pivot_ratio": 0.94,
+  "status": "well-conditioned: exact inverse of spillover matrix; safe to apply"
+}

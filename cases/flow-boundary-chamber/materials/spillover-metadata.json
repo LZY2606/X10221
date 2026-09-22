@@ -1,0 +1,19 @@
+{
+  "schema": "flow.spillover.metadata/v1",
+  "source": "single-stain controls (FITC-bead-01, PE-bead-01) acquired 2026-09-19",
+  "matrix_unit": "fraction (dimensionless)",
+  "channels": ["FITC-A", "PE-A"],
+  "rows_meaning": "source fluorophore channel; columns: detector channel receiving spillover",
+  "spillover_matrix": [
+    [1.00, 0.09],
+    [0.06, 1.00]
+  ],
+  "near_singular_policy": {
+    "min_pivot_ratio": 0.001,
+    "detector_threshold_fraction": 1e-6,
+    "on_near_singular": "do-not-invert-silently",
+    "required_candidates": ["identity (uncompensated)", "tikhonov ridge lambda=1e-3", "tikhonov ridge lambda=1e-1"],
+    "requires_human_adjudication": true,
+    "rule": "COMP-NEARSING"
+  }
+}
