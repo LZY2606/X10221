@@ -1,0 +1,81 @@
+{
+  "id": "boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形和父子关系分开版本化。",
+  "ruleset_version": "ruleset-1.0",
+  "channels": [
+    {"id": "fitc", "label": "FITC", "unit": "ADC counts", "basis": "raw detector", "max": 262143},
+    {"id": "pe", "label": "PE", "unit": "ADC counts", "basis": "raw detector", "max": 262143}
+  ],
+  "artifacts": {
+    "raw_channels": {
+      "id": "raw:panel-a",
+      "unit": "ADC counts",
+      "basis": "raw detector",
+      "events": [
+        {"id": "ev-001", "fitc": 1500, "pe": 800},
+        {"id": "ev-002", "fitc": 2000, "pe": 1000},
+        {"id": "ev-003", "fitc": 1200, "pe": 900},
+        {"id": "ev-004", "fitc": 2500, "pe": 1400},
+        {"id": "ev-005", "fitc": 500, "pe": 100},
+        {"id": "ev-006", "fitc": 800, "pe": 2000},
+        {"id": "ev-007", "fitc": 2500, "pe": 1200},
+        {"id": "ev-008", "fitc": 6000, "pe": 3000},
+        {"id": "ev-009", "fitc": 1800, "pe": 950},
+        {"id": "ev-010", "fitc": 900, "pe": 400},
+        {"id": "ev-011", "fitc": 2200, "pe": 1300},
+        {"id": "ev-012", "fitc": 1000, "pe": 600},
+        {"id": "ev-boundary", "fitc": 0, "pe": 0},
+        {"id": "ev-extreme", "fitc": 262143, "pe": 262143},
+        {"id": "ev-na", "fitc": null, "pe": 500}
+      ]
+    },
+    "spillover": {
+      "id": "spill:panel-a",
+      "unit": "ratio",
+      "basis": "single-stain controls",
+      "controls": [
+        {"id": "ctrl-fitc", "stain": "fitc-only", "median": {"fitc": 50000, "pe": 6000}, "unit": "ADC counts"},
+        {"id": "ctrl-pe", "stain": "pe-only", "median": {"fitc": 8750, "pe": 25000}, "unit": "ADC counts"}
+      ],
+      "coefficients": {"fitc_into_pe": 0.12, "pe_into_fitc": 0.35}
+    },
+    "comp_matrix": {
+      "id": "comp:panel-a",
+      "unit": "ratio",
+      "basis": "detector",
+      "matrix": [[1.0, 0.12], [0.35, 1.0]]
+    },
+    "transform_params": {
+      "id": "xform:arcsinh",
+      "kind": "arcsinh",
+      "cofactor": 150,
+      "input_basis": "compensated ADC counts",
+      "output_basis": "asinh"
+    },
+    "gate_polygons": [
+      {"id": "g-root", "name": "All events", "space": "asinh", "polygon": null},
+      {"id": "g-p1", "name": "P1", "space": "asinh", "polygon": [[0.0, 0.0], [3.5, 0.0], [3.5, 2.5], [0.0, 2.5]]},
+      {"id": "g-p1hi", "name": "P1.hi", "space": "asinh", "polygon": [[2.5, 1.0], [3.5, 1.0], [3.5, 2.0], [2.5, 2.0]]},
+      {"id": "g-deb", "name": "Debris", "space": "asinh", "polygon": [[4.0, 3.0], [6.0, 3.0], [6.0, 5.0], [4.0, 5.0]]}
+    ],
+    "gate_hierarchy": {
+      "id": "tree:panel-a",
+      "edges": [
+        {"child": "g-p1", "parent": "g-root"},
+        {"child": "g-p1hi", "parent": "g-p1"},
+        {"child": "g-deb", "parent": "g-root"}
+      ]
+    }
+  },
+  "revisions": {
+    "comp_matrix_v2_nearsingular": {
+      "matrix": [[1.0, 0.9995], [0.9995, 1.0]],
+      "note": "近奇异补偿矩阵：det≈9.9975e-4 < 1e-3，不能被默默求逆"
+    },
+    "transform_v2": {"kind": "arcsinh", "cofactor": 200, "input_basis": "compensated ADC counts", "output_basis": "asinh"},
+    "raw_fix_ev012": {"id": "ev-012", "fitc": 1000, "pe": 2000, "reason": "采集记录更正：ev-012 的 PE 通道原始计数"},
+    "gate_p1_v2_polygon": [[0.0, 0.0], [3.2, 0.0], [3.2, 2.5], [0.0, 2.5]],
+    "gate_rename_p1hi": "P1.high"
+  }
+}
