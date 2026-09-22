@@ -1,0 +1,25 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "Flow cytometry compensation / gating lineage review tool"
+
+[lib]
+name = "flowline"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flowline"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
+sha2 = "0.10"
+hex = "0.4"
+
+[dev-dependencies]
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "multipart", "rustls-tls"] }
