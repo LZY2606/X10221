@@ -1,0 +1,81 @@
+{
+  "case_id": "flow-boundary-lab",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。",
+  "units": {
+    "signal_unit": "ADC",
+    "detector_max": 262144,
+    "detector_bits": 18,
+    "coordinate_basis": "log10(compensated ADC)"
+  },
+  "channels": ["FITC", "PE"],
+  "fcs_events_raw_text": "# FCS3.0 fragment (raw text preserved at import)\n$DATATYPE/F/$MODE/L/$PAR/2/\nFITC,PE\n115,130\n80,215\n209,120\n90,505\n502,165\n23,26\n1001,305\n155,1002\n5750,6500\n262144,50000\n25,103\n98,144\n164,135\n69,78\n0,20\n",
+  "events": [
+    {"id": "e01", "raw": {"FITC": 115, "PE": 130}, "unit": "ADC"},
+    {"id": "e02", "raw": {"FITC": 80, "PE": 215}, "unit": "ADC"},
+    {"id": "e03", "raw": {"FITC": 209, "PE": 120}, "unit": "ADC"},
+    {"id": "e04", "raw": {"FITC": 90, "PE": 505}, "unit": "ADC"},
+    {"id": "e05", "raw": {"FITC": 502, "PE": 165}, "unit": "ADC"},
+    {"id": "e06", "raw": {"FITC": 23, "PE": 26}, "unit": "ADC"},
+    {"id": "e07", "raw": {"FITC": 1001, "PE": 305}, "unit": "ADC"},
+    {"id": "e08", "raw": {"FITC": 155, "PE": 1002}, "unit": "ADC"},
+    {"id": "e09", "raw": {"FITC": 5750, "PE": 6500}, "unit": "ADC"},
+    {"id": "e10", "raw": {"FITC": 262144, "PE": 50000}, "unit": "ADC", "note": "extreme: FITC at detector max"},
+    {"id": "e11", "raw": {"FITC": 25, "PE": 103}, "unit": "ADC", "note": "boundary: lands exactly on Lymph gate edge after comp+log10"},
+    {"id": "e12", "raw": {"FITC": 98, "PE": 144}, "unit": "ADC"},
+    {"id": "e13", "raw": {"FITC": 164, "PE": 135}, "unit": "ADC"},
+    {"id": "e14", "raw": {"FITC": 69, "PE": 78}, "unit": "ADC"},
+    {"id": "e15", "raw": {"FITC": 0, "PE": 20}, "unit": "ADC", "note": "unconvertible: compensated FITC <= 0, log10 undefined"}
+  ],
+  "controls": [
+    {"id": "ctrl_fitc", "fluor": "FITC", "unit": "ADC", "medians": {"FITC": 50000, "PE": 7500}},
+    {"id": "ctrl_pe", "fluor": "PE", "unit": "ADC", "medians": {"FITC": 15000, "PE": 50000}}
+  ],
+  "spillover": {
+    "matrix": [[1.0, 0.15], [0.30, 1.0]],
+    "basis": "single-stain control medians, unitless ratio",
+    "source_controls": ["ctrl_fitc", "ctrl_pe"]
+  },
+  "comp_matrix": {
+    "matrix": [[1.0, 0.15], [0.30, 1.0]],
+    "unit": "unitless",
+    "basis": "spillover coefficients FITC/PE"
+  },
+  "transform": {"type": "log10", "min": 1.0, "input_unit": "compensated ADC", "output_basis": "log10(compensated ADC)"},
+  "gates": [
+    {"gate_id": "g_live", "name": "Live", "parent": null,
+     "polygon": {"channels": ["FITC", "PE"], "basis": "log10(compensated ADC)",
+                 "coords": [[0.0, 0.0], [5.5, 0.0], [5.5, 5.5], [0.0, 5.5]]}},
+    {"gate_id": "g_lymph", "name": "Lymph", "parent": "g_live",
+     "polygon": {"channels": ["FITC", "PE"], "basis": "log10(compensated ADC)",
+                 "coords": [[1.0, 1.0], [3.0, 1.0], [3.0, 3.0], [1.0, 3.0]]}},
+    {"gate_id": "g_subset", "name": "Subset", "parent": "g_lymph",
+     "polygon": {"channels": ["FITC", "PE"], "basis": "log10(compensated ADC)",
+                 "coords": [[1.5, 1.5], [2.5, 1.5], [2.5, 2.5], [1.5, 2.5]]}}
+  ],
+  "script": {
+    "param_revision": {
+      "kind": "transform", "key": "main",
+      "payload": {"type": "log10", "min": 2.0, "input_unit": "compensated ADC", "output_basis": "log10(compensated ADC)", "revision_note": "raise log10 floor from 1.0 to 2.0"}
+    },
+    "local_source_change": {
+      "kind": "gate_polygon", "key": "g_subset",
+      "payload": {"gate_id": "g_subset", "name": "Subset",
+                  "polygon": {"channels": ["FITC", "PE"], "basis": "log10(compensated ADC)",
+                              "coords": [[1.5, 1.5], [2.6, 1.5], [2.6, 2.5], [1.5, 2.5]]},
+                  "revision_note": "nudge right edge 2.5 -> 2.6; only Subset population depends on this"}
+    },
+    "gate_rename": {"gate_id": "g_lymph", "new_name": "Lymphocytes"},
+    "near_singular_comp": {
+      "kind": "comp_matrix", "key": "main",
+      "payload": {"matrix": [[1.0, 1.0], [1.0, 1.000001]], "unit": "unitless",
+                  "basis": "spillover coefficients FITC/PE (degenerate single-stain pair)",
+                  "revision_note": "near-singular: det ~ 1e-6, must not be silently inverted"}
+    },
+    "extreme_signal_event": {"id": "e16", "raw": {"FITC": 262144, "PE": 262144}, "unit": "ADC", "note": "both channels pegged at detector max"},
+    "conflicting_decisions": [
+      {"action": "accept_candidate", "subject": "membership:e11:g_lymph", "option": "in", "reviewer": "alice"},
+      {"action": "accept_candidate", "subject": "membership:e11:g_lymph", "option": "out", "reviewer": "bob"}
+    ]
+  }
+}
