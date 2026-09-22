@@ -1,0 +1,25 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "流式细胞术补偿/门控谱系离线复核工具"
+
+[[bin]]
+name = "flowline"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+tower = "0.5"
+rusqlite = { version = "0.40", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+blake3 = "1"
+rust-embed = "8"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+
+[profile.dev]
+opt-level = 0
