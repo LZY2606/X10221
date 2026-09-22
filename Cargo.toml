@@ -1,0 +1,25 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "Flow cytometry compensation / gating lineage review tool"
+
+[[bin]]
+name = "flowline"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+sha2 = "0.10"
+hex = "0.4"
+rust-embed = "8"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.dev]
+# rusqlite bundled SQLite compiles faster with these defaults kept; no special opts.
