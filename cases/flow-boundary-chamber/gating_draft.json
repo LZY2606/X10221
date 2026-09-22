@@ -1,0 +1,12 @@
+{
+  "kind": "gating_draft",
+  "gates": [
+    {"gate_id": "g-lymph", "name": "Lymphocytes", "channels": ["FSC-A", "SSC-A"],
+     "polygon": [[35000, 10000], [65000, 10000], [65000, 25000], [35000, 25000]], "unit": "RFU"},
+    {"gate_id": "g-cd3", "name": "CD3+ T", "channels": ["FL1-A", "FL2-A"],
+     "polygon": [[1000, 100], [100000, 100], [100000, 30000], [1000, 30000]], "unit": "RFU"},
+    {"gate_id": "g-cd4", "name": "CD4+ T", "channels": ["FL1-A", "FL2-A"],
+     "polygon": [[5000, 100], [100000, 100], [100000, 30000], [5000, 30000]], "unit": "RFU"}
+  ],
+  "hierarchy": [["root", "g-lymph"], ["g-lymph", "g-cd3"], ["g-cd3", "g-cd4"]]
+}

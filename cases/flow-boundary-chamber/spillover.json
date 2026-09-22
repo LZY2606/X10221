@@ -1,0 +1,11 @@
+{
+  "kind": "spillover_meta",
+  "basis": "median fluorescence of single-stain controls, RFU; rows = detector, cols = fluorochrome",
+  "fluorochromes": ["FITC", "PE"],
+  "detectors": ["FL1-A", "FL2-A"],
+  "matrices": {
+    "main":   [[1.0, 0.35], [0.12, 1.0]],
+    "uv-set": [[1.0, 0.999999999], [0.999999999, 1.0]]
+  },
+  "derived_from": "controls.json"
+}

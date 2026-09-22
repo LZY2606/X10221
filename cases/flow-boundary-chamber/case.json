@@ -1,0 +1,19 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形和父子关系分开版本化。",
+  "materials": ["events.fcs.json", "controls.json", "spillover.json", "transform.json", "gating_draft.json", "replay.json"],
+  "boundary_scenarios": [
+    "matrix_singular: spillover.json 中 uv-set 矩阵行列式接近 0，禁止默默求逆",
+    "extreme_signal: events.fcs.json 第 6 个事件 FL1-A = 262144 达到检测器饱和",
+    "boundary_point: 事件 7 (FSC-A=50000, SSC-A=25000) 恰好落在 g-lymph 多边形边上",
+    "gate_rename_nested: 嵌套门 g-cd4 改名但保持 gate_id 与父子关系不变",
+    "upstream_stale_propagation: 修订上游门 g-cd3 后，下游 g-cd4 群体标记过期而不覆盖",
+    "concurrent_same_version: 两个窗口基于同一版本保存草案，后提交者看到冲突与双方差异"
+  ],
+  "rules": [
+    "near_singular_not_silently_inverted",
+    "denominator_pinned_to_parent_version",
+    "upstream_revision_marks_stale_not_overwrite"
+  ]
+}

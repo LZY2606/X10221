@@ -1,0 +1,7 @@
+{
+  "kind": "transform_params",
+  "type": "arcsinh",
+  "cofactor": 150,
+  "channels": ["FL1-A", "FL2-A"],
+  "basis": "arcsinh(x / cofactor), display transform only; gating in compensated RFU"
+}

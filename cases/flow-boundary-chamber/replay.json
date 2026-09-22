@@ -1,0 +1,11 @@
+{
+  "kind": "replay_script",
+  "description": "重放记录：实际经过矩阵奇异、极端信号、边界点、门嵌套改名、上游过期传播和同版本并发修改",
+  "steps": [
+    {"op": "revise_gate", "gate_id": "g-cd3", "comment": "参数修订：收紧 CD3+ T 门下沿，触发上游过期传播"},
+    {"op": "revise_raw_channels", "channel": "FL2-A", "event_index": 3, "new_value": 1400, "comment": "只影响局部依赖的源数据改动：仅 FL2-A 相关门子树过期"},
+    {"op": "rename_gate", "gate_id": "g-cd4", "new_name": "CD4+ T (helper)", "comment": "门嵌套改名：gate_id 与父子关系不变"},
+    {"op": "conflicting_adjudications", "comment": "互相冲突的人工决定：同一边界点候选在两个分支分别接受 inside/outside"},
+    {"op": "concurrent_draft_save", "comment": "同版本并发修改：两个草案基于同一版本保存，后提交者见冲突"}
+  ]
+}

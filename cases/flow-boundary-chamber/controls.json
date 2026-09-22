@@ -1,0 +1,8 @@
+{
+  "kind": "single_stain_controls",
+  "basis": "median fluorescence of single-stain controls, RFU",
+  "controls": [
+    {"name": "FITC-only", "fluorochrome": "FITC", "median": {"FL1-A": 50000, "FL2-A": 6000}, "unit": "RFU"},
+    {"name": "PE-only",   "fluorochrome": "PE",   "median": {"FL1-A": 17500, "FL2-A": 50000}, "unit": "RFU"}
+  ]
+}
