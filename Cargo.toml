@@ -1,0 +1,28 @@
+[package]
+name = "flow-lineage"
+version = "0.1.0"
+edition = "2021"
+description = "流式细胞术补偿/门控谱系离线复核工具"
+
+[lib]
+name = "flow_lineage"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flow-lineage"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+nalgebra = "0.33"
+include_dir = "0.7"
+uuid = { version = "1", features = ["v4"] }
+sha2 = "0.10"
+
+[dev-dependencies]
+reqwest = { version = "0.12", features = ["json"] }
+tempfile = "3"

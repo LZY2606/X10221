@@ -1,0 +1,746 @@
+{
+  "id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "unit_system": {
+    "time": "2026-09-23T09:00:00+09:00",
+    "cytometer": "BoundaryLab FACSAnalog-3",
+    "note": "所有原始通道量保留采集表示与单位；派生层才做规范化。"
+  },
+  "channels": [
+    {
+      "id": "FSC-A",
+      "label": "FSC-A",
+      "kind": "scatter",
+      "raw_unit": "channel-count",
+      "raw_range": [
+        0,
+        262144
+      ],
+      "log_bits": 18,
+      "coordinate_basis": "raw-linear"
+    },
+    {
+      "id": "FSC-H",
+      "label": "FSC-H",
+      "kind": "scatter",
+      "raw_unit": "channel-count",
+      "raw_range": [
+        0,
+        262144
+      ],
+      "log_bits": 18,
+      "coordinate_basis": "raw-linear"
+    },
+    {
+      "id": "SSC-A",
+      "label": "SSC-A",
+      "kind": "scatter",
+      "raw_unit": "channel-count",
+      "raw_range": [
+        0,
+        262144
+      ],
+      "log_bits": 18,
+      "coordinate_basis": "raw-linear"
+    },
+    {
+      "id": "FITC-A",
+      "label": "FITC-A (CD3)",
+      "kind": "fluorescence",
+      "raw_unit": "channel-count",
+      "raw_range": [
+        0,
+        262144
+      ],
+      "log_bits": 18,
+      "fluorophore": "FITC",
+      "coordinate_basis": "raw-linear",
+      "transform_output_basis": "asinh(compensated, cofactor=1000)"
+    },
+    {
+      "id": "PE-A",
+      "label": "PE-A (CD4)",
+      "kind": "fluorescence",
+      "raw_unit": "channel-count",
+      "raw_range": [
+        0,
+        262144
+      ],
+      "log_bits": 18,
+      "fluorophore": "PE",
+      "coordinate_basis": "raw-linear",
+      "transform_output_basis": "asinh(compensated, cofactor=500)"
+    }
+  ],
+  "events": [
+    {
+      "id": "E01",
+      "raw": {
+        "FSC-A": 80000,
+        "FSC-H": 82000,
+        "SSC-A": 30000,
+        "FITC-A": 9150,
+        "PE-A": 900
+      },
+      "flags": []
+    },
+    {
+      "id": "E02",
+      "raw": {
+        "FSC-A": 81000,
+        "FSC-H": 79000,
+        "SSC-A": 31000,
+        "FITC-A": 9300,
+        "PE-A": 800
+      },
+      "flags": []
+    },
+    {
+      "id": "E03",
+      "raw": {
+        "FSC-A": 79000,
+        "FSC-H": 80000,
+        "SSC-A": 29000,
+        "FITC-A": 9000,
+        "PE-A": 1000
+      },
+      "flags": []
+    },
+    {
+      "id": "E04",
+      "raw": {
+        "FSC-A": 82000,
+        "FSC-H": 81500,
+        "SSC-A": 32000,
+        "FITC-A": 9150,
+        "PE-A": 950
+      },
+      "flags": []
+    },
+    {
+      "id": "E05",
+      "raw": {
+        "FSC-A": 78000,
+        "FSC-H": 77500,
+        "SSC-A": 28000,
+        "FITC-A": 9300,
+        "PE-A": 850
+      },
+      "flags": []
+    },
+    {
+      "id": "E06",
+      "raw": {
+        "FSC-A": 83000,
+        "FSC-H": 84000,
+        "SSC-A": 33000,
+        "FITC-A": 9000,
+        "PE-A": 1050
+      },
+      "flags": []
+    },
+    {
+      "id": "E07",
+      "raw": {
+        "FSC-A": 80500,
+        "FSC-H": 79500,
+        "SSC-A": 30500,
+        "FITC-A": 9150,
+        "PE-A": 880
+      },
+      "flags": []
+    },
+    {
+      "id": "E08",
+      "raw": {
+        "FSC-A": 79500,
+        "FSC-H": 80200,
+        "SSC-A": 29500,
+        "FITC-A": 9300,
+        "PE-A": 920
+      },
+      "flags": []
+    },
+    {
+      "id": "E09",
+      "raw": {
+        "FSC-A": 81500,
+        "FSC-H": 82200,
+        "SSC-A": 31500,
+        "FITC-A": 9000,
+        "PE-A": 970
+      },
+      "flags": []
+    },
+    {
+      "id": "E10",
+      "raw": {
+        "FSC-A": 78500,
+        "FSC-H": 78800,
+        "SSC-A": 28500,
+        "FITC-A": 9150,
+        "PE-A": 830
+      },
+      "flags": []
+    },
+    {
+      "id": "E11",
+      "raw": {
+        "FSC-A": 82500,
+        "FSC-H": 83000,
+        "SSC-A": 32500,
+        "FITC-A": 9300,
+        "PE-A": 1020
+      },
+      "flags": []
+    },
+    {
+      "id": "E12",
+      "raw": {
+        "FSC-A": 80000,
+        "FSC-H": 81000,
+        "SSC-A": 30000,
+        "FITC-A": 9000,
+        "PE-A": 900
+      },
+      "flags": []
+    },
+    {
+      "id": "E13",
+      "raw": {
+        "FSC-A": 79000,
+        "FSC-H": 78500,
+        "SSC-A": 30000,
+        "FITC-A": 8000,
+        "PE-A": 42000
+      },
+      "flags": []
+    },
+    {
+      "id": "E14",
+      "raw": {
+        "FSC-A": 81000,
+        "FSC-H": 80500,
+        "SSC-A": 31000,
+        "FITC-A": 7900,
+        "PE-A": 41000
+      },
+      "flags": []
+    },
+    {
+      "id": "E15",
+      "raw": {
+        "FSC-A": 80000,
+        "FSC-H": 79800,
+        "SSC-A": 30500,
+        "FITC-A": 8100,
+        "PE-A": 43000
+      },
+      "flags": []
+    },
+    {
+      "id": "E16",
+      "raw": {
+        "FSC-A": 82000,
+        "FSC-H": 81000,
+        "SSC-A": 32000,
+        "FITC-A": 7800,
+        "PE-A": 40000
+      },
+      "flags": []
+    },
+    {
+      "id": "E17",
+      "raw": {
+        "FSC-A": 79500,
+        "FSC-H": 79000,
+        "SSC-A": 29000,
+        "FITC-A": 8200,
+        "PE-A": 44000
+      },
+      "flags": []
+    },
+    {
+      "id": "E18",
+      "raw": {
+        "FSC-A": 80200,
+        "FSC-H": 80000,
+        "SSC-A": 30200,
+        "FITC-A": 4600,
+        "PE-A": 700
+      },
+      "flags": []
+    },
+    {
+      "id": "E19",
+      "raw": {
+        "FSC-A": 80800,
+        "FSC-H": 80400,
+        "SSC-A": 30800,
+        "FITC-A": 700,
+        "PE-A": 600
+      },
+      "flags": []
+    },
+    {
+      "id": "E20",
+      "raw": {
+        "FSC-A": 81200,
+        "FSC-H": 80900,
+        "SSC-A": 31200,
+        "FITC-A": 600,
+        "PE-A": 650
+      },
+      "flags": []
+    },
+    {
+      "id": "E21",
+      "raw": {
+        "FSC-A": 70000,
+        "FSC-H": 69000,
+        "SSC-A": 9000,
+        "FITC-A": 2000,
+        "PE-A": 1000
+      },
+      "flags": []
+    },
+    {
+      "id": "E22",
+      "raw": {
+        "FSC-A": 90000,
+        "FSC-H": 91000,
+        "SSC-A": 60000,
+        "FITC-A": 3000,
+        "PE-A": 1500
+      },
+      "flags": []
+    },
+    {
+      "id": "E23",
+      "raw": {
+        "FSC-A": 60000,
+        "FSC-H": 90000,
+        "SSC-A": 30000,
+        "FITC-A": 4200,
+        "PE-A": 900
+      },
+      "flags": [
+        "doublet: FSC-H/FSC-A=1.50 明显偏离 singlet 条带"
+      ]
+    },
+    {
+      "id": "E24",
+      "raw": {
+        "FSC-A": 200,
+        "FSC-H": 210,
+        "SSC-A": 150,
+        "FITC-A": 100,
+        "PE-A": 50
+      },
+      "flags": [
+        "boundary: FSC-A 恰好落在 live 多边形下边界"
+      ]
+    }
+  ],
+  "patch_events": [
+    {
+      "id": "E25",
+      "raw": {
+        "FSC-A": 80000,
+        "FSC-H": 80000,
+        "SSC-A": 30000,
+        "FITC-A": 300000,
+        "PE-A": 2000
+      },
+      "flags": [
+        "extreme: FITC-A=300000 超出 18bit 采集量程 262144（overflow，保留原值不裁剪）"
+      ]
+    },
+    {
+      "id": "E26",
+      "raw": {
+        "FSC-A": 81000,
+        "FSC-H": 80500,
+        "SSC-A": 31000,
+        "FITC-A": 80000,
+        "PE-A": 1000
+      },
+      "flags": [
+        "extreme: 高亮 FITC，检验补偿后与门控稳定性"
+      ]
+    }
+  ],
+  "spillover_meta": {
+    "id": "spillover-meta-001",
+    "detector_channels": [
+      "FITC-A",
+      "PE-A"
+    ],
+    "single_stain_controls": [
+      {
+        "channel": "FITC-A",
+        "fluorophore": "FITC",
+        "control": "FITC single-stain beads",
+        "events": 12000,
+        "source_file": "controls/FITC_singlestain.fcs",
+        "raw_representation_preserved": true
+      },
+      {
+        "channel": "PE-A",
+        "fluorophore": "PE",
+        "control": "PE single-stain beads",
+        "events": 11840,
+        "source_file": "controls/PE_singlestain.fcs",
+        "raw_representation_preserved": true
+      }
+    ],
+    "matrix_convention": "spillover S 作用于测量信号 y = S x；补偿 x = S^{-1} y。行=检测通道，列=荧光素发射。",
+    "units": "无量纲比例（fraction of primary detector signal），采集软件导出原文保留",
+    "raw_file": "controls/spillover_lab.txt"
+  },
+  "compensation_matrices": {
+    "baseline": {
+      "id": "comp-baseline",
+      "channels": [
+        "FITC-A",
+        "PE-A"
+      ],
+      "rows": [
+        [
+          1.0,
+          0.08
+        ],
+        [
+          0.05,
+          1.0
+        ]
+      ],
+      "comment": "常规可逆 spillover，条件数良好"
+    },
+    "near_singular": {
+      "id": "comp-near-singular",
+      "channels": [
+        "FITC-A",
+        "PE-A"
+      ],
+      "rows": [
+        [
+          1.0,
+          0.999999999
+        ],
+        [
+          0.999999998,
+          1.0
+        ]
+      ],
+      "comment": "两通道近共线：近奇异矩阵，不能被默默求逆，需保留全部合法候选供人工裁定"
+    },
+    "singular": {
+      "id": "comp-singular",
+      "channels": [
+        "FITC-A",
+        "PE-A"
+      ],
+      "rows": [
+        [
+          1.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0
+        ]
+      ],
+      "comment": "两列完全相同，严格奇异：逆不存在"
+    }
+  },
+  "transforms": {
+    "baseline": [
+      {
+        "channel": "FITC-A",
+        "method": "asinh",
+        "cofactor": 1000,
+        "input_basis": "compensated channel-count",
+        "output_unit": "asinh-index",
+        "id": "xform-fitc-v1"
+      },
+      {
+        "channel": "PE-A",
+        "method": "asinh",
+        "cofactor": 500,
+        "input_basis": "compensated channel-count",
+        "output_unit": "asinh-index",
+        "id": "xform-pe-v1"
+      }
+    ],
+    "revision": [
+      {
+        "channel": "FITC-A",
+        "method": "asinh",
+        "cofactor": 750,
+        "input_basis": "compensated channel-count",
+        "output_unit": "asinh-index",
+        "id": "xform-fitc-v2"
+      },
+      {
+        "channel": "PE-A",
+        "method": "asinh",
+        "cofactor": 500,
+        "input_basis": "compensated channel-count",
+        "output_unit": "asinh-index",
+        "id": "xform-pe-v2"
+      }
+    ]
+  },
+  "gates": {
+    "baseline": [
+      {
+        "id": "g-live",
+        "name": "Live cells",
+        "polygon": [
+          [
+            200,
+            10000
+          ],
+          [
+            100000,
+            10000
+          ],
+          [
+            100000,
+            80000
+          ],
+          [
+            200,
+            80000
+          ]
+        ],
+        "axes": [
+          {
+            "channel": "FSC-A",
+            "basis": "raw channel-count"
+          },
+          {
+            "channel": "SSC-A",
+            "basis": "raw channel-count"
+          }
+        ],
+        "boundary_rule": "inclusive"
+      },
+      {
+        "id": "g-singlets",
+        "name": "Singlets",
+        "polygon": [
+          [
+            200,
+            200
+          ],
+          [
+            100000,
+            105000
+          ],
+          [
+            100000,
+            70000
+          ],
+          [
+            200,
+            200
+          ]
+        ],
+        "axes": [
+          {
+            "channel": "FSC-A",
+            "basis": "raw channel-count"
+          },
+          {
+            "channel": "FSC-H",
+            "basis": "raw channel-count"
+          }
+        ],
+        "boundary_rule": "inclusive"
+      },
+      {
+        "id": "g-cd3",
+        "name": "CD3+",
+        "polygon": [
+          [
+            2.23,
+            -10
+          ],
+          [
+            10,
+            -10
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            2.23,
+            10
+          ]
+        ],
+        "axes": [
+          {
+            "channel": "FITC-A",
+            "basis": "asinh(compensated,cofactor=1000)"
+          },
+          {
+            "channel": "PE-A",
+            "basis": "asinh(compensated,cofactor=500)"
+          }
+        ],
+        "boundary_rule": "inclusive"
+      },
+      {
+        "id": "g-cd4",
+        "name": "CD4+",
+        "polygon": [
+          [
+            -10,
+            3.8
+          ],
+          [
+            10,
+            3.8
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            -10,
+            10
+          ]
+        ],
+        "axes": [
+          {
+            "channel": "FITC-A",
+            "basis": "asinh(compensated,cofactor=1000)"
+          },
+          {
+            "channel": "PE-A",
+            "basis": "asinh(compensated,cofactor=500)"
+          }
+        ],
+        "boundary_rule": "inclusive"
+      }
+    ]
+  },
+  "links": {
+    "baseline": [
+      {
+        "id": "lnk-live",
+        "gate": "g-live",
+        "parent": null,
+        "parent_result": null,
+        "relation": "root"
+      },
+      {
+        "id": "lnk-singlets",
+        "gate": "g-singlets",
+        "parent": "g-live",
+        "parent_result": "pop-g-live",
+        "relation": "child"
+      },
+      {
+        "id": "lnk-cd3",
+        "gate": "g-cd3",
+        "parent": "g-singlets",
+        "parent_result": "pop-g-singlets",
+        "relation": "child"
+      },
+      {
+        "id": "lnk-cd4",
+        "gate": "g-cd4",
+        "parent": "g-cd3",
+        "parent_result": "pop-g-cd3",
+        "relation": "child"
+      }
+    ],
+    "rename": [
+      {
+        "id": "lnk-live",
+        "gate": "g-live",
+        "parent": null,
+        "parent_result": null,
+        "relation": "root"
+      },
+      {
+        "id": "lnk-singlets",
+        "gate": "g-singlets",
+        "parent": "g-live",
+        "parent_result": "pop-g-live",
+        "relation": "child"
+      },
+      {
+        "id": "lnk-cd3",
+        "gate": "g-cd3",
+        "parent": "g-singlets",
+        "parent_result": "pop-g-singlets",
+        "relation": "child",
+        "renamed_to": "CD3+ T cells"
+      },
+      {
+        "id": "lnk-cd4",
+        "gate": "g-cd4",
+        "parent": "g-cd3",
+        "parent_result": "pop-g-cd3",
+        "relation": "child"
+      }
+    ]
+  },
+  "scenarios": {
+    "near_singular_step": "comp_evaluate:comp-near-singular",
+    "singular_step": "comp_evaluate:comp-singular",
+    "fork_after": "comp_evaluate:comp-singular",
+    "upstream_revision": "gate g-live 下边界由 200 改为 40000（E24 被剔除），子群按依赖图标记过期，不覆盖旧结果",
+    "transform_revision": "FITC asinh cofactor 1000 -> 750",
+    "rename_step": "links.rename + gate g-cd3 改名为 CD3+ T cells（几何不变，仅门控系谱名称版本）",
+    "source_patch": "以新来源片段追加 E25/E26（只影响 FITC 列及依赖 FITC 的门），并修改 E18.PE-A=1500（局部源数据修订）",
+    "conflicting_decisions": "main 接受 regularized；alt 接受 pseudo-inverse；随后双方同 revision 并发保存 CD4 阈值，后提交者收到 409 与双方差异"
+  },
+  "expectations": {
+    "baseline_counts": {
+      "g-live": 22,
+      "g-singlets": 21,
+      "g-cd3": 13,
+      "g-cd4": 5
+    },
+    "baseline_pct": {
+      "g-live": 100.0,
+      "g-singlets": 95.45454545454545,
+      "g-cd3": 61.904761904761905,
+      "g-cd4": 38.46153846153847
+    },
+    "near_singular_rcond_max": 1e-08,
+    "singular_rcond_max": 1e-12,
+    "regularized_candidates": [
+      "uncompensated",
+      "ridge"
+    ],
+    "after_upstream_revision": {
+      "g-live": 21,
+      "g-singlets": "stale",
+      "g-cd3": "stale",
+      "g-cd4": "stale",
+      "expired_only": [
+        "pop-g-singlets",
+        "pop-g-cd3",
+        "pop-g-cd4"
+      ]
+    },
+    "stable_identity_prefixes": [
+      "evt-",
+      "art-",
+      "ver-",
+      "pop-",
+      "cand-",
+      "br-"
+    ],
+    "overflow_events": [
+      "E25"
+    ]
+  }
+}

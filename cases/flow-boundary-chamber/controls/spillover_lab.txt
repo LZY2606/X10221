@@ -1,0 +1,5 @@
+# BoundaryLab FACSAnalog-3 spillover export (raw representation preserved)
+# detector rows, fluorophore columns: FITC-A, PE-A
+# generated 2026-09-23 09:00 JST from single-stain bead controls
+1.000000,0.080000
+0.050000,1.000000
