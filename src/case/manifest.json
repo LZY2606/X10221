@@ -1,0 +1,15 @@
+{
+  "case_id": "flow-boundary-chamber-v1",
+  "files": [
+    {
+      "path": "flow_case.json",
+      "sha256": "4fe0b30330c32ebd4f26b3168796f797319a6015a05544db63abd78b877be99c",
+      "role": "versioned-materials-and-scenarios"
+    },
+    {
+      "path": "fcs_text.txt",
+      "sha256": "ada96a842a49063c0e44596b7efdbeb485b8a75bac7ed816d4d206e1c103082f",
+      "role": "raw-fcs-text-segment-preserved"
+    }
+  ]
+}

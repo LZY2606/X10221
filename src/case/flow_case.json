@@ -1,0 +1,2499 @@
+{
+  "case_id": "flow-boundary-chamber-v1",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "domain": "flow-cytometry",
+  "materials": {
+    "raw_events": [
+      {
+        "material_id": "mat-raw-events",
+        "version": 1,
+        "channels": [
+          "FSC-A",
+          "SSC-A",
+          "FITC-A",
+          "PE-A",
+          "PerCP-A",
+          "APC-A",
+          "APC-Cy7-A"
+        ],
+        "events": [
+          {
+            "event_id": "e01",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "90000",
+                  "value": 90000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "30000",
+                  "value": 30000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "18012.03",
+                  "value": 18012.03,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-601.62",
+                  "value": -601.62,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "114.11",
+                  "value": 114.11,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "49.76",
+                  "value": 49.76,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "37.01",
+                  "value": 37.01,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e02",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "88000",
+                  "value": 88000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "42000",
+                  "value": 42000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "16014.04",
+                  "value": 16014.04,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-702.22",
+                  "value": -702.22,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "14165.44",
+                  "value": 14165.44,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "-1086.09",
+                  "value": -1086.09,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "95.17",
+                  "value": 95.17,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e03",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "95000",
+                  "value": 95000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "35000",
+                  "value": 35000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "-190.28",
+                  "value": -190.28,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "14013.76",
+                  "value": 14013.76,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-614.85",
+                  "value": -614.85,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "118.05",
+                  "value": 118.05,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "37.92",
+                  "value": 37.92,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e04",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "92000",
+                  "value": 92000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "33000",
+                  "value": 33000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "-130.21",
+                  "value": -130.21,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "12010.43",
+                  "value": 12010.43,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-522.03",
+                  "value": -522.03,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "95.88",
+                  "value": 95.88,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "29.25",
+                  "value": 29.25,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e05",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "91000",
+                  "value": 91000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "28000",
+                  "value": 28000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "17014.45",
+                  "value": 17014.45,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-722.30",
+                  "value": -722.3,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "15172.60",
+                  "value": 15172.6,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "-1137.36",
+                  "value": -1137.36,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "118.24",
+                  "value": 118.24,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e06",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "93000",
+                  "value": 93000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "31000",
+                  "value": 31000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "16010.55",
+                  "value": 16010.55,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-527.28",
+                  "value": -527.28,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-1814.40",
+                  "value": -1814.4,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "16173.06",
+                  "value": 16173.06,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "-930.38",
+                  "value": -930.38,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e07",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "89000",
+                  "value": 89000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "29000",
+                  "value": 29000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "15510.02",
+                  "value": 15510.02,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-500.78",
+                  "value": -500.78,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-1461.61",
+                  "value": -1461.61,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "13138.78",
+                  "value": 13138.78,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "-728.33",
+                  "value": -728.33,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e08",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "94000",
+                  "value": 94000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "34000",
+                  "value": 34000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "17011.47",
+                  "value": 17011.47,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-573.65",
+                  "value": -573.65,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-1680.53",
+                  "value": -1680.53,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "15160.08",
+                  "value": 15160.08,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "-854.60",
+                  "value": -854.6,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e09",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "90000",
+                  "value": 90000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "25000",
+                  "value": 25000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "93.10",
+                  "value": 93.1,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "95.11",
+                  "value": 95.11,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "116.83",
+                  "value": 116.83,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "-304.90",
+                  "value": -304.9,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "12018.29",
+                  "value": 12018.29,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e10",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "120000",
+                  "value": 120000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "90000",
+                  "value": 90000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "147.54",
+                  "value": 147.54,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "123.14",
+                  "value": 123.14,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "95.36",
+                  "value": 95.36,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "70.70",
+                  "value": 70.7,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "55.76",
+                  "value": 55.76,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e11",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "20000",
+                  "value": 20000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "8000",
+                  "value": 8000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "59.05",
+                  "value": 59.05,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "47.29",
+                  "value": 47.29,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "34.45",
+                  "value": 34.45,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "26.54",
+                  "value": 26.54,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "23.41",
+                  "value": 23.41,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e12",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "90500",
+                  "value": 90500.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "32000",
+                  "value": 32000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "-902.70",
+                  "value": -902.7,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "135.15",
+                  "value": 135.15,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "95.93",
+                  "value": 95.93,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "60.94",
+                  "value": 60.94,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "46.34",
+                  "value": 46.34,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e13",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "90700",
+                  "value": 90700.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "30500",
+                  "value": 30500.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "300238.53",
+                  "value": 300238.53,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-11926.50",
+                  "value": -11926.5,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "695.95",
+                  "value": 695.95,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "3.13",
+                  "value": 3.13,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "39.81",
+                  "value": 39.81,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e14",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "91200",
+                  "value": 91200.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "31500",
+                  "value": 31500.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "90.00",
+                  "value": 90.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "SAT",
+                  "value": null,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": "unconvertible value kept in place: SAT (saturated token), not dropped for plotting"
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "95.00",
+                  "value": 95.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "75.00",
+                  "value": 75.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "45.00",
+                  "value": 45.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "material_id": "mat-raw-events",
+        "version": 2,
+        "channels": [
+          "FSC-A",
+          "SSC-A",
+          "FITC-A",
+          "PE-A",
+          "PerCP-A",
+          "APC-A",
+          "APC-Cy7-A"
+        ],
+        "events": [
+          {
+            "event_id": "e01",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "90000",
+                  "value": 90000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "30000",
+                  "value": 30000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "18012.03",
+                  "value": 18012.03,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-601.62",
+                  "value": -601.62,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "114.11",
+                  "value": 114.11,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "49.76",
+                  "value": 49.76,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "37.01",
+                  "value": 37.01,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e02",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "88000",
+                  "value": 88000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "42000",
+                  "value": 42000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "16014.04",
+                  "value": 16014.04,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-702.22",
+                  "value": -702.22,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "24000.00",
+                  "value": 24000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": "source patch: raw detector value revised (v2); original retained in mat-raw-events/v1"
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "-1086.09",
+                  "value": -1086.09,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "95.17",
+                  "value": 95.17,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e03",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "95000",
+                  "value": 95000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "35000",
+                  "value": 35000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "-190.28",
+                  "value": -190.28,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "14013.76",
+                  "value": 14013.76,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-614.85",
+                  "value": -614.85,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "118.05",
+                  "value": 118.05,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "37.92",
+                  "value": 37.92,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e04",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "92000",
+                  "value": 92000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "33000",
+                  "value": 33000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "-130.21",
+                  "value": -130.21,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "12010.43",
+                  "value": 12010.43,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-522.03",
+                  "value": -522.03,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "95.88",
+                  "value": 95.88,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "29.25",
+                  "value": 29.25,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e05",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "91000",
+                  "value": 91000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "28000",
+                  "value": 28000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "17014.45",
+                  "value": 17014.45,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-722.30",
+                  "value": -722.3,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "15172.60",
+                  "value": 15172.6,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "-1137.36",
+                  "value": -1137.36,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "118.24",
+                  "value": 118.24,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e06",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "93000",
+                  "value": 93000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "31000",
+                  "value": 31000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "16010.55",
+                  "value": 16010.55,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-527.28",
+                  "value": -527.28,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-1814.40",
+                  "value": -1814.4,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "16173.06",
+                  "value": 16173.06,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "-930.38",
+                  "value": -930.38,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e07",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "89000",
+                  "value": 89000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "29000",
+                  "value": 29000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "15510.02",
+                  "value": 15510.02,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-500.78",
+                  "value": -500.78,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-1461.61",
+                  "value": -1461.61,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "13138.78",
+                  "value": 13138.78,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "-728.33",
+                  "value": -728.33,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e08",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "94000",
+                  "value": 94000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "34000",
+                  "value": 34000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "17011.47",
+                  "value": 17011.47,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-573.65",
+                  "value": -573.65,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "-1680.53",
+                  "value": -1680.53,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "15160.08",
+                  "value": 15160.08,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "-854.60",
+                  "value": -854.6,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e09",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "90000",
+                  "value": 90000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "25000",
+                  "value": 25000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "93.10",
+                  "value": 93.1,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "95.11",
+                  "value": 95.11,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "116.83",
+                  "value": 116.83,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "-304.90",
+                  "value": -304.9,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "12018.29",
+                  "value": 12018.29,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e10",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "120000",
+                  "value": 120000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "90000",
+                  "value": 90000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "147.54",
+                  "value": 147.54,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "123.14",
+                  "value": 123.14,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "95.36",
+                  "value": 95.36,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "70.70",
+                  "value": 70.7,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "55.76",
+                  "value": 55.76,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e11",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "20000",
+                  "value": 20000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "8000",
+                  "value": 8000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "59.05",
+                  "value": 59.05,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "47.29",
+                  "value": 47.29,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "34.45",
+                  "value": 34.45,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "26.54",
+                  "value": 26.54,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "23.41",
+                  "value": 23.41,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e12",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "90500",
+                  "value": 90500.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "32000",
+                  "value": 32000.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "-902.70",
+                  "value": -902.7,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "135.15",
+                  "value": 135.15,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "95.93",
+                  "value": 95.93,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "60.94",
+                  "value": 60.94,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "46.34",
+                  "value": 46.34,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e13",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "90700",
+                  "value": 90700.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "30500",
+                  "value": 30500.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "300238.53",
+                  "value": 300238.53,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "-11926.50",
+                  "value": -11926.5,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "695.95",
+                  "value": 695.95,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "3.13",
+                  "value": 3.13,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "39.81",
+                  "value": 39.81,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          },
+          {
+            "event_id": "e14",
+            "channels": [
+              [
+                "FSC-A",
+                {
+                  "raw": "91200",
+                  "value": 91200.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "SSC-A",
+                {
+                  "raw": "31500",
+                  "value": 31500.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "FITC-A",
+                {
+                  "raw": "90.00",
+                  "value": 90.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "PE-A",
+                {
+                  "raw": "SAT",
+                  "value": null,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": "unconvertible value kept in place: SAT (saturated token), not dropped for plotting"
+                }
+              ],
+              [
+                "PerCP-A",
+                {
+                  "raw": "95.00",
+                  "value": 95.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-A",
+                {
+                  "raw": "75.00",
+                  "value": 75.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ],
+              [
+                "APC-Cy7-A",
+                {
+                  "raw": "45.00",
+                  "value": 45.0,
+                  "unit": "linear:pulse-area",
+                  "diagnostic": null
+                }
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "spillover_meta": [
+      {
+        "material_id": "mat-spillover-meta",
+        "version": 1,
+        "detectors": [
+          "FITC-A",
+          "PE-A",
+          "PerCP-A",
+          "APC-A",
+          "APC-Cy7-A"
+        ],
+        "fluorochromes": [
+          "FITC",
+          "PE",
+          "PerCP",
+          "APC",
+          "APC-Cy7"
+        ],
+        "coordinate_basis": "linear:pulse-area",
+        "single_stain_controls": [
+          {
+            "fluorochrome": "FITC",
+            "control_event_ids": [
+              "ssc-fitc-01",
+              "ssc-fitc-02"
+            ],
+            "note": "FITC 单染微球，门 P1 中位数"
+          },
+          {
+            "fluorochrome": "PE",
+            "control_event_ids": [
+              "ssc-pe-01",
+              "ssc-pe-02"
+            ],
+            "note": "PE 单染细胞"
+          },
+          {
+            "fluorochrome": "PerCP",
+            "control_event_ids": [
+              "ssc-percp-01",
+              "ssc-percp-02"
+            ],
+            "note": "PerCP 单染细胞"
+          },
+          {
+            "fluorochrome": "APC",
+            "control_event_ids": [
+              "ssc-apc-01",
+              "ssc-apc-02"
+            ],
+            "note": "APC 单染细胞"
+          },
+          {
+            "fluorochrome": "APC-Cy7",
+            "control_event_ids": [
+              "ssc-apccy7-01",
+              "ssc-apccy7-02"
+            ],
+            "note": "APC-Cy7 单染细胞"
+          }
+        ]
+      }
+    ],
+    "compensation": [
+      {
+        "material_id": "mat-compensation",
+        "version": 1,
+        "labels": [
+          "FITC-A",
+          "PE-A",
+          "PerCP-A",
+          "APC-A",
+          "APC-Cy7-A"
+        ],
+        "rows": [
+          [
+            1.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.04,
+            1.0,
+            0.01,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.05,
+            1.0,
+            0.12,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.08,
+            1.0,
+            0.03
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.06,
+            1.0
+          ]
+        ],
+        "unit": "dimensionless:spillover-fraction"
+      },
+      {
+        "material_id": "mat-compensation",
+        "version": 2,
+        "labels": [
+          "FITC-A",
+          "PE-A",
+          "PerCP-A",
+          "APC-A",
+          "APC-Cy7-A"
+        ],
+        "rows": [
+          [
+            1.0,
+            0.02,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.04,
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.99999,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.99999,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "unit": "dimensionless:spillover-fraction",
+        "note": "APC/PerCP 通道近共线单染产生的近奇异 spillover（条件数>=1e5），系统不得静默求逆"
+      }
+    ],
+    "transform": [
+      {
+        "material_id": "mat-transform",
+        "version": 1,
+        "transforms": [
+          {
+            "channel": "FSC-A",
+            "method": "linear",
+            "cofactor": 1.0,
+            "offset": 0.0,
+            "output_unit": "linear:pulse-area"
+          },
+          {
+            "channel": "SSC-A",
+            "method": "linear",
+            "cofactor": 1.0,
+            "offset": 0.0,
+            "output_unit": "linear:pulse-area"
+          },
+          {
+            "channel": "FITC-A",
+            "method": "asinh",
+            "cofactor": 150.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          },
+          {
+            "channel": "PE-A",
+            "method": "asinh",
+            "cofactor": 150.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          },
+          {
+            "channel": "PerCP-A",
+            "method": "asinh",
+            "cofactor": 100.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          },
+          {
+            "channel": "APC-A",
+            "method": "asinh",
+            "cofactor": 100.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          },
+          {
+            "channel": "APC-Cy7-A",
+            "method": "asinh",
+            "cofactor": 120.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          }
+        ]
+      },
+      {
+        "material_id": "mat-transform",
+        "version": 2,
+        "transforms": [
+          {
+            "channel": "FSC-A",
+            "method": "linear",
+            "cofactor": 1.0,
+            "offset": 0.0,
+            "output_unit": "linear:pulse-area"
+          },
+          {
+            "channel": "SSC-A",
+            "method": "linear",
+            "cofactor": 1.0,
+            "offset": 0.0,
+            "output_unit": "linear:pulse-area"
+          },
+          {
+            "channel": "FITC-A",
+            "method": "asinh",
+            "cofactor": 300.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          },
+          {
+            "channel": "PE-A",
+            "method": "asinh",
+            "cofactor": 150.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          },
+          {
+            "channel": "PerCP-A",
+            "method": "asinh",
+            "cofactor": 100.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          },
+          {
+            "channel": "APC-A",
+            "method": "asinh",
+            "cofactor": 100.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          },
+          {
+            "channel": "APC-Cy7-A",
+            "method": "asinh",
+            "cofactor": 120.0,
+            "offset": 0.0,
+            "output_unit": "asinh:log10-scale"
+          }
+        ]
+      }
+    ],
+    "gates": [
+      {
+        "gate_id": "gate-lymph",
+        "version": 1,
+        "name": "Lymphocytes",
+        "x_channel": "FSC-A",
+        "y_channel": "SSC-A",
+        "coordinate_basis": "transformed:linear:pulse-area@mat-transform/v1",
+        "polygon": [
+          [
+            70000,
+            25000
+          ],
+          [
+            110000,
+            25000
+          ],
+          [
+            110000,
+            60000
+          ],
+          [
+            70000,
+            60000
+          ]
+        ],
+        "boundary_convention": "raycast-include"
+      },
+      {
+        "gate_id": "gate-t",
+        "version": 1,
+        "name": "T cells (CD3+)",
+        "x_channel": "FITC-A",
+        "y_channel": "PE-A",
+        "coordinate_basis": "transformed:asinh:log10-scale@mat-transform/v1",
+        "polygon": [
+          [
+            2.1353,
+            0.0418
+          ],
+          [
+            2.5602,
+            0.0418
+          ],
+          [
+            2.5602,
+            0.4982
+          ],
+          [
+            2.1353,
+            0.4982
+          ]
+        ],
+        "boundary_convention": "raycast-include"
+      },
+      {
+        "gate_id": "gate-b",
+        "version": 1,
+        "name": "B cells (CD19+)",
+        "x_channel": "FITC-A",
+        "y_channel": "PE-A",
+        "coordinate_basis": "transformed:asinh:log10-scale@mat-transform/v1",
+        "polygon": [
+          [
+            0.067,
+            2.0241
+          ],
+          [
+            0.4752,
+            2.0241
+          ],
+          [
+            0.4752,
+            2.4511
+          ],
+          [
+            0.067,
+            2.4511
+          ]
+        ],
+        "boundary_convention": "raycast-include"
+      },
+      {
+        "gate_id": "gate-cd4",
+        "version": 1,
+        "name": "CD4+ T",
+        "x_channel": "PerCP-A",
+        "y_channel": "APC-A",
+        "coordinate_basis": "transformed:asinh:log10-scale@mat-transform/v1",
+        "polygon": [
+          [
+            2.2672,
+            0.029
+          ],
+          [
+            2.6571,
+            0.029
+          ],
+          [
+            2.6571,
+            0.4982
+          ],
+          [
+            2.2672,
+            0.4982
+          ]
+        ],
+        "boundary_convention": "raycast-include"
+      },
+      {
+        "gate_id": "gate-cd8",
+        "version": 1,
+        "name": "CD8+ T",
+        "x_channel": "APC-A",
+        "y_channel": "PerCP-A",
+        "coordinate_basis": "transformed:asinh:log10-scale@mat-transform/v1",
+        "polygon": [
+          [
+            2.235,
+            0.1713
+          ],
+          [
+            2.6852,
+            0.1713
+          ],
+          [
+            2.6852,
+            0.5927
+          ],
+          [
+            2.235,
+            0.5927
+          ]
+        ],
+        "boundary_convention": "raycast-include"
+      },
+      {
+        "gate_id": "gate-t",
+        "version": 2,
+        "name": "T-lineage CD3+ (renamed)",
+        "x_channel": "FITC-A",
+        "y_channel": "PE-A",
+        "coordinate_basis": "transformed:asinh:log10-scale@mat-transform/v1",
+        "polygon": [
+          [
+            2.1353,
+            0.0418
+          ],
+          [
+            2.5602,
+            0.0418
+          ],
+          [
+            2.5602,
+            0.4982
+          ],
+          [
+            2.1353,
+            0.4982
+          ]
+        ],
+        "boundary_convention": "raycast-include"
+      },
+      {
+        "gate_id": "gate-lymph",
+        "version": 2,
+        "name": "Lymphocytes",
+        "x_channel": "FSC-A",
+        "y_channel": "SSC-A",
+        "coordinate_basis": "transformed:linear:pulse-area@mat-transform/v1",
+        "polygon": [
+          [
+            70000,
+            25000
+          ],
+          [
+            110000,
+            25000
+          ],
+          [
+            110000,
+            40000
+          ],
+          [
+            70000,
+            40000
+          ]
+        ],
+        "boundary_convention": "raycast-include"
+      }
+    ],
+    "hierarchy": [
+      {
+        "material_id": "mat-hierarchy",
+        "version": 1,
+        "parent_of": [
+          [
+            "gate-lymph",
+            null
+          ],
+          [
+            "gate-t",
+            "gate-lymph"
+          ],
+          [
+            "gate-b",
+            "gate-lymph"
+          ],
+          [
+            "gate-cd4",
+            "gate-t"
+          ],
+          [
+            "gate-cd8",
+            "gate-t"
+          ]
+        ]
+      }
+    ]
+  },
+  "baseline_refs": {
+    "raw_events": "mat-raw-events/v1",
+    "spillover_meta": "mat-spillover-meta/v1",
+    "compensation": "mat-compensation/v1",
+    "transform": "mat-transform/v1",
+    "gates": {
+      "gate-lymph": "gate-lymph/v1",
+      "gate-t": "gate-t/v1",
+      "gate-b": "gate-b/v1",
+      "gate-cd4": "gate-cd4/v1",
+      "gate-cd8": "gate-cd8/v1"
+    },
+    "hierarchy": "mat-hierarchy/v1"
+  },
+  "scenarios": [
+    {
+      "id": "import-rollback",
+      "kind": "import-failure-rollback",
+      "description": "导入缺少必需材料的包必须整体回滚，不留半份记录"
+    },
+    {
+      "id": "singular-compensation",
+      "kind": "near-singular-matrix",
+      "description": "近奇异补偿矩阵不能被默默求逆；保留全部合法候选等待人工裁定"
+    },
+    {
+      "id": "transform-revision",
+      "kind": "parameter-revision",
+      "description": "修订变换参数（FITC cofactor 150->300），按依赖图限定失效范围"
+    },
+    {
+      "id": "local-source-patch",
+      "kind": "source-patch-local",
+      "description": "只改一个直接来源 e02/PerCP 原始读数，失效范围仅限其下游"
+    },
+    {
+      "id": "gate-rename",
+      "kind": "gate-nested-rename",
+      "description": "门嵌套改名：几何不变、谱系引用保持，旧版仍可读"
+    },
+    {
+      "id": "upstream-gate-revision",
+      "kind": "upstream-stale-propagation",
+      "description": "修订上游 lymph 门后，下游结果标记过期而不覆盖"
+    },
+    {
+      "id": "concurrent-modification",
+      "kind": "same-version-concurrent",
+      "description": "同版本并发修改：后提交者看到版本冲突及双方差异"
+    }
+  ],
+  "expected_baseline": {
+    "root_count": 14,
+    "gate_members": {
+      "gate-lymph": 12,
+      "gate-t": 6,
+      "gate-b": 2,
+      "gate-cd4": 2,
+      "gate-cd8": 3
+    }
+  }
+}
