@@ -1,0 +1,11 @@
+{
+  "id": "g-cd3t", "version": 1,
+  "name": "CD3+ T",
+  "x": {"channel": "FITC-A", "space": "transformed",
+        "transform_ref": {"kind": "transform", "id": "xform-default", "version": 1}},
+  "y": {"channel": "PE-A", "space": "transformed",
+        "transform_ref": {"kind": "transform", "id": "xform-default", "version": 1}},
+  "polygon": [[3.9, -1.0], [5.2, -1.0], [5.2, 5.0], [3.9, 5.0]],
+  "boundary_rule": "edge-inside@flowline-rules/2026.09.1",
+  "note": "补偿后 asinh 空间中的 FITC 高表达矩形门"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "g-lymph", "version": 1,
+  "name": "Lymphocytes",
+  "x": {"channel": "FSC-A", "space": "linear"},
+  "y": {"channel": "SSC-A", "space": "linear"},
+  "polygon": [[100, 50], [700, 50], [700, 300], [100, 300]],
+  "boundary_rule": "edge-inside@flowline-rules/2026.09.1",
+  "note": "矩形淋巴门；e7 的 FSC=700 恰好落在右边界，用于边界点检验"
+}

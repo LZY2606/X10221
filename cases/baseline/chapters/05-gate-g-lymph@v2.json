@@ -1,0 +1,9 @@
+{
+  "id": "g-lymph", "version": 2,
+  "name": "Lymphocytes",
+  "x": {"channel": "FSC-A", "space": "linear"},
+  "y": {"channel": "SSC-A", "space": "linear"},
+  "polygon": [[100, 50], [700, 50], [700, 200], [100, 200]],
+  "boundary_rule": "edge-inside@flowline-rules/2026.09.1",
+  "note": "上游门修订（SSC 上限 300→200）：下游 CD3/CD4 标记过期而不覆盖"
+}

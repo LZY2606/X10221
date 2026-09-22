@@ -1,0 +1,29 @@
+{
+  "format": "FCS3.1",
+  "coordinate_basis": "raw-linear-counts@detector",
+  "channels": [
+    {"name": "FSC-A", "detector": "FSC", "fluor": null, "unit": "counts", "scale": "linear"},
+    {"name": "SSC-A", "detector": "SSC", "fluor": null, "unit": "counts", "scale": "linear"},
+    {"name": "FITC-A", "detector": "530/30", "fluor": "FITC", "unit": "counts", "scale": "linear"},
+    {"name": "PE-A", "detector": "585/42", "fluor": "PE", "unit": "counts", "scale": "linear"},
+    {"name": "APC-A", "detector": "660/20", "fluor": "APC", "unit": "counts", "scale": "linear"}
+  ],
+  "events": [
+    {"id": "e1",  "values": {"FSC-A": 250, "SSC-A": 120, "FITC-A": 1200, "PE-A": 1500, "APC-A": 800}},
+    {"id": "e2",  "values": {"FSC-A": 400, "SSC-A": 180, "FITC-A": 9000, "PE-A": 1800, "APC-A": 7000}},
+    {"id": "e3",  "values": {"FSC-A": 300, "SSC-A": 100, "FITC-A": 500,  "PE-A": 9500, "APC-A": 6000}},
+    {"id": "e4",  "values": {"FSC-A": 150, "SSC-A": 90,  "FITC-A": 8800, "PE-A": 1200, "APC-A": 1500}},
+    {"id": "e5",  "values": {"FSC-A": 500, "SSC-A": 220, "FITC-A": 4500, "PE-A": 8200, "APC-A": 4800}},
+    {"id": "e6",  "values": {"FSC-A": 600, "SSC-A": 260, "FITC-A": 200,  "PE-A": 300,  "APC-A": 9000}},
+    {"id": "e7",  "values": {"FSC-A": 700, "SSC-A": 140, "FITC-A": 8500, "PE-A": 9000, "APC-A": 1200}},
+    {"id": "e8",  "values": {"FSC-A": 800, "SSC-A": 400, "FITC-A": 6000, "PE-A": 6000, "APC-A": 6000}},
+    {"id": "e9",  "values": {"FSC-A": 450, "SSC-A": 420, "FITC-A": 250,  "PE-A": 9200, "APC-A": 500}},
+    {"id": "e10", "values": {"FSC-A": 350, "SSC-A": 200, "FITC-A": "NaN", "PE-A": 2000, "APC-A": 2000}},
+    {"id": "e11", "values": {"FSC-A": 200, "SSC-A": 110, "FITC-A": 8000, "PE-A": 800,  "APC-A": 900}},
+    {"id": "e12", "values": {"FSC-A": 1200, "SSC-A": 600, "FITC-A": 500, "PE-A": 500, "APC-A": 500}},
+    {"id": "e13", "values": {"FSC-A": 50, "SSC-A": 60, "FITC-A": 100, "PE-A": 100, "APC-A": 100}},
+    {"id": "e14", "values": {"FSC-A": 280, "SSC-A": 130, "FITC-A": 300, "PE-A": 300, "APC-A": 8500}},
+    {"id": "e15", "values": {"FSC-A": 320, "SSC-A": 150, "FITC-A": 1500, "PE-A": 99999, "APC-A": 300}}
+  ],
+  "note": "局部源数据改动：仅 e9 的 SSC 160→420（出淋巴门）；只影响其在 G1 的成员关系及下游"
+}

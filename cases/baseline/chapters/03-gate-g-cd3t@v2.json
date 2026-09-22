@@ -1,0 +1,11 @@
+{
+  "id": "g-cd3t", "version": 2,
+  "name": "CD3+ Pan-T",
+  "x": {"channel": "FITC-A", "space": "transformed",
+        "transform_ref": {"kind": "transform", "id": "xform-default", "version": 1}},
+  "y": {"channel": "PE-A", "space": "transformed",
+        "transform_ref": {"kind": "transform", "id": "xform-default", "version": 1}},
+  "polygon": [[3.9, -1.0], [5.2, -1.0], [5.2, 5.0], [3.9, 5.0]],
+  "boundary_rule": "edge-inside@flowline-rules/2026.09.1",
+  "note": "门嵌套改名：多边形与版本引用不变，只改显示名；血缘 gate id 保持稳定"
+}

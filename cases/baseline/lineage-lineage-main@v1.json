@@ -1,0 +1,12 @@
+{
+  "id": "lineage-main", "version": 1,
+  "populations": [
+    {"id": "p-lymph", "name": "Lymphocytes", "parent": null,
+     "gate": {"kind": "gate", "id": "g-lymph", "version": 1}},
+    {"id": "p-cd3t", "name": "CD3+ T cells", "parent": "p-lymph",
+     "gate": {"kind": "gate", "id": "g-cd3t", "version": 1}},
+    {"id": "p-cd4", "name": "CD4+ T cells", "parent": "p-cd3t",
+     "gate": {"kind": "gate", "id": "g-cd4", "version": 1}}
+  ],
+  "note": "门多边形与父子关系独立于材料版本；gate id 稳定，改名不改血缘"
+}

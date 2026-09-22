@@ -1,0 +1,15 @@
+{
+  "id": "xform-default", "version": 1,
+  "method": "asinh",
+  "input_unit": "counts(compensated)",
+  "output_unit": "asinh(x/150)",
+  "cofactor": 150,
+  "axes": [
+    {"channel": "FITC-A", "output_axis": "FITC-asinh"},
+    {"channel": "PE-A",   "output_axis": "PE-asinh"},
+    {"channel": "APC-A",  "output_axis": "APC-asinh"},
+    {"channel": "FSC-A",  "output_axis": "FSC-linear"},
+    {"channel": "SSC-A",  "output_axis": "SSC-linear"}
+  ],
+  "note": "荧光通道补偿后 asinh，散射保持线性；坐标基准随版本钉住"
+}

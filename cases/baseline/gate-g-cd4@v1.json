@@ -1,0 +1,11 @@
+{
+  "id": "g-cd4", "version": 1,
+  "name": "CD4+ T",
+  "x": {"channel": "APC-A", "space": "transformed",
+        "transform_ref": {"kind": "transform", "id": "xform-default", "version": 1}},
+  "y": {"channel": "FITC-A", "space": "transformed",
+        "transform_ref": {"kind": "transform", "id": "xform-default", "version": 1}},
+  "polygon": [[3.0, 3.9], [5.0, 3.9], [5.0, 5.2], [3.0, 5.2]],
+  "boundary_rule": "edge-inside@flowline-rules/2026.09.1",
+  "note": "CD3+ 群内 APC 高表达门（父群钉版）"
+}
