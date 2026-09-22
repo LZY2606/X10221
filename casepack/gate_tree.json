@@ -1,0 +1,10 @@
+{
+  "entity": {"id": "ent-gate-tree", "kind": "gate_tree_edge", "name": "门控父子关系"},
+  "version": {"unit": "", "basis": "gate-id-references"},
+  "payload": {
+    "edges": [
+      {"parent": "ROOT", "child": "P1"},
+      {"parent": "P1", "child": "P2"}
+    ]
+  }
+}

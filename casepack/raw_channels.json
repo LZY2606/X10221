@@ -1,0 +1,23 @@
+{
+  "entity": {"id": "ent-raw-fl", "kind": "raw_channels", "name": "FCS 事件（FITC/PE 双染样本）"},
+  "version": {"unit": "AU", "basis": "raw-detector-intensity"},
+  "payload": {
+    "fcs_file": "boundary-chamber.fcs",
+    "channels": [
+      {"name": "FL1-A", "fluorochrome": "FITC", "unit": "AU", "basis": "raw-detector-intensity"},
+      {"name": "FL2-A", "fluorochrome": "PE", "unit": "AU", "basis": "raw-detector-intensity"}
+    ],
+    "events": [
+      {"id": "ev-001", "raw": {"FL1-A": "100", "FL2-A": "100"}},
+      {"id": "ev-002", "raw": {"FL1-A": "50", "FL2-A": "200"}},
+      {"id": "ev-003", "raw": {"FL1-A": "500", "FL2-A": "50"}},
+      {"id": "ev-004", "raw": {"FL1-A": "20", "FL2-A": "900"}},
+      {"id": "ev-005", "raw": {"FL1-A": "5", "FL2-A": "500"}},
+      {"id": "ev-006", "raw": {"FL1-A": "2000", "FL2-A": "100"}},
+      {"id": "ev-007", "raw": {"FL1-A": "10", "FL2-A": "100"}},
+      {"id": "ev-008", "raw": {"FL1-A": "1000", "FL2-A": "316.2"}},
+      {"id": "ev-009", "raw": {"FL1-A": "300", "FL2-A": "300"}},
+      {"id": "ev-010", "raw": {"FL1-A": "15", "FL2-A": "15"}}
+    ]
+  }
+}

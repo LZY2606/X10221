@@ -1,0 +1,23 @@
+{
+  "id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。基线完整呈现原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形和父子关系的分开版本化；随后重放矩阵奇异、极端信号、边界点、门嵌套改名、上游过期传播和同版本并发修改六种边界情形，每一步留下输入片段、判定状态与受影响对象。",
+  "artifacts": [
+    "raw_channels.json",
+    "spillover.json",
+    "comp_matrix.json",
+    "transforms.json",
+    "gates.json",
+    "gate_tree.json"
+  ],
+  "replay": [
+    {"step": "baseline", "action": "load_casepack", "expect": "六类材料各自 v1，派生结果带分母钉住与边界点诊断"},
+    {"step": "param_revision", "action": "scenario:singular_matrix", "expect_rule": "NEAR_SINGULAR_NO_SILENT_INVERSE", "expect": "近奇异矩阵不被静默求逆，保留全部合法候选"},
+    {"step": "local_source_change", "action": "scenario:extreme_signal", "expect_rule": "EXTREME_SIGNAL_KEPT_RAW", "expect": "无法转换的值留在原位置并附诊断"},
+    {"step": "boundary", "action": "scenario:boundary_points", "expect_rule": "BOUNDARY_POINT_DETERMINISTIC", "expect": "边界点确定性计入并记录"},
+    {"step": "rename", "action": "scenario:gate_rename", "expect_rule": "RENAME_GEOMETRY_UNCHANGED_NO_INVALIDATION", "expect": "门嵌套改名不触发几何失效"},
+    {"step": "upstream", "action": "scenario:upstream_stale", "expect_rule": "UPSTREAM_REVISION_MARKS_STALE_NO_OVERWRITE", "expect": "修订上游门后下游结果标记过期而不覆盖"},
+    {"step": "conflict", "action": "scenario:concurrent_edit", "expect_rule": "CONCURRENT_SAME_VERSION_CONFLICT", "expect": "同版本并发修改，后提交者看到版本冲突及双方差异"},
+    {"step": "conflicting_decisions", "action": "manual", "expect": "互相冲突的人工决定分别落在 draft-a/draft-b 分支，采纳与未采纳都保留"}
+  ]
+}

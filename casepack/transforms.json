@@ -1,0 +1,11 @@
+{
+  "entity": {"id": "ent-transform", "kind": "transform", "name": "log10 显示变换"},
+  "version": {"unit": "decades", "basis": "log10-scale"},
+  "payload": {
+    "type": "log10",
+    "channels": {
+      "FL1-A": {"decades": 6, "offset": 0},
+      "FL2-A": {"decades": 6, "offset": 0}
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "entity": {"id": "ent-comp-matrix", "kind": "comp_matrix", "name": "FITC/PE 补偿矩阵"},
+  "version": {"unit": "ratio", "basis": "detector-crosstalk-coefficients"},
+  "payload": {
+    "rows": ["FL1-A", "FL2-A"],
+    "cols": ["FITC", "PE"],
+    "matrix": [[1.0, 0.15], [0.05, 1.0]],
+    "near_singular_variant": [[1.0, 0.99999999], [0.99999999, 1.0]]
+  }
+}

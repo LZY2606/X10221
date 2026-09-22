@@ -1,0 +1,13 @@
+{
+  "entity": {"id": "ent-spillover", "kind": "spillover", "name": "单染对照 spillover 元数据"},
+  "version": {"unit": "ratio", "basis": "median-fluorescence-ratio"},
+  "payload": {
+    "instrument": "boundary-cytometer-01",
+    "controls": [
+      {"control_id": "ssc-fitc", "fluorochrome": "FITC", "primary_detector": "FL1-A",
+       "mfi_primary": 53210.0, "spill_into": {"FL2-A": 0.15}},
+      {"control_id": "ssc-pe", "fluorochrome": "PE", "primary_detector": "FL2-A",
+       "mfi_primary": 48770.0, "spill_into": {"FL1-A": 0.05}}
+    ]
+  }
+}

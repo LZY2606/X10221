@@ -1,0 +1,16 @@
+{
+  "entities": [
+    {
+      "entity": {"id": "ent-gate-p1", "kind": "gate_polygon", "name": "P1 淋巴细胞门"},
+      "version": {"unit": "decades", "basis": "log10-scale(FL1-A,FL2-A)"},
+      "payload": {"gate_id": "P1", "display_name": "P1 淋巴细胞门", "axes": ["FL1-A", "FL2-A"],
+        "polygon": [[1.0, 1.0], [3.0, 1.0], [3.0, 3.0], [1.0, 3.0]]}
+    },
+    {
+      "entity": {"id": "ent-gate-p2", "kind": "gate_polygon", "name": "P2 双阳性门"},
+      "version": {"unit": "decades", "basis": "log10-scale(FL1-A,FL2-A)"},
+      "payload": {"gate_id": "P2", "display_name": "P2 双阳性门", "axes": ["FL1-A", "FL2-A"],
+        "polygon": [[1.5, 1.5], [2.5, 1.5], [2.5, 2.5], [1.5, 2.5]]}
+    }
+  ]
+}
