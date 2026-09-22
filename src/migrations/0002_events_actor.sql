@@ -1,0 +1,7 @@
+ALTER TABLE events ADD COLUMN actor TEXT NOT NULL DEFAULT '';
+CREATE TABLE IF NOT EXISTS case_notes (
+  note_id TEXT PRIMARY KEY,
+  draft_id TEXT NOT NULL,
+  text TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
