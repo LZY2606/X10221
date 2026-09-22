@@ -1,0 +1,91 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative_steps": [
+    {
+      "seq": 1,
+      "act": "import",
+      "uses": [
+        "v1/events.fcs",
+        "v1/spill-meta.json",
+        "v1/spillover.json",
+        "v1/transform.json",
+        "v1/gates.json",
+        "v1/lineage.json"
+      ]
+    },
+    {
+      "seq": 2,
+      "act": "evaluate_compensation",
+      "matrix": "SP.fbc.v1",
+      "expect": "direct_inverse_adoptable"
+    },
+    {
+      "seq": 3,
+      "act": "evaluate_populations",
+      "snapshot": "initial"
+    },
+    {
+      "seq": 4,
+      "act": "evaluate_compensation",
+      "matrix": "SP.fbc.v2",
+      "expect": "near_singular_keep_all_candidates"
+    },
+    {
+      "seq": 5,
+      "act": "relabel_gate",
+      "gate": "G_TCELL",
+      "new_label": "CD3+ T cells",
+      "expect": "no_invalidation"
+    },
+    {
+      "seq": 6,
+      "act": "adopt_candidate",
+      "matrix": "SP.fbc.v2",
+      "candidate": "INV.ridge-large",
+      "branch": "draft-main"
+    },
+    {
+      "seq": 7,
+      "act": "adopt_candidate",
+      "matrix": "SP.fbc.v2",
+      "candidate": "INV.ridge-small",
+      "branch": "draft-alt",
+      "conflicts_with": 6
+    },
+    {
+      "seq": 8,
+      "act": "revise_transform",
+      "transform": "TR.fbc.v2",
+      "expect": "fluor_gates_stale"
+    },
+    {
+      "seq": 9,
+      "act": "revise_gate",
+      "gate_pack": "GP.fbc.v2",
+      "expect": "lym_subtree_stale_no_overwrite"
+    },
+    {
+      "seq": 10,
+      "act": "recompute_on_request"
+    }
+  ],
+  "assertions": [
+    {
+      "rule": "RULE.NS-01",
+      "expect": "direct_inverse_not_adoptable_on_SP2; two ridge candidates retained"
+    },
+    {
+      "rule": "RULE.PCT-01",
+      "expect": "every GateResult.denominator_ref pins parent snapshot id"
+    },
+    {
+      "rule": "RULE.STALE-01",
+      "expect": "upstream revision marks downstream stale and preserves old results"
+    },
+    {
+      "rule": "RULE.UNC-01",
+      "expect": "E018 SAT/E019 OVF/E020 BAD retained in place with diagnostics"
+    }
+  ]
+}

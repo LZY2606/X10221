@@ -1,0 +1,41 @@
+{
+  "transform_id": "TR.fbc.v2",
+  "per_channel": [
+    {
+      "channel": "FSC-A",
+      "method": "linear",
+      "cofactor": null,
+      "cofactor_unit": null
+    },
+    {
+      "channel": "SSC-A",
+      "method": "linear",
+      "cofactor": null,
+      "cofactor_unit": null
+    },
+    {
+      "channel": "FITC-A",
+      "method": "asinh",
+      "cofactor": 200.0,
+      "cofactor_unit": "ADC count"
+    },
+    {
+      "channel": "PE-A",
+      "method": "asinh",
+      "cofactor": 200.0,
+      "cofactor_unit": "ADC count"
+    },
+    {
+      "channel": "APC-A",
+      "method": "asinh",
+      "cofactor": 200.0,
+      "cofactor_unit": "ADC count"
+    },
+    {
+      "channel": "APC-Cy7-A",
+      "method": "asinh",
+      "cofactor": 200.0,
+      "cofactor_unit": "ADC count"
+    }
+  ]
+}

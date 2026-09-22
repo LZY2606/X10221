@@ -1,0 +1,28 @@
+{
+  "matrix_id": "SP.fbc.v2",
+  "channels": [
+    "FITC-A",
+    "PE-A",
+    "APC-A"
+  ],
+  "s": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.999999
+    ],
+    [
+      0.0,
+      0.999999,
+      1.0
+    ]
+  ],
+  "unit": "dimensionless_spillover",
+  "derived_from_spill_meta": "SM.fbc.v2",
+  "note": "APC 单染管增益漂移：PE/APC 两列几乎线性相关，rcond≈5e-7，禁止直接求逆。"
+}

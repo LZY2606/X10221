@@ -1,0 +1,69 @@
+{
+  "spill_meta_id": "SM.fbc.v1",
+  "channels": [
+    "FITC-A",
+    "PE-A",
+    "APC-A"
+  ],
+  "source_keyword": "single-stain controls (FCS sidecar JSON)",
+  "source_sha256": "cases/flow-boundary-chamber/v1/spill-meta.json",
+  "controls": [
+    {
+      "control_id": "CTL.fbc.cd3-fitc",
+      "fluorophore": "FITC",
+      "primary_channel": "FITC-A",
+      "spill": [
+        [
+          "FITC-A",
+          1.0
+        ],
+        [
+          "PE-A",
+          0.05
+        ],
+        [
+          "APC-A",
+          0.0
+        ]
+      ]
+    },
+    {
+      "control_id": "CTL.fbc.cd4-pe",
+      "fluorophore": "PE",
+      "primary_channel": "PE-A",
+      "spill": [
+        [
+          "FITC-A",
+          0.02
+        ],
+        [
+          "PE-A",
+          1.0
+        ],
+        [
+          "APC-A",
+          0.04
+        ]
+      ]
+    },
+    {
+      "control_id": "CTL.fbc.cd8-apc",
+      "fluorophore": "APC",
+      "primary_channel": "APC-A",
+      "spill": [
+        [
+          "FITC-A",
+          0.0
+        ],
+        [
+          "PE-A",
+          0.03
+        ],
+        [
+          "APC-A",
+          1.0
+        ]
+      ]
+    }
+  ]
+}

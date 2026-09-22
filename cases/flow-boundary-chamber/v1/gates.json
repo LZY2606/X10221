@@ -1,0 +1,140 @@
+{
+  "gate_id_prefix": "GP.fbc.v1",
+  "gates": [
+    {
+      "gate_id": "G_LYM",
+      "label": "Lymphocytes",
+      "x_channel": "FSC-A",
+      "y_channel": "SSC-A",
+      "basis": "linear:ADC count",
+      "orientation": "math_ccw",
+      "boundary_rule": "half_open_raycast_left_lower_inclusive",
+      "vertices": [
+        [
+          60000,
+          50000
+        ],
+        [
+          100000,
+          50000
+        ],
+        [
+          100000,
+          90000
+        ],
+        [
+          60000,
+          90000
+        ]
+      ]
+    },
+    {
+      "gate_id": "G_LIVE",
+      "label": "Live",
+      "x_channel": "FITC-A",
+      "y_channel": "APC-Cy7-A",
+      "basis": "asinh:cofactor_ADC(TR.fbc.v1)",
+      "orientation": "math_ccw",
+      "boundary_rule": "half_open_raycast_left_lower_inclusive",
+      "vertices": [
+        [
+          -3.0,
+          0.0
+        ],
+        [
+          4.0,
+          0.0
+        ],
+        [
+          4.0,
+          2.595845289149679
+        ],
+        [
+          -3.0,
+          2.595845289149679
+        ]
+      ]
+    },
+    {
+      "gate_id": "G_TCELL",
+      "label": "T cells",
+      "x_channel": "PE-A",
+      "y_channel": "FITC-A",
+      "basis": "asinh:cofactor_ADC(TR.fbc.v1)",
+      "orientation": "math_ccw",
+      "boundary_rule": "half_open_raycast_left_lower_inclusive",
+      "vertices": [
+        [
+          -3.0,
+          4.199930001980373
+        ],
+        [
+          5.0,
+          4.199930001980373
+        ],
+        [
+          5.0,
+          4.0
+        ],
+        [
+          -3.0,
+          4.0
+        ]
+      ]
+    },
+    {
+      "gate_id": "G_CD4",
+      "label": "CD4+",
+      "x_channel": "FITC-A",
+      "y_channel": "PE-A",
+      "basis": "asinh:cofactor_ADC(TR.fbc.v1)",
+      "orientation": "math_ccw",
+      "boundary_rule": "half_open_raycast_left_lower_inclusive",
+      "vertices": [
+        [
+          4.199930001980373,
+          4.199930001980373
+        ],
+        [
+          5.0,
+          4.199930001980373
+        ],
+        [
+          5.0,
+          5.0
+        ],
+        [
+          4.199930001980373,
+          5.0
+        ]
+      ]
+    },
+    {
+      "gate_id": "G_CD8",
+      "label": "CD8+",
+      "x_channel": "APC-A",
+      "y_channel": "FITC-A",
+      "basis": "asinh:cofactor_ADC(TR.fbc.v1)",
+      "orientation": "math_ccw",
+      "boundary_rule": "half_open_raycast_left_lower_inclusive",
+      "vertices": [
+        [
+          4.199930001980373,
+          4.199930001980373
+        ],
+        [
+          5.0,
+          4.199930001980373
+        ],
+        [
+          5.0,
+          5.0
+        ],
+        [
+          4.199930001980373,
+          5.0
+        ]
+      ]
+    }
+  ]
+}

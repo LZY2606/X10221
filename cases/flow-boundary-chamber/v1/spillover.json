@@ -1,0 +1,28 @@
+{
+  "matrix_id": "SP.fbc.v1",
+  "channels": [
+    "FITC-A",
+    "PE-A",
+    "APC-A"
+  ],
+  "s": [
+    [
+      1.0,
+      0.02,
+      0.0
+    ],
+    [
+      0.05,
+      1.0,
+      0.03
+    ],
+    [
+      0.0,
+      0.04,
+      1.0
+    ]
+  ],
+  "unit": "dimensionless_spillover",
+  "derived_from_spill_meta": "SM.fbc.v1",
+  "note": "单染对照估计的常规 spillover，良态。"
+}

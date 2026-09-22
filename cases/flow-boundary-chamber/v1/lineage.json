@@ -1,0 +1,30 @@
+{
+  "lineage_id": "LN.fbc.v1",
+  "edges": [
+    {
+      "parent": "ROOT",
+      "child": "G_LYM",
+      "population": "lymphocytes"
+    },
+    {
+      "parent": "G_LYM",
+      "child": "G_LIVE",
+      "population": "live"
+    },
+    {
+      "parent": "G_LIVE",
+      "child": "G_TCELL",
+      "population": "tcells"
+    },
+    {
+      "parent": "G_TCELL",
+      "child": "G_CD4",
+      "population": "cd4"
+    },
+    {
+      "parent": "G_TCELL",
+      "child": "G_CD8",
+      "population": "cd8"
+    }
+  ]
+}
