@@ -1,0 +1,49 @@
+{
+  "format": "flow-domain/gate-polygons/v1",
+  "coordinate_basis": {
+    "space": "compensated and transformed display coordinates unless explicitly stated",
+    "x_unit": "channel-specific display unit",
+    "y_unit": "channel-specific display unit"
+  },
+  "gates": [
+    {
+      "gate_id": "G-LIVE-V1",
+      "population_id": "P-LIVE",
+      "label": "Live-ish",
+      "x_channel": "FSC-A",
+      "y_channel": "SSC-A",
+      "coordinates": [[45, 25], [65, 25], [65, 45], [45, 45]],
+      "coordinate_unit": "linear scatter coordinate in a.u."
+    },
+    {
+      "gate_id": "G-FITC-V1",
+      "population_id": "P-FITC-POS",
+      "label": "FITC+",
+      "x_channel": "FITC-A",
+      "y_channel": "PE-A",
+      "coordinates": [[3.0, 0.0], [10.0, 0.0], [10.0, 8.0], [3.0, 8.0]],
+      "coordinate_unit": "dimensionless biexponential display coordinate",
+      "boundary_fixture": "E04 lies exactly on x=3.0"
+    },
+    {
+      "gate_id": "G-PE-SPREAD-V1",
+      "population_id": "P-PE-SPREAD",
+      "label": "PE spread",
+      "x_channel": "PE-A",
+      "y_channel": "PerCP-A",
+      "coordinates": [[2.0, 0.0], [10.0, 0.0], [10.0, 5.0], [2.0, 5.0]],
+      "coordinate_unit": "dimensionless biexponential display coordinate"
+    },
+    {
+      "gate_id": "G-RENAMED-NESTED-V2",
+      "population_id": "P-FITC-POS",
+      "replaces_gate_id": "G-FITC-V1",
+      "label": "FITC positive nested population",
+      "x_channel": "FITC-A",
+      "y_channel": "PE-A",
+      "coordinates": [[3.0, 0.0], [10.0, 0.0], [10.0, 8.0], [3.0, 8.0]],
+      "coordinate_unit": "dimensionless biexponential display coordinate",
+      "boundary_fixture": "same membership, renamed nested gate draft; lineage must retain both identities"
+    }
+  ]
+}

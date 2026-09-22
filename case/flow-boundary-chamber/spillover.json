@@ -1,0 +1,15 @@
+{
+  "format": "flow-domain/spillover-metadata/v1",
+  "spillover_id": "SPILL-FIXTURE-V1",
+  "single_stain_controls": [
+    {"control_id": "SSC-FITC", "fluorochrome": "FITC", "detector": "FITC-A", "unit": "raw detector event value"},
+    {"control_id": "SSC-PE", "fluorochrome": "PE", "detector": "PE-A", "unit": "raw detector event value"},
+    {"control_id": "SSC-PERCP", "fluorochrome": "PerCP", "detector": "PerCP-A", "unit": "raw detector event value"}
+  ],
+  "detector_to_channel_basis": [
+    {"fluorochrome": "FITC", "detector_channel": "FITC-A", "unit_basis": "raw detector event value"},
+    {"fluorochrome": "PE", "detector_channel": "PE-A", "unit_basis": "raw detector event value"},
+    {"fluorochrome": "PerCP", "detector_channel": "PerCP-A", "unit_basis": "raw detector event value"}
+  ],
+  "raw_representation": "metadata captured separately from the invertible spillover matrix; no imputation is performed"
+}

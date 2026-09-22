@@ -1,0 +1,15 @@
+{
+  "case_id": "flow-boundary-chamber-v1",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "format": "flow-domain/case-manifest/v1",
+  "coordinate_time_base": "FCS acquisition event order; event index is zero-based acquisition order",
+  "detector_unit_policy": "raw detector values retain their original textual representation; normalization occurs only in derived records",
+  "files": [
+    {"path": "raw-events.json", "role": "fcs-events", "content_type": "application/json"},
+    {"path": "spillover.json", "role": "spillover-metadata", "content_type": "application/json"},
+    {"path": "compensation-matrices.json", "role": "compensation-matrices", "content_type": "application/json"},
+    {"path": "transform-parameters.json", "role": "transform-parameters", "content_type": "application/json"},
+    {"path": "gates.json", "role": "gate-polygons", "content_type": "application/json"},
+    {"path": "parent-links.json", "role": "gate-parent-links", "content_type": "application/json"}
+  ]
+}

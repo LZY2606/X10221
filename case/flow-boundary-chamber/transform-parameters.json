@@ -1,0 +1,22 @@
+{
+  "format": "flow-domain/transform-parameters/v1",
+  "parameters": [
+    {
+      "transform_id": "TR-ASINH-FL-V1",
+      "applies_to": ["FITC-A", "PE-A", "PerCP-A"],
+      "method": "asinh",
+      "formula": "asinh(value / cofactor)",
+      "cofactor": 150.0,
+      "input_unit": "compensated detector event value",
+      "output_unit": "dimensionless biexponential display coordinate"
+    },
+    {
+      "transform_id": "TR-LINEAR-SCATTER-V1",
+      "applies_to": ["FSC-A", "SSC-A"],
+      "method": "linear",
+      "formula": "value",
+      "input_unit": "a.u.",
+      "output_unit": "linear scatter coordinate in a.u."
+    }
+  ]
+}

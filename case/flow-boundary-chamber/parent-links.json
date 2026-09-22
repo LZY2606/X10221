@@ -1,0 +1,9 @@
+{
+  "format": "flow-domain/gate-parent-links/v1",
+  "links": [
+    {"link_id": "L-LIVE-ROOT-V1", "gate_id": "G-LIVE-V1", "parent_population_id": "P-ROOT", "parent_gate_result_id": null},
+    {"link_id": "L-FITC-LIVE-V1", "gate_id": "G-FITC-V1", "parent_population_id": "P-LIVE", "parent_gate_result_id": "R-G-LIVE-V1"},
+    {"link_id": "L-PE-FITC-V1", "gate_id": "G-PE-SPREAD-V1", "parent_population_id": "P-FITC-POS", "parent_gate_result_id": "R-G-FITC-V1"},
+    {"link_id": "L-RENAMED-LIVE-V2", "gate_id": "G-RENAMED-NESTED-V2", "parent_population_id": "P-LIVE", "parent_gate_result_id": "R-G-LIVE-V1"}
+  ]
+}
