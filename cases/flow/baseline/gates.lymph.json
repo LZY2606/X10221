@@ -1,0 +1,82 @@
+{
+  "schema": "flowline.gates/1",
+  "coordinate_basis_note": "FSC/SSC 为线性 a.u.；荧光为 asinh(cofactor=150) 输出，x_unit 标明坐标基准。",
+  "gates": [
+    {
+      "gate_id": "g_lymph",
+      "name": "Lymphocytes",
+      "basis": {
+        "x_channel": "FSC-A",
+        "y_channel": "SSC-A",
+        "space": "linear",
+        "transform_version_id": null,
+        "x_unit": "a.u.",
+        "y_unit": "a.u."
+      },
+      "points": [
+        [60000, 30000],
+        [130000, 30000],
+        [130000, 110000],
+        [60000, 110000]
+      ],
+      "boundary_rule": "half_open"
+    },
+    {
+      "gate_id": "g_cd3",
+      "name": "CD3+",
+      "basis": {
+        "x_channel": "FITC-A",
+        "y_channel": "SSC-A",
+        "space": "transformed",
+        "transform_version_id": "RESOLVED_AT_IMPORT",
+        "x_unit": "asinh(cofactor=150)",
+        "y_unit": "a.u."
+      },
+      "points": [
+        [3.5, 30000],
+        [7.5, 30000],
+        [7.5, 110000],
+        [3.5, 110000]
+      ],
+      "boundary_rule": "half_open"
+    },
+    {
+      "gate_id": "g_cd4",
+      "name": "CD4+",
+      "basis": {
+        "x_channel": "PE-A",
+        "y_channel": "FITC-A",
+        "space": "transformed",
+        "transform_version_id": "RESOLVED_AT_IMPORT",
+        "x_unit": "asinh(cofactor=150)",
+        "y_unit": "asinh(cofactor=150)"
+      },
+      "points": [
+        [5.0, 3.5],
+        [7.5, 3.5],
+        [7.5, 5.6],
+        [5.0, 5.6]
+      ],
+      "boundary_rule": "half_open"
+    },
+    {
+      "gate_id": "g_cd8",
+      "name": "CD8+",
+      "basis": {
+        "x_channel": "PerCP-A",
+        "y_channel": "FITC-A",
+        "space": "transformed",
+        "transform_version_id": "RESOLVED_AT_IMPORT",
+        "x_unit": "asinh(cofactor=150)",
+        "y_unit": "asinh(cofactor=150)"
+      },
+      "points": [
+        [4.7, 3.5],
+        [7.5, 3.5],
+        [7.5, 5.6],
+        [4.7, 5.6]
+      ],
+      "boundary_rule": "half_open"
+    }
+  ]
+}

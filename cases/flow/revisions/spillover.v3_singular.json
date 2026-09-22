@@ -1,0 +1,12 @@
+{
+  "schema": "flowline.spillover/1",
+  "revision_note": "互相冲突的人工决定：把第 3 行改成第 1 行的 2 倍，矩阵精确奇异",
+  "detectors": ["FITC-A", "PE-A", "PerCP-A"],
+  "fluorochromes": ["FITC-A", "PE-A", "PerCP-A"],
+  "rows": [
+    [1.0, 0.08, 0.05],
+    [0.12, 1.0, 0.06],
+    [2.0, 0.16, 0.10]
+  ],
+  "source": "single-stain controls (conflicting manual edit, singular)"
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "flowline.transforms/1",
+  "revision_note": "参数修订：asinh cofactor 150 -> 250（复核人调整显示尺度）",
+  "params": [
+    { "transform": "linear", "channel": "FSC-A", "unit": "a.u." },
+    { "transform": "linear", "channel": "SSC-A", "unit": "a.u." },
+    { "transform": "asinh", "channel": "FITC-A", "unit": "channels", "cofactor": 250.0, "output_unit": "asinh(cofactor=250)" },
+    { "transform": "asinh", "channel": "PE-A", "unit": "channels", "cofactor": 250.0, "output_unit": "asinh(cofactor=250)" },
+    { "transform": "asinh", "channel": "PerCP-A", "unit": "channels", "cofactor": 250.0, "output_unit": "asinh(cofactor=250)" }
+  ]
+}

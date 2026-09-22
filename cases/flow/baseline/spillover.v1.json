@@ -1,0 +1,11 @@
+{
+  "schema": "flowline.spillover/1",
+  "detectors": ["FITC-A", "PE-A", "PerCP-A"],
+  "fluorochromes": ["FITC-A", "PE-A", "PerCP-A"],
+  "rows": [
+    [1.0, 0.08, 0.05],
+    [0.12, 1.0, 0.06],
+    [0.04, 0.10, 1.0]
+  ],
+  "source": "single-stain controls (FCS $SPILLOVER)"
+}

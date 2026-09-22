@@ -1,0 +1,10 @@
+{
+  "schema": "flowline.transforms/1",
+  "params": [
+    { "transform": "linear", "channel": "FSC-A", "unit": "a.u." },
+    { "transform": "linear", "channel": "SSC-A", "unit": "a.u." },
+    { "transform": "asinh", "channel": "FITC-A", "unit": "channels", "cofactor": 150.0, "output_unit": "asinh(cofactor=150)" },
+    { "transform": "asinh", "channel": "PE-A", "unit": "channels", "cofactor": 150.0, "output_unit": "asinh(cofactor=150)" },
+    { "transform": "asinh", "channel": "PerCP-A", "unit": "channels", "cofactor": 150.0, "output_unit": "asinh(cofactor=150)" }
+  ]
+}

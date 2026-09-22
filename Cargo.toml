@@ -1,0 +1,24 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "流式细胞术补偿矩阵、门控系谱与细胞群不确定性离线复核工具"
+
+[[bin]]
+name = "flowline"
+path = "src/main.rs"
+
+[dependencies]
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["full"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+base64 = "0.22"
+
+[dev-dependencies]
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+
+[profile.dev]
+opt-level = 1

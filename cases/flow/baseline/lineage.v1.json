@@ -1,0 +1,9 @@
+{
+  "schema": "flowline.lineage/1",
+  "links": [
+    { "gate_id": "g_lymph", "parent_gate_id": null },
+    { "gate_id": "g_cd3", "parent_gate_id": "g_lymph" },
+    { "gate_id": "g_cd4", "parent_gate_id": "g_cd3" },
+    { "gate_id": "g_cd8", "parent_gate_id": "g_cd3" }
+  ]
+}
