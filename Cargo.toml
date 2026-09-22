@@ -1,0 +1,31 @@
+[package]
+name = "flowlineage"
+version = "0.1.0"
+edition = "2021"
+description = "流式细胞术补偿/门控谱系离线复核工具（事件溯源 + 分支裁定）"
+
+[lib]
+name = "flowlineage"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flowlineage"
+path = "src/main.rs"
+
+[dependencies]
+axum = { version = "0.8", features = ["macros", "multipart"] }
+tokio = { version = "1", features = ["full"] }
+tower-http = { version = "0.6", features = ["fs", "trace"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+toml = "0.8"
+sha2 = "0.10"
+clap = { version = "4", features = ["derive"] }
+
+[dev-dependencies]
+reqwest = { version = "0.12", features = ["blocking", "json", "multipart"] }
+tempfile = "3"
+
+[profile.dev]
+opt-level = 0

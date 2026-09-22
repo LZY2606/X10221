@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>流式谱系复核台 · flowlineage</title>
+<link rel="stylesheet" href="/static/app.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">流式谱系复核台 <span class="alg" id="alg-tag"></span></div>
+  <div class="ctl">
+    <select id="project-select" title="项目"></select>
+    <button id="btn-new">新建项目</button>
+    <button id="btn-load-case" class="primary">载入仓库示例</button>
+    <button id="btn-export">导出档案</button>
+    <label class="filebtn">导入档案
+      <input type="file" id="bundle-file" accept="application/json" hidden />
+    </label>
+    <label class="filebtn">导入 FCS
+      <input type="file" id="fcs-file" accept=".fcs" hidden />
+    </label>
+  </div>
+</header>
+
+<section class="branchbar">
+  <div id="branch-tabs" class="tabs"></div>
+  <div class="cmp">
+    <label>并排：
+      <select id="cmp-branch"></select>
+    </label>
+    <button id="btn-compare">比较两个草案</button>
+    <button id="btn-fork">从当前点分叉</button>
+  </div>
+</section>
+
+<main class="grid">
+  <section class="card scatter" data-stable="panel:scatter">
+    <div class="card-h">
+      <span>通道散点（补偿前原始 → 补偿/变换后；边界含边）</span>
+      <span class="axes">
+        X<select id="x-axis"></select>
+        Y<select id="y-axis"></select>
+        <button id="btn-comp-prepost">补偿前/后差异</button>
+      </span>
+    </div>
+    <canvas id="scatter" width="560" height="420"></canvas>
+    <div class="legend" id="scatter-legend"></div>
+    <div class="basis" id="scatter-basis"></div>
+  </section>
+
+  <section class="card tree" data-stable="panel:gate-tree">
+    <div class="card-h"><span>门树与细胞群（分母钉版）</span></div>
+    <ul id="gate-tree" class="tree"></ul>
+    <table class="poptable">
+      <thead><tr><th>群体(稳定身份)</th><th>数</th><th>%父</th><th>%根</th><th>分母来源</th><th>状态</th></tr></thead>
+      <tbody id="pop-rows"></tbody>
+    </table>
+  </section>
+
+  <section class="card comp" data-stable="panel:compensation">
+    <div class="card-h"><span>补偿矩阵判定与候选</span></div>
+    <div id="comp-body"></div>
+  </section>
+
+  <section class="card hist" data-stable="panel:history">
+    <div class="card-h">
+      <span>事件史（只追加；点击回到旧版本）</span>
+      <span id="head-badge"></span>
+    </div>
+    <ol id="event-list" class="events"></ol>
+  </section>
+</main>
+
+<section id="compare-panel" class="card hidden" data-stable="panel:compare">
+  <div class="card-h"><span>两个草案并排（每个显示值带稳定身份）</span><button id="btn-close-cmp">×</button></div>
+  <table class="difftable"><thead><tr><th>身份</th><th>值</th><th id="cmp-l">左</th><th id="cmp-r">右</th></tr></thead>
+  <tbody id="diff-rows"></tbody></table>
+</section>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <h3 id="modal-title"></h3>
+    <div id="modal-body"></div>
+    <div class="modal-foot">
+      <button id="modal-cancel">取消</button>
+      <button id="modal-ok" class="primary">确定</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

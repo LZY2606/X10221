@@ -1,0 +1,373 @@
+case_id = "flow-boundary-chamber"
+title = "流式边界室：补偿矩阵、门控系谱与细胞群不确定性"
+description = "近奇异补偿矩阵不默默求逆、门百分比分母钉版、上游修订只标过期不覆盖"
+
+# 通道坐标基准与单位（导入时保留原始表示，派生层才规范化）
+[basis]
+raw_unit = "raw detector unit"
+transform = "asinh-transformed detector unit"
+algorithm = "flowlineage-asinh-polygon-v1"
+
+[samples.sample_events]
+file = "samples/sample_events.fcs"
+role = "sample"
+source_id = "raw-sample-1"
+
+[samples.single_stain_fitc]
+file = "samples/single_stain_fitc.fcs"
+role = "single_stain"
+source_id = "raw-ss-fitc-1"
+
+[samples.single_stain_fitc_rev2]
+file = "samples/single_stain_fitc_rev2.fcs"
+role = "single_stain"
+source_id = "raw-ss-fitc-2"
+
+# ---- 基线 spillover（良态，分数，行=受染，列=荧光；对角 1）----
+[[spillovers]]
+spillover_id = "sp-main"
+revision = 1
+channel_order = ["FITC-A", "PE-A", "APC-A", "PerCP-A"]
+unit = "fraction of primary detector"
+basis = "single-stain spillover coefficients, 1-norm normalization"
+derived_from_sources = ["raw-ss-fitc-1"]
+# S[primary 行][detector 列]：观测 detector = S × 真实 primary；补偿 = S^{-1} × 观测
+matrix = [
+  [1.0, 0.03, 0.01, 0.005],
+  [0.06, 1.0, 0.02, 0.01],
+  [0.01, 0.02, 1.0, 0.03],
+  [0.005, 0.01, 0.02, 1.0],
+]
+
+# ---- 修订：近奇异矩阵（线性相关的两列，条件数 > 1e6）----
+[[spillovers]]
+spillover_id = "sp-main"
+revision = 2
+channel_order = ["FITC-A", "PE-A", "APC-A", "PerCP-A"]
+unit = "fraction of primary detector"
+basis = "re-acquired single-stain; nearly collinear FITC/PE rows"
+derived_from_sources = ["raw-ss-fitc-2"]
+matrix = [
+  [1.0,            1.0000005,      0.01, 0.005],
+  [1.0000005,      1.0,            0.03, 0.01],
+  [0.02,           0.05,           1.0,  0.02],
+  [0.01,           0.01,           0.04, 1.0],
+]
+
+# ---- 探针：精确奇异（重复行），只在独立分支探测，留判定证据 ----
+[[spillovers]]
+spillover_id = "sp-singular-probe"
+revision = 1
+channel_order = ["FITC-A", "PE-A", "APC-A", "PerCP-A"]
+unit = "fraction of primary detector"
+basis = "adversarial exact-singular probe"
+derived_from_sources = []
+matrix = [
+  [1.0, 0.02, 0.01, 0.005],
+  [1.0, 0.02, 0.01, 0.005],
+  [0.02, 0.05, 1.0, 0.02],
+  [0.01, 0.01, 0.04, 1.0],
+]
+
+# ---- 变换参数（asinh cofactor；FITC 会发生一次修订）----
+[[transforms]]
+channel = "FITC-A"
+revision = 1
+family = "asinh"
+cofactor = 150.0
+
+[[transforms]]
+channel = "APC-A"
+revision = 1
+family = "asinh"
+cofactor = 200.0
+
+[[transforms]]
+channel = "PE-A"
+revision = 1
+family = "asinh"
+cofactor = 150.0
+
+[[transforms]]
+channel = "FSC-A"
+revision = 1
+family = "asinh"
+cofactor = 1000.0
+
+[[transforms]]
+channel = "SSC-A"
+revision = 1
+family = "asinh"
+cofactor = 1000.0
+
+# 修订：只影响使用 FITC-A 的门
+[[transforms]]
+channel = "FITC-A"
+revision = 2
+family = "asinh"
+cofactor = 250.0
+
+# ---- 门多边形（变换后坐标基准）----
+[[gates]]
+gate_id = "gate-lymph"
+revision = 1
+name = "Lymphocytes"
+x_channel = "FSC-A"
+y_channel = "SSC-A"
+# asinh(FSC/1000) × asinh(SSC/1000)：23 个淋巴（含边界点），排除碎屑与 3 个极端事件
+polygon = [
+  { x = 5.05, y = 4.60 },
+  { x = 5.05, y = 4.95 },
+  { x = 5.34, y = 4.95 },
+  { x = 5.34, y = 4.60 },
+]
+
+[[gates]]
+gate_id = "gate-cd3"
+revision = 1
+name = "CD3+"
+x_channel = "FITC-A"
+y_channel = "PE-A"
+# 边界点落在 edgePoint 与 midpoint 所在边上（见 gen_case.rs 的 boundary 事件）
+# 覆盖 7 个 T CD4、5 个 T CD8 和 1 个边界点（边界点在斜边 (4.38,0.8)-(4.38,5.3) 上）
+polygon = [
+  { x = 4.30, y = 0.80 },
+  { x = 4.38, y = 5.30 },
+  { x = 5.70, y = 5.30 },
+  { x = 5.70, y = 0.80 },
+]
+
+[[gates]]
+gate_id = "gate-cd8"
+revision = 1
+name = "CD8+"
+x_channel = "FITC-A"
+y_channel = "APC-A"
+polygon = [
+  { x = 4.3, y = 3.9 },
+  { x = 4.3, y = 5.9 },
+  { x = 5.7, y = 5.9 },
+  { x = 5.7, y = 3.9 },
+]
+
+# 上游门修订：缩小 CD3 门（版本 2），下游 CD8 标记过期但不覆盖
+[[gates]]
+gate_id = "gate-cd3"
+revision = 2
+name = "CD3+"
+x_channel = "FITC-A"
+y_channel = "PE-A"
+polygon = [
+  { x = 4.45, y = 0.00 },
+  { x = 4.45, y = 5.30 },
+  { x = 5.70, y = 5.30 },
+  { x = 5.70, y = 0.00 },
+]
+
+# ---- 门树（父子关系独立版本化）----
+[[trees]]
+revision = 1
+edges = [
+  { gate = "gate-lymph", parent = "" },
+  { gate = "gate-cd3", parent = "gate-lymph" },
+  { gate = "gate-cd8", parent = "gate-cd3" },
+]
+
+[[trees]]
+revision = 2
+edges = [
+  { gate = "gate-lymph", parent = "" },
+  { gate = "gate-cd3", parent = "gate-lymph" },
+  { gate = "gate-cd8", parent = "gate-cd3" },
+]
+
+# =====================================================================
+# 重放：每个 action 独立原子；expected_head 用于同版本并发冲突演示。
+# 机器可读断言在 replay 末尾的 expect 块中（由 tests/e2e.rs 复用）。
+# =====================================================================
+
+[[steps]]
+action = "import_sample"
+sample = "sample_events"
+source_id = "raw-sample-1"
+revision = 1
+expected_head = 1
+[[steps]]
+action = "import_single_stain"
+sample = "single_stain_fitc"
+source_id = "raw-ss-fitc-1"
+revision = 1
+expected_head = 2
+[[steps]]
+action = "record_spillover"
+spillover_id = "sp-main"
+revision = 1
+expected_head = 3
+expect_kind = "well_conditioned"
+[[steps]]
+action = "set_transforms"
+revision = 1
+expected_head = 5
+note = "四个通道的基线变换参数"
+[[steps]]
+action = "save_tree"
+revision = 1
+expected_head = 10
+[[steps]]
+action = "save_gate"
+gate = "gate-lymph"
+revision = 1
+expected_head = 11
+[[steps]]
+action = "save_gate"
+gate = "gate-cd3"
+revision = 1
+expected_head = 12
+[[steps]]
+action = "save_gate"
+gate = "gate-cd8"
+revision = 1
+expected_head = 13
+expect_lymph_count = 23
+expect_cd3_count = 13
+expect_cd8_count = 5
+expect_boundary_in_cd3 = true
+
+# ---- 参数修订：FITC cofactor 150 -> 250，只影响 FITC 门 ----
+
+[[steps]]
+action = "set_transform"
+channel = "FITC-A"
+revision = 2
+expected_head = 14
+expect_affected = ["gate:gate-cd3", "gate:gate-cd8"]
+expect_unaffected = ["gate:gate-lymph"]
+
+# 恢复基线参数，保证后续基线断言稳定
+
+[[steps]]
+action = "set_transform"
+channel = "FITC-A"
+revision = 3
+family = "asinh"
+cofactor = 150.0
+expected_head = 15
+
+# ---- 门嵌套改名：身份不变，仅显示名变化 ----
+
+[[steps]]
+action = "rename_gate"
+gate = "gate-cd3"
+new_name = "T cells (CD3)"
+expected_head = 16
+
+# ---- 上游门修订：CD3 rev2；CD8 标记过期且旧结论保留 ----
+
+[[steps]]
+action = "save_gate"
+gate = "gate-cd3"
+revision = 2
+expected_head = 17
+expect_cd8_status = "stale_pending_revision"
+expect_cd8_retains_old_revision = 1
+[[steps]]
+action = "save_tree"
+revision = 2
+expected_head = 20
+
+# ---- 近奇异补偿矩阵：禁止默默求逆，保留 3 个候选 ----
+
+[[steps]]
+action = "record_spillover"
+spillover_id = "sp-main"
+revision = 2
+expected_head = 22
+expect_kind = "near_singular"
+expect_candidate_ids = ["c1-ridge-1e-3", "c2-ridge-1e-2", "c3-unstable-direct"]
+
+# ---- 同版本并发修改：两个窗口基于同一 head 保存 ----
+
+[[steps]]
+action = "save_gate"
+gate = "gate-cd3"
+revision = 3
+branch = "main"
+expected_head = 21
+draft_label = "left-window"
+[[steps]]
+action = "save_gate_conflict"
+gate = "gate-cd3"
+attempted_expected_head = 21
+draft_label = "right-window"
+expect_status = 409
+note = "后提交者看到版本冲突与双方差异；冲突作为机器事件留档"
+
+# ---- 分叉：同一份材料的两种人工决定 ----
+
+[[steps]]
+action = "fork"
+from_branch = "main"
+new_branch = "review-ridge"
+display_name = "审阅：接受弱正则候选"
+fork_at_head = 22
+[[steps]]
+action = "decide_compensation"
+branch = "review-ridge"
+spillover_id = "sp-main"
+outcome = "accepted_candidate"
+candidate_id = "c1-ridge-1e-3"
+rationale = "弱正则保留结构，审阅者接受 c1"
+[[steps]]
+action = "fork"
+from_branch = "main"
+new_branch = "review-reject"
+display_name = "审阅：否定该补偿"
+fork_at_head = 22
+[[steps]]
+action = "decide_compensation"
+branch = "review-reject"
+spillover_id = "sp-main"
+outcome = "rejected"
+rationale = "近奇异矩阵不可信，要求重新采集；不覆盖主分支结论"
+
+# ---- 撤销裁定：review-ridge 恢复“未裁定/阻断”前一分支 ----
+
+[[steps]]
+action = "revert_last_decision"
+branch = "review-ridge"
+note = "撤销接受 c1，回到阻断态，多候选仍可见"
+
+# ---- 精确奇异探针分支 ----
+
+[[steps]]
+action = "fork"
+from_branch = "main"
+new_branch = "singular-probe"
+display_name = "探针：精确奇异矩阵"
+fork_at_head = 22
+[[steps]]
+action = "record_spillover"
+branch = "singular-probe"
+spillover_id = "sp-singular-probe"
+revision = 1
+expect_kind = "exact_singular"
+
+# ---- 局部源数据改动：修订单染，只影响 spillover/补偿链 ----
+
+[[steps]]
+action = "import_single_stain"
+sample = "single_stain_fitc_rev2"
+source_id = "raw-ss-fitc-2"
+revision = 2
+replaces = "raw-ss-fitc-1"
+expect_affected = ["compensation:sp-main", "populations:all-compensated"]
+expect_unaffected_gate_geometry = true
+
+# ---- 历史可回读：旧 seq 上的依赖版本与结论 ----
+
+[[steps]]
+action = "assert_history"
+at_seq = 12
+expect_branch = "main"
+expect_cd3_revision = 1
+expect_cd8_status = "fresh"
