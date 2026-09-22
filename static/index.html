@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>流式边界室 · 补偿/门控谱系复核</title>
+<style>
+  :root { --bg:#0f1420; --panel:#171e2e; --panel2:#1e2740; --line:#2c3857; --text:#e6ebf5;
+          --muted:#93a0bd; --accent:#6ea8fe; --good:#4ade80; --bad:#f87171; --warn:#fbbf24; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:13px/1.5 -apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+         background:var(--bg); color:var(--text); }
+  header { padding:10px 16px; border-bottom:1px solid var(--line); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  header h1 { font-size:15px; margin:0; }
+  header .muted { color:var(--muted); }
+  button { background:var(--panel2); color:var(--text); border:1px solid var(--line); border-radius:6px;
+           padding:4px 9px; cursor:pointer; font-size:12px; }
+  button:hover { border-color:var(--accent); }
+  button.danger { border-color:#5b2330; }
+  input,select { background:#0d1322; color:var(--text); border:1px solid var(--line); border-radius:6px; padding:4px 7px; }
+  .bar { display:flex; gap:6px; flex-wrap:wrap; padding:8px 16px; border-bottom:1px solid var(--line); background:var(--panel); }
+  .bar .group { display:flex; gap:4px; align-items:center; padding-right:10px; border-right:1px solid var(--line); }
+  .bar .group:last-child { border-right:none; }
+  .panes { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+  .pane { border-right:1px solid var(--line); min-width:0; }
+  .pane:last-child { border-right:none; }
+  .pane-head { padding:8px 12px; background:var(--panel); border-bottom:1px solid var(--line);
+              display:flex; gap:8px; align-items:center; flex-wrap:wrap; position:sticky; top:0; }
+  .pane-body { padding:10px 12px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px; margin-bottom:10px; }
+  .card h3 { margin:0 0 8px; font-size:13px; color:var(--accent); }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:2px 10px; font-size:12px; }
+  .kv .k { color:var(--muted); }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th,td { text-align:left; padding:3px 6px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; }
+  .tag { display:inline-block; padding:0 6px; border-radius:10px; font-size:11px; border:1px solid var(--line); }
+  .ok { color:var(--good); border-color:#1f5132; }
+  .stale { color:var(--warn); border-color:#7a5b13; }
+  .blocked { color:var(--bad); border-color:#5b2330; }
+  .ambiguous { color:#c084fc; border-color:#5b2a6b; }
+  .muted { color:var(--muted); }
+  canvas { background:#0c1120; border:1px solid var(--line); border-radius:6px; }
+  .ev { cursor:pointer; }
+  .ev:hover { background:var(--panel2); }
+  .toast { position:fixed; right:14px; bottom:14px; max-width:420px; background:var(--panel2);
+           border:1px solid var(--line); border-radius:8px; padding:10px 12px; white-space:pre-wrap; display:none; }
+  .toast.err { border-color:#7f1d2a; }
+  details summary { cursor:pointer; color:var(--muted); }
+  .cand { border:1px dashed var(--line); border-radius:6px; padding:6px 8px; margin-top:6px; }
+  code { color:#a5f3fc; }
+  .diff li { font-size:12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>流式边界室</h1>
+  <span class="muted">补偿矩阵 · 门控系谱 · 细胞群不确定性 — 离线复核案例包</span>
+  <span class="muted" id="caseId"></span>
+  <span style="flex:1"></span>
+  <button onclick="exportArchive()">导出归档</button>
+  <input id="importFile" type="file" accept="application/json" style="display:none" onchange="importArchive(event)" />
+  <button onclick="document.getElementById('importFile').click()">删除本地库并导入</button>
+  <button onclick="location.reload()">重新打开（验证历史）</button>
+</header>
+
+<div class="bar">
+  <div class="group">
+    <span class="muted">新草案</span>
+    <input id="newBranch" placeholder="分支名，如 draft-b" style="width:120px" />
+    <button onclick="createBranch()">从当前左分支分叉</button>
+  </div>
+  <div class="group">
+    <span class="muted">场景（作用于当前分支，带 expected_seq 乐观锁）：</span>
+  </div>
+  <div class="group">
+    <button onclick="act('action/singular-comp')">①近奇异矩阵</button>
+    <button onclick="singularDecision('reject')">①拒绝</button>
+    <button onclick="singularDecision('regularize')">①显式正则化</button>
+    <button onclick="act('action/transform')">②变换修订</button>
+  </div>
+  <div class="group">
+    <button onclick="act('action/rename')">③门改名</button>
+    <button onclick="act('action/upstream-gate')">④上游门修订</button>
+    <button onclick="act('action/recompute-downstream')">④显式重算下游</button>
+  </div>
+  <div class="group">
+    <button onclick="act('action/source-patch')">⑤局部源数据改动</button>
+    <button onclick="act('action/repin-dataset')">⑤重钉 DS-v2</button>
+  </div>
+</div>
+
+<div class="panes">
+  <div class="pane" id="paneA"></div>
+  <div class="pane" id="paneB"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
