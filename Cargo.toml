@@ -1,0 +1,15 @@
+[package]
+name = "flow_lineage"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = "0.8"
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+tokio = { version = "1", features = ["full"] }
+
+[dev-dependencies]
+http-body-util = "0.1"
+tower = { version = "0.5", features = ["util"] }
