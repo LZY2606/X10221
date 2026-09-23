@@ -1,0 +1,29 @@
+[package]
+name = "flow_vault"
+version = "0.1.0"
+edition = "2021"
+description = "Flow cytometry compensation / gating lineage review vault"
+
+[lib]
+name = "flow_vault"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flow_vault"
+path = "src/main.rs"
+
+[[example]]
+name = "gen_case"
+path = "examples/gen_case.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+sha2 = "0.10"
+hex = "0.4"
+
+[profile.test]
+opt-level = 0
