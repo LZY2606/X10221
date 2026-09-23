@@ -1,0 +1,27 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "流式边界室：补偿矩阵、门控系谱与细胞群不确定性的离线复核工具"
+
+[lib]
+name = "flowline"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flowline"
+path = "src/main.rs"
+
+[dependencies]
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["fs"] }
+rusqlite = { version = "0.40", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+anyhow = "1"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
