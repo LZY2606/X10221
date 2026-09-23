@@ -1,0 +1,18 @@
+[package]
+name = "flowlineage"
+version = "0.1.0"
+edition = "2021"
+description = "Flow cytometry compensation & gating lineage review tool (offline case pack)"
+
+[dependencies]
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+tower = { version = "0.5", features = ["util"] }
+rusqlite = { version = "0.37", features = ["bundled", "blob"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+hex = "0.4"
+
+[dev-dependencies]
+tempfile = "3"
