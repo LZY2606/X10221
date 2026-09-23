@@ -1,0 +1,24 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "Flow cytometry compensation / gating lineage review chamber"
+
+[lib]
+name = "flowline"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flowline"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+sha2 = "0.10"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
