@@ -1,0 +1,29 @@
+[package]
+name = "flow_lineage"
+version = "0.1.0"
+edition = "2021"
+description = "流式细胞术补偿/门控谱系复核工具：来源分开版本化、多候选裁定、失效传播与并发冲突"
+
+[lib]
+name = "flow_lineage"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flow-lineage"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+tower-http = { version = "0.6", features = ["fs"] }
+rusqlite = { version = "0.40", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+hex = "0.4"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.dev]
+opt-level = 0
