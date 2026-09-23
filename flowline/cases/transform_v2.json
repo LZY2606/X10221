@@ -1,0 +1,33 @@
+{
+  "schema": "flowline.transform/v1",
+  "id": "tf_v2",
+  "params": {
+    "FSC-A": {
+      "method": "linear",
+      "unit": "linear_counts"
+    },
+    "SSC-A": {
+      "method": "linear",
+      "unit": "linear_counts"
+    },
+    "FITC-A": {
+      "method": "asinh",
+      "cofactor": 300.0,
+      "unit_in": "linear_counts",
+      "coordinate": "asinh(cofactor=300,linear_counts)"
+    },
+    "PE-A": {
+      "method": "asinh",
+      "cofactor": 300.0,
+      "unit_in": "linear_counts",
+      "coordinate": "asinh(cofactor=300,linear_counts)"
+    },
+    "APC-A": {
+      "method": "asinh",
+      "cofactor": 300.0,
+      "unit_in": "linear_counts",
+      "coordinate": "asinh(cofactor=300,linear_counts)"
+    }
+  },
+  "note": "参数修订：cofactor 150→300（只改显示坐标，门点按其坐标基准重放，不静默覆盖结论）"
+}

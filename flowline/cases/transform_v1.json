@@ -1,0 +1,32 @@
+{
+  "schema": "flowline.transform/v1",
+  "id": "tf_v1",
+  "params": {
+    "FSC-A": {
+      "method": "linear",
+      "unit": "linear_counts"
+    },
+    "SSC-A": {
+      "method": "linear",
+      "unit": "linear_counts"
+    },
+    "FITC-A": {
+      "method": "asinh",
+      "cofactor": 150.0,
+      "unit_in": "linear_counts",
+      "coordinate": "asinh(cofactor=150,linear_counts)"
+    },
+    "PE-A": {
+      "method": "asinh",
+      "cofactor": 150.0,
+      "unit_in": "linear_counts",
+      "coordinate": "asinh(cofactor=150,linear_counts)"
+    },
+    "APC-A": {
+      "method": "asinh",
+      "cofactor": 150.0,
+      "unit_in": "linear_counts",
+      "coordinate": "asinh(cofactor=150,linear_counts)"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "flowline.spillover_meta/v1",
+  "id": "spill_singular_v1",
+  "units_note": "矩阵无量纲（检测器线性脉冲计数线性映射），源信号单位 linear_counts",
+  "fluorescence_channels": [
+    "FITC-A",
+    "PE-A",
+    "APC-A"
+  ],
+  "matrix": [
+    [
+      1.0,
+      1.0,
+      0.0
+    ],
+    [
+      1.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "controls": [],
+  "tolerance": {
+    "near_singular_condition": 50.0
+  },
+  "note": "完全奇异：FITC/PE 两列相同，无法唯一求逆"
+}

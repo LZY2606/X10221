@@ -1,0 +1,10 @@
+{
+  "schema": "flowline.gate_names/v1",
+  "id": "names_v2",
+  "note": "门嵌套改名：gate_id 保持稳定，仅显示名变化；不改变成员与父关系",
+  "names": {
+    "g_live": "存活细胞",
+    "g_cd3": "CD3 阳性",
+    "g_cd4": "CD4 阳性"
+  }
+}

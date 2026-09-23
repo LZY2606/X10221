@@ -1,0 +1,87 @@
+{
+  "schema": "flowline.gate_set/v1",
+  "id": "gates_v1",
+  "polygons": [
+    {
+      "gate_id": "g_live",
+      "name": "Live",
+      "parent": null,
+      "x": "FSC-A",
+      "y": "SSC-A",
+      "coordinate_basis": "linear_counts",
+      "vertices": [
+        [
+          60000,
+          30000
+        ],
+        [
+          190000,
+          30000
+        ],
+        [
+          190000,
+          140000
+        ],
+        [
+          60000,
+          140000
+        ]
+      ],
+      "boundary_convention": "inclusive"
+    },
+    {
+      "gate_id": "g_cd3",
+      "name": "CD3+",
+      "parent": "g_live",
+      "x": "FITC-A",
+      "y": "SSC-A",
+      "coordinate_basis": "asinh(cofactor=150,linear_counts)",
+      "vertices": [
+        [
+          6.502292420866379,
+          4.5
+        ],
+        [
+          6.9722946790248,
+          4.5
+        ],
+        [
+          6.9722946790248,
+          7.2
+        ],
+        [
+          6.502292420866379,
+          7.2
+        ]
+      ],
+      "boundary_convention": "inclusive"
+    },
+    {
+      "gate_id": "g_cd4",
+      "name": "CD4+",
+      "parent": "g_cd3",
+      "x": "FITC-A",
+      "y": "APC-A",
+      "coordinate_basis": "asinh(cofactor=150,linear_counts)",
+      "vertices": [
+        [
+          3.0,
+          6.279150135166224
+        ],
+        [
+          6.0,
+          6.684613290164266
+        ],
+        [
+          6.0,
+          7.090077530219813
+        ],
+        [
+          3.0,
+          7.090077530219813
+        ]
+      ],
+      "boundary_convention": "inclusive"
+    }
+  ]
+}

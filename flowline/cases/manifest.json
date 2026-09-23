@@ -1,0 +1,42 @@
+{
+  "schema": "flowline.case_manifest/v1",
+  "id": "flow_boundary_chamber_v1",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": [
+    "导入 FCS 事件、单染对照与门控草案；六类来源分开版本化并逐项复核",
+    "尝试完全奇异补偿矩阵：拒绝静默求逆，记录被否定结果",
+    "尝试近奇异补偿矩阵：保留全部合法候选，人工裁定其一",
+    "以良态矩阵补偿：检查极端/饱和事件、边界点与补偿后负值（保留诊断）",
+    "修订变换参数（cofactor 150→300）：结论按门点坐标基准重放，不覆盖历史",
+    "局部改动 g_cd3 多边形：仅 g_cd3 子树结果标记过期，g_live 不受影响",
+    "门嵌套改名：ID/父子关系与成员稳定，仅名称版本更新",
+    "草案 A/B 同版本并发保存：后提交者得到版本冲突与双方差异",
+    "导出→删除本地库→重新导入：身份、顺序与来源链保持；时间旅行可回到旧事件"
+  ],
+  "materials": {
+    "sample_fcs": "fcs/sample.fcs",
+    "ctrl_fitc_fcs": "fcs/ctrl_fitc.fcs",
+    "ctrl_pe_fcs": "fcs/ctrl_pe.fcs",
+    "spillover_good": "spillover_good.json",
+    "spillover_singular": "spillover_singular.json",
+    "spillover_nearsing": "spillover_nearsing.json",
+    "transform_v1": "transform_v1.json",
+    "transform_v2": "transform_v2.json",
+    "gates_v1": "gates_v1.json",
+    "gates_v2": "gates_v2.json",
+    "names_v2": "names_v2.json"
+  },
+  "expected": {
+    "n_events": 24,
+    "live_inclusive": 18,
+    "live_exclusive": 17,
+    "cd3_v1_inclusive": 9,
+    "cd3_v2_inclusive_min": 5,
+    "cd3_v2_inclusive_max": 8,
+    "singular_matrix": "rejected_non_invertible",
+    "near_singular_min_candidates": 2,
+    "extreme_event_index": 10,
+    "boundary_event_index": 1,
+    "negative_after_comp_event_index": 23
+  }
+}
