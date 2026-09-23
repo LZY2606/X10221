@@ -1,0 +1,17 @@
+[package]
+name = "flow-lineage"
+version = "0.1.0"
+edition = "2021"
+description = "流式细胞术补偿 / 门控谱系复核工具（事件溯源、分支裁定、离线边界案例包）"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync"] }
+tower = "0.5"
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[[bin]]
+name = "flow-lineage"
+path = "src/main.rs"
