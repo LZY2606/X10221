@@ -1,0 +1,16 @@
+[package]
+name = "flow_lineage"
+version = "0.1.0"
+edition = "2021"
+description = "流式边界室：补偿矩阵、门控系谱与细胞群不确定性复核工具"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.31", features = ["bundled"] }
+uuid = { version = "1", features = ["v4"] }
+
+[dev-dependencies]
+tower = { version = "0.4", features = ["util"] }
