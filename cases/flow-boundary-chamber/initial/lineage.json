@@ -1,0 +1,14 @@
+{
+  "artifact_id": "art_lineage",
+  "version": "v1",
+  "edges": [
+    {
+      "child_gate": "gate_cd3",
+      "parent_gate": "gate_lymph"
+    },
+    {
+      "child_gate": "gate_cd4",
+      "parent_gate": "gate_cd3"
+    }
+  ]
+}

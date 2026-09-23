@@ -1,0 +1,19 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "steps": [
+    {"op": "baseline", "expect": "six artifacts separately versioned; boundary/extreme diagnostics present"},
+    {"op": "revise_transform", "change": "cofactor 150 -> 300 (asinh)", "expect": "only transformed layer stale"},
+    {"op": "submit_near_singular_matrix", "det": 8.04e-05,
+      "expect": "no silent inverse; reject/ridge/drop-channel candidates retained; fluorescent derived layer blocked pending decision"},
+    {"op": "boundary_and_extremes", "expect": "vertex/edge membership deterministic; saturated/negative/zero flagged but never dropped"},
+    {"op": "rename_nested_gate", "change": "gate_cd3 CD3+ -> CD3 Positive",
+      "expect": "lineage identity stable; no membership staleness; old name reachable in history"},
+    {"op": "revise_upstream_gate", "change": "shrink gate_lymph polygon",
+      "expect": "cd3/cd4 marked stale with pinned parent denom version, old conclusions retained"},
+    {"op": "patch_local_source", "change": "one event FITC raw value edited",
+      "expect": "lymph stays fresh; compensation + cd3/cd4 recomputed; invalidation is local"},
+    {"op": "branch_decisions", "expect": "draft-a accepts ridge candidate; draft-b rejects; both histories readable"},
+    {"op": "concurrent_save", "expect": "second same-head committer gets 409 with both-side diff"}
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "artifact_id": "art_transform",
+  "version": "v1",
+  "transforms": [
+    {
+      "channel_id": "ch_fitc",
+      "family": "asinh",
+      "cofactor": 150.0,
+      "cofactor_unit": "a.u.",
+      "output_unit": "asinh(a.u.)"
+    },
+    {
+      "channel_id": "ch_pe",
+      "family": "asinh",
+      "cofactor": 150.0,
+      "cofactor_unit": "a.u.",
+      "output_unit": "asinh(a.u.)"
+    },
+    {
+      "channel_id": "ch_apc",
+      "family": "asinh",
+      "cofactor": 150.0,
+      "cofactor_unit": "a.u.",
+      "output_unit": "asinh(a.u.)"
+    }
+  ],
+  "linear_channels": [
+    {
+      "channel_id": "ch_fsc",
+      "unit": "a.u."
+    },
+    {
+      "channel_id": "ch_ssc",
+      "unit": "a.u."
+    },
+    {
+      "channel_id": "ch_time",
+      "unit": "ms"
+    }
+  ]
+}

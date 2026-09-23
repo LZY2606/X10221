@@ -1,0 +1,27 @@
+{
+  "artifact_id": "art_spill",
+  "version": "v1",
+  "channels": [
+    "ch_fitc",
+    "ch_pe",
+    "ch_apc"
+  ],
+  "unit_basis": "dimensionless fraction of detector signal",
+  "rows": [
+    [
+      1.0,
+      0.12,
+      0.0
+    ],
+    [
+      0.08,
+      1.0,
+      0.04
+    ],
+    [
+      0.0,
+      0.06,
+      1.0
+    ]
+  ]
+}

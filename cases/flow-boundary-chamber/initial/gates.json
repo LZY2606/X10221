@@ -1,0 +1,79 @@
+{
+  "artifact_id": "art_gates",
+  "version": "v1",
+  "coord_basis": "raw linear detector units [a.u.]",
+  "gates": [
+    {
+      "gate_id": "gate_lymph",
+      "name": "Lymphocytes",
+      "x_channel": "ch_fsc",
+      "y_channel": "ch_ssc",
+      "polygon": [
+        [
+          200,
+          140
+        ],
+        [
+          340,
+          140
+        ],
+        [
+          340,
+          280
+        ],
+        [
+          200,
+          280
+        ]
+      ]
+    },
+    {
+      "gate_id": "gate_cd3",
+      "name": "CD3+",
+      "x_channel": "ch_fitc",
+      "y_channel": "ch_ssc",
+      "polygon": [
+        [
+          2000,
+          140
+        ],
+        [
+          22000,
+          140
+        ],
+        [
+          22000,
+          280
+        ],
+        [
+          2000,
+          280
+        ]
+      ]
+    },
+    {
+      "gate_id": "gate_cd4",
+      "name": "CD4-like",
+      "x_channel": "ch_fitc",
+      "y_channel": "ch_pe",
+      "polygon": [
+        [
+          8000,
+          5000
+        ],
+        [
+          20000,
+          5000
+        ],
+        [
+          20000,
+          20000
+        ],
+        [
+          8000,
+          20000
+        ]
+      ]
+    }
+  ]
+}

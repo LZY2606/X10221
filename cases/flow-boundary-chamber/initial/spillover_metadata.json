@@ -1,0 +1,33 @@
+{
+  "artifact_id": "art_spill_meta",
+  "version": "v1",
+  "acquisition": {
+    "date": "2026-09-24",
+    "operator": "flow-core",
+    "unit_basis": "a.u. detector voltage scale"
+  },
+  "controls": [
+    {
+      "control_id": "ctl_fitc",
+      "file": "cd3_fitc_control.fcs",
+      "channel_id": "ch_fitc",
+      "fluorochrome": "FITC",
+      "voltage_v": 350
+    },
+    {
+      "control_id": "ctl_pe",
+      "file": "pe_control.fcs",
+      "channel_id": "ch_pe",
+      "fluorochrome": "PE",
+      "voltage_v": 380
+    },
+    {
+      "control_id": "ctl_apc",
+      "file": "apc_control.fcs",
+      "channel_id": "ch_apc",
+      "fluorochrome": "APC",
+      "voltage_v": 420
+    }
+  ],
+  "spillover_matrix_ref": "art_spill/v1"
+}
