@@ -1,0 +1,26 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "流式细胞术补偿 / 门控谱系离线复核工具（事件溯源、多候选、失效范围）"
+
+[lib]
+name = "flowline"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flowline"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["bundled"] }
+sha2 = "0.10"
+anyhow = "1"
+
+[dev-dependencies]
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+tempfile = "3"
