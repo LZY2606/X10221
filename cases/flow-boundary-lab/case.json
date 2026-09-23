@@ -1,0 +1,352 @@
+{
+  "artifacts": {
+    "compensation": [
+      {
+        "basis": "spillover:panel:v1 的人工确认逆",
+        "detectors": [
+          "FITC-A",
+          "PE-A"
+        ],
+        "id_hint": "comp:panel:v1",
+        "matrix": [
+          [
+            1.0,
+            -0.05
+          ],
+          [
+            -0.12,
+            1.006
+          ]
+        ],
+        "unit": "fraction(linear)"
+      },
+      {
+        "basis": "故意近奇异：近重复行，cond2≈1e7",
+        "detectors": [
+          "FITC-A",
+          "PE-A"
+        ],
+        "id_hint": "comp:panel:v2",
+        "matrix": [
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0000001
+          ]
+        ],
+        "scenario": "near-singular",
+        "unit": "fraction(linear)"
+      },
+      {
+        "basis": "故意严格奇异：完全重复行",
+        "detectors": [
+          "FITC-A",
+          "PE-A"
+        ],
+        "id_hint": "comp:panel:v3",
+        "matrix": [
+          [
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "scenario": "strict-singular",
+        "unit": "fraction(linear)"
+      }
+    ],
+    "events": [
+      {
+        "id_hint": "events:panel:v1",
+        "note": "导入即原始表示；饱和事件保留哨兵，不做不可逆清洗",
+        "source": "sample.fcs"
+      }
+    ],
+    "gate_link": [
+      {
+        "child": "lymph",
+        "display_name": "Lymphocytes",
+        "id_hint": "gate-link:lymph:v1",
+        "parent": "root:all-events:v1"
+      },
+      {
+        "child": "cd3",
+        "display_name": "CD3+",
+        "id_hint": "gate-link:cd3:v1",
+        "parent": "gate-poly:lymph:v1"
+      },
+      {
+        "child": "cd3",
+        "display_name": "T cells (renamed)",
+        "id_hint": "gate-link:cd3:v2",
+        "parent": "gate-poly:lymph:v1",
+        "scenario": "nested-rename"
+      }
+    ],
+    "gate_polygon": [
+      {
+        "boundary_policy": "inside",
+        "coordinate_basis": "linear",
+        "id_hint": "gate-poly:lymph:v1",
+        "name": "lymph",
+        "note": "矩形淋巴样群；事件#7 FSC 饱和被排除但保留",
+        "vertices": [
+          [
+            80.0,
+            70.0
+          ],
+          [
+            160.0,
+            70.0
+          ],
+          [
+            160.0,
+            140.0
+          ],
+          [
+            80.0,
+            140.0
+          ]
+        ],
+        "x_detector": "FSC-A",
+        "y_detector": "SSC-A"
+      },
+      {
+        "boundary_policy": "inside",
+        "coordinate_basis": "linear",
+        "id_hint": "gate-poly:lymph:v2",
+        "name": "lymph",
+        "scenario": "upstream-revision",
+        "vertices": [
+          [
+            80.0,
+            70.0
+          ],
+          [
+            220.0,
+            70.0
+          ],
+          [
+            220.0,
+            200.0
+          ],
+          [
+            80.0,
+            200.0
+          ]
+        ],
+        "x_detector": "FSC-A",
+        "y_detector": "SSC-A"
+      },
+      {
+        "boundary_policy": "candidate",
+        "coordinate_basis": "asinh:cofactor=150",
+        "id_hint": "gate-poly:cd3:v1",
+        "name": "cd3",
+        "note": "边界点策略 candidate：#2/#9 等落在 x=0.8 边附近，保留全部合法候选",
+        "vertices": [
+          [
+            0.8,
+            0.0
+          ],
+          [
+            3.0,
+            0.0
+          ],
+          [
+            3.0,
+            3.0
+          ],
+          [
+            0.8,
+            3.0
+          ]
+        ],
+        "x_detector": "FITC-A",
+        "y_detector": "PE-A"
+      }
+    ],
+    "spillover": [
+      {
+        "detectors": [
+          "FITC-A",
+          "PE-A"
+        ],
+        "id_hint": "spillover:panel:v1",
+        "matrix": [
+          [
+            1.0,
+            0.05
+          ],
+          [
+            0.12,
+            1.0
+          ]
+        ],
+        "source_keyword": "$SPILLOVER",
+        "unit": "fraction(linear)"
+      }
+    ],
+    "transform": [
+      {
+        "id_hint": "transform:panel:v1",
+        "params": [
+          {
+            "cofactor": 150.0,
+            "coordinate_basis": "asinh:cofactor=150",
+            "detector": "FITC-A",
+            "method": "asinh"
+          },
+          {
+            "cofactor": 150.0,
+            "coordinate_basis": "asinh:cofactor=150",
+            "detector": "PE-A",
+            "method": "asinh"
+          },
+          {
+            "cofactor": 1.0,
+            "coordinate_basis": "linear",
+            "detector": "FSC-A",
+            "method": "linear"
+          },
+          {
+            "cofactor": 1.0,
+            "coordinate_basis": "linear",
+            "detector": "SSC-A",
+            "method": "linear"
+          }
+        ]
+      },
+      {
+        "id_hint": "transform:panel:v2",
+        "params": [
+          {
+            "cofactor": 300.0,
+            "coordinate_basis": "asinh:cofactor=300",
+            "detector": "FITC-A",
+            "method": "asinh"
+          },
+          {
+            "cofactor": 300.0,
+            "coordinate_basis": "asinh:cofactor=300",
+            "detector": "PE-A",
+            "method": "asinh"
+          },
+          {
+            "cofactor": 1.0,
+            "coordinate_basis": "linear",
+            "detector": "FSC-A",
+            "method": "linear"
+          },
+          {
+            "cofactor": 1.0,
+            "coordinate_basis": "linear",
+            "detector": "SSC-A",
+            "method": "linear"
+          }
+        ],
+        "scenario": "param-revision"
+      }
+    ]
+  },
+  "case_id": "flow-boundary-lab-v1",
+  "coordinate_conventions": {
+    "compensation": "线性空间左乘补偿矩阵 C，单位 fraction(linear)",
+    "raw": "FCS 线性 channel 整数，$PnR=1024，饱和值=1023 哨兵，单位 channel",
+    "transformed": "asinh(value/cofactor)，cofactor=150，坐标基标注在 transform 制品"
+  },
+  "domain": "flow-cytometry",
+  "fcs_source": "sample.fcs",
+  "replay_order": [
+    "S0-import",
+    "S9-revision",
+    "S3-extreme",
+    "S1-singular",
+    "S2-near-singular",
+    "S4-boundary",
+    "S5-rename",
+    "S6-stale",
+    "S7-concurrent",
+    "S8-conflict-decision"
+  ],
+  "scenarios": [
+    {
+      "code": "S0-import",
+      "expect": "events/spillover/comp/transform/gate-poly/gate-link 各有独立 stable id",
+      "title": "初始导入：六类来源分开版本化"
+    },
+    {
+      "code": "S1-singular",
+      "expect": "拒绝输出补偿值，无候选，规则 NEAR-SINGULAR-NO-INV",
+      "expect_status": "error",
+      "title": "严格奇异补偿矩阵"
+    },
+    {
+      "code": "S2-near-singular",
+      "expect": "cond2>1e6；保留 reject/pseudoinverse 全部合法候选等待裁定",
+      "expect_candidates": [
+        "reject",
+        "pseudoinverse"
+      ],
+      "expect_status": "blocked",
+      "title": "近奇异补偿矩阵不能默默求逆"
+    },
+    {
+      "code": "S3-extreme",
+      "expect": "事件#7 FSC=1023 为哨兵保留原位置；事件#6 极端双高可补偿并诊断",
+      "title": "极端信号与饱和哨兵"
+    },
+    {
+      "code": "S4-boundary",
+      "expect": "CD3 门 boundary 事件列出，两个合法候选都保留",
+      "expect_candidates": [
+        "boundary-inside",
+        "boundary-outside"
+      ],
+      "expect_status": "blocked",
+      "title": "边界点与多候选"
+    },
+    {
+      "code": "S5-rename",
+      "expect": "gate-link:cd3 v1->v2 仅显示名变化；gate-poly:cd3:v1 身份与结果不变",
+      "title": "门嵌套改名不改几何"
+    },
+    {
+      "code": "S6-stale",
+      "expect": "lymph v2 提交后旧 cd3 结果 status=stale 且 stale_reason 非空，旧内容不覆盖",
+      "title": "上游修订导致下游过期"
+    },
+    {
+      "code": "S7-concurrent",
+      "expect": "第二次以 base_version 旧值提交 comp 返回 VERSION_CONFLICT 并给双方差异",
+      "title": "同版本并发修改"
+    },
+    {
+      "code": "S8-conflict-decision",
+      "expect": "draft-a 采纳 pseudoinverse 与 draft-b 采纳 reject 各自保留为不同分支",
+      "title": "互相冲突的人工决定"
+    },
+    {
+      "code": "S9-revision",
+      "expect": "transform v2(cofactor=300) 仅使依赖变换坐标的 cd3 失效；FSC/SSC 线性门不受影响",
+      "title": "参数修订只影响局部依赖"
+    }
+  ],
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "units": {
+    "FITC-A": "channel(linear)",
+    "FSC-A": "channel",
+    "PE-A": "channel(linear)",
+    "SSC-A": "channel",
+    "compensation": "fraction(linear)",
+    "percent": "% of pinned parent version",
+    "spillover": "fraction(linear)",
+    "transformed": "asinh:cofactor=150"
+  }
+}
