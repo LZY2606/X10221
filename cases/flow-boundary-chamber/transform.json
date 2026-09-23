@@ -1,0 +1,9 @@
+{
+  "material_id": "trn-baseline",
+  "version": "trn-v1",
+  "family": "asinh",
+  "cofactor": 150,
+  "cofactor_unit": "compensated fluorescence count",
+  "input_basis": "compensated fluorescence count",
+  "output_basis": "dimensionless asinh(value / cofactor) gate coordinate"
+}

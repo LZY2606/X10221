@@ -1,0 +1,13 @@
+{
+  "material_id": "spo-baseline",
+  "version": "spo-v1",
+  "detector_channels": ["FITC-A", "PE-A"],
+  "single_stain_controls": [
+    { "control_id": "sst-fitc", "stained_channel": "FITC-A", "spillover_targets": { "FITC-A": 1.0, "PE-A": 0.02 }, "basis": "FITC single-stained compensation control" },
+    { "control_id": "sst-pe", "stained_channel": "PE-A", "spillover_targets": { "FITC-A": 0.10, "PE-A": 1.0 }, "basis": "PE single-stained compensation control" }
+  ],
+  "metadata": {
+    "matrix_convention": "rows are detector channels, columns are true fluorophore channels",
+    "acquisition_scale": "linear raw fluorescence counts"
+  }
+}

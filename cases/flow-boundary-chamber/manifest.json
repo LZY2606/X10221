@@ -1,0 +1,14 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "coordinate_system": "raw FSC/SSC use linear instrument units; fluorescence gates use asinh(compensated / cofactor) dimensionless transformed coordinates",
+  "files": [
+    { "file_id": "f-events", "path": "events.fcs.json", "material_kind": "raw_channel_values", "version": "evt-v1", "media_type": "application/x-fcs-events+json" },
+    { "file_id": "f-spillover", "path": "spillover.json", "material_kind": "spillover_metadata", "version": "spo-v1", "media_type": "application/json" },
+    { "file_id": "f-comp-matrix", "path": "compensation_matrix.json", "material_kind": "compensation_matrix", "version": "mat-v1", "media_type": "application/json" },
+    { "file_id": "f-near-singular-matrix", "path": "near_singular_matrix.json", "material_kind": "compensation_matrix", "version": "mat-v2-near-singular", "media_type": "application/json" },
+    { "file_id": "f-transform", "path": "transform.json", "material_kind": "transform_parameters", "version": "trn-v1", "media_type": "application/json" },
+    { "file_id": "f-gates", "path": "gates.json", "material_kind": "gate_polygon", "version": "gate-v1", "media_type": "application/json" },
+    { "file_id": "f-lineage", "path": "lineage.json", "material_kind": "parent_child_relation", "version": "lin-v1", "media_type": "application/json" }
+  ]
+}

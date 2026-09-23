@@ -1,0 +1,11 @@
+{
+  "material_id": "lin-baseline",
+  "version": "lin-v1",
+  "edges": [
+    { "edge_id": "edge-root-singlets", "parent_gate": "g-root", "child_gate": "g-singlets", "order": 1 },
+    { "edge_id": "edge-singlets-lymph", "parent_gate": "g-singlets", "child_gate": "g-lymph", "order": 1 },
+    { "edge_id": "edge-lymph-cd3", "parent_gate": "g-lymph", "child_gate": "g-cd3", "order": 1 },
+    { "edge_id": "edge-cd3-cd4", "parent_gate": "g-cd3", "child_gate": "g-cd4", "order": 1 },
+    { "edge_id": "edge-cd3-cd8", "parent_gate": "g-cd3", "child_gate": "g-cd8", "order": 2 }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "material_id": "gate-baseline",
+  "version": "gate-v1",
+  "transform_version": "trn-v1",
+  "gates": [
+    { "gate_id": "g-root", "name": "All events", "kind": "root", "channels": ["FSC-A", "SSC-A"], "coordinate_basis": "raw linear instrument units", "polygon": [[0, 0], [300000, 0], [300000, 300000], [0, 300000]] },
+    { "gate_id": "g-singlets", "name": "Singlets", "kind": "rectangle", "channels": ["FSC-A", "SSC-A"], "coordinate_basis": "raw linear instrument units", "polygon": [[40000, 5000], [60000, 5000], [60000, 40000], [40000, 40000]] },
+    { "gate_id": "g-lymph", "name": "Lymphocytes", "kind": "rectangle", "channels": ["FSC-A", "SSC-A"], "coordinate_basis": "raw linear instrument units", "polygon": [[48000, 8000], [56000, 8000], [56000, 18000], [48000, 18000]] },
+    { "gate_id": "g-cd3", "name": "CD3+", "kind": "polygon", "channels": ["FITC-A", "PE-A"], "coordinate_basis": "asinh(compensated / 150), dimensionless", "polygon": [[2.5, 3.0], [9.0, 3.0], [9.0, 8.5], [1.8, 8.5], [1.8, 4.0]] },
+    { "gate_id": "g-cd4", "name": "CD4+", "kind": "polygon", "channels": ["FITC-A", "PE-A"], "coordinate_basis": "asinh(compensated / 150), dimensionless", "polygon": [[3.05, 1.5], [8.5, 1.5], [8.5, 3.10], [2.956, 3.039], [3.00, 2.50]] },
+    { "gate_id": "g-cd8", "name": "CD8+", "kind": "polygon", "channels": ["FITC-A", "PE-A"], "coordinate_basis": "asinh(compensated / 150), dimensionless", "polygon": [[1.5, 3.10], [2.956, 3.039], [2.50, 4.30], [1.5, 4.30]] }
+  ]
+}

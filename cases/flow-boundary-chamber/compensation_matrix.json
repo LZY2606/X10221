@@ -1,0 +1,14 @@
+{
+  "material_id": "mat-baseline",
+  "version": "mat-v1",
+  "status": "candidate",
+  "channels": ["FITC-A", "PE-A"],
+  "cells": [
+    { "row": "FITC-A", "column": "FITC-A", "value": 1.0, "unit": "dimensionless" },
+    { "row": "FITC-A", "column": "PE-A", "value": 0.10, "unit": "dimensionless" },
+    { "row": "PE-A", "column": "FITC-A", "value": 0.02, "unit": "dimensionless" },
+    { "row": "PE-A", "column": "PE-A", "value": 1.0, "unit": "dimensionless" }
+  ],
+  "source_spillover_version": "spo-v1",
+  "coordinate_basis": "raw fluorescence counts"
+}

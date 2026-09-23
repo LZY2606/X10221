@@ -1,0 +1,14 @@
+{
+  "material_id": "evt-baseline",
+  "version": "evt-v1",
+  "representation": "raw acquisition values exactly as interpreted from the offline FCS-like event stream; no normalization, clipping, or dropping is performed at import",
+  "events": [
+    { "event_id": "E001", "order": 1, "channels": { "FSC-A": { "value": 51000, "unit": "linear instrument unit" }, "SSC-A": { "value": 12000, "unit": "linear instrument unit" }, "FITC-A": { "value": 800, "unit": "raw fluorescence count" }, "PE-A": { "value": 700, "unit": "raw fluorescence count" } } },
+    { "event_id": "E002", "order": 2, "channels": { "FSC-A": { "value": 53000, "unit": "linear instrument unit" }, "SSC-A": { "value": 13000, "unit": "linear instrument unit" }, "FITC-A": { "value": 2600, "unit": "raw fluorescence count" }, "PE-A": { "value": 900, "unit": "raw fluorescence count" } } },
+    { "event_id": "E003", "order": 3, "channels": { "FSC-A": { "value": 52000, "unit": "linear instrument unit" }, "SSC-A": { "value": 14000, "unit": "linear instrument unit" }, "FITC-A": { "value": 900, "unit": "raw fluorescence count" }, "PE-A": { "value": 2800, "unit": "raw fluorescence count" } } },
+    { "event_id": "E004", "order": 4, "channels": { "FSC-A": { "value": 48000, "unit": "linear instrument unit" }, "SSC-A": { "value": 15000, "unit": "linear instrument unit" }, "FITC-A": { "value": 2300, "unit": "raw fluorescence count" }, "PE-A": { "value": 1000, "unit": "raw fluorescence count" } }, "diagnostics": ["placed exactly on FSC minimum edge of the lymphocyte rectangle"] },
+    { "event_id": "E005", "order": 5, "channels": { "FSC-A": { "value": 50500, "unit": "linear instrument unit" }, "SSC-A": { "value": 13500, "unit": "linear instrument unit" }, "FITC-A": { "value": 1600, "unit": "raw fluorescence count" }, "PE-A": { "value": 1600, "unit": "raw fluorescence count" } }, "diagnostics": ["placed on the shared CD4/CD8 polygon edge"] },
+    { "event_id": "E006", "order": 6, "channels": { "FSC-A": { "value": 52500, "unit": "linear instrument unit" }, "SSC-A": { "value": 12500, "unit": "linear instrument unit" }, "FITC-A": { "value": 262144, "unit": "raw fluorescence count" }, "PE-A": { "value": 120000, "unit": "raw fluorescence count" } }, "diagnostics": ["FITC equals ADC saturation 262144", "PE is above the ordinary linear range"] },
+    { "event_id": "E007", "order": 7, "channels": { "FSC-A": { "value": 42000, "unit": "linear instrument unit" }, "SSC-A": { "value": 35000, "unit": "linear instrument unit" }, "FITC-A": { "value": 700, "unit": "raw fluorescence count" }, "PE-A": { "value": 500, "unit": "raw fluorescence count" } } }
+  ]
+}
