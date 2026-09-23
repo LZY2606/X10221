@@ -1,0 +1,17 @@
+{
+  "doc": "spillover_metadata",
+  "doc_version": 1,
+  "captured_from": "single-stain controls v1",
+  "channels": ["FITC-A", "PE-A", "APC-A"],
+  "entries": [
+    {"row_channel": "FITC-A", "stain": "FITC", "contributing_fluorophore": "FITC", "spillover": 1.0,   "unit": "fraction of detector signal"},
+    {"row_channel": "PE-A",   "stain": "FITC", "contributing_fluorophore": "FITC", "spillover": 0.12,  "unit": "fraction of detector signal"},
+    {"row_channel": "APC-A",  "stain": "FITC", "contributing_fluorophore": "FITC", "spillover": 0.01,  "unit": "fraction of detector signal"},
+    {"row_channel": "FITC-A", "stain": "PE",   "contributing_fluorophore": "PE",   "spillover": 0.08,  "unit": "fraction of detector signal"},
+    {"row_channel": "PE-A",   "stain": "PE",   "contributing_fluorophore": "PE",   "spillover": 1.0,   "unit": "fraction of detector signal"},
+    {"row_channel": "APC-A",  "stain": "PE",   "contributing_fluorophore": "PE",   "spillover": 0.02,  "unit": "fraction of detector signal"},
+    {"row_channel": "FITC-A", "stain": "APC",  "contributing_fluorophore": "APC",  "spillover": 0.005, "unit": "fraction of detector signal"},
+    {"row_channel": "PE-A",   "stain": "APC",  "contributing_fluorophore": "APC",  "spillover": 0.01,  "unit": "fraction of detector signal"},
+    {"row_channel": "APC-A",  "stain": "APC",  "contributing_fluorophore": "APC",  "spillover": 1.0,   "unit": "fraction of detector signal"}
+  ]
+}

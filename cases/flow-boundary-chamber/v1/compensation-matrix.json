@@ -1,0 +1,13 @@
+{
+  "doc": "compensation_matrix",
+  "doc_version": 1,
+  "derived_from_spillover": {"doc": "spillover_metadata", "doc_version": 1},
+  "channels": ["FITC-A", "PE-A", "APC-A"],
+  "matrix": [
+    [1.0,  0.08, 0.005],
+    [0.12, 1.0,  0.01],
+    [0.01, 0.02, 1.0]
+  ],
+  "unit": "spillover coefficient (dimensionless); compensated = solve(M, raw)",
+  "inversion_policy": {"near_singular_rcond_threshold": 1e-6, "silent_inverse": false}
+}

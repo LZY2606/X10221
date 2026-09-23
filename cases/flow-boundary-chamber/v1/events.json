@@ -1,0 +1,26 @@
+{
+  "case": "flow-boundary-chamber",
+  "version": 1,
+  "coordinate_basis": {
+    "FSC-A": {"unit": "ADC counts", "scale": "linear", "role": "forward scatter, uncompensated"},
+    "SSC-A": {"unit": "ADC counts", "scale": "linear", "role": "side scatter, uncompensated"},
+    "FITC-A": {"unit": "ADC counts", "scale": "linear", "role": "FITC detector raw signal, pre-compensation"},
+    "PE-A": {"unit": "ADC counts", "scale": "linear", "role": "PE detector raw signal, pre-compensation"},
+    "APC-A": {"unit": "ADC counts", "scale": "linear", "role": "APC detector raw signal, pre-compensation"}
+  },
+  "range": 262144,
+  "events": [
+    {"id": "E01", "label": "CD4-like FITC-high", "FSC-A": 52000, "SSC-A": 22000, "FITC-A": 8200, "PE-A": 900,  "APC-A": 600},
+    {"id": "E02", "label": "CD8-like PE-high",  "FSC-A": 48000, "SSC-A": 20000, "FITC-A": 700,  "PE-A": 7800, "APC-A": 500},
+    {"id": "E03", "label": "double-positive",   "FSC-A": 55000, "SSC-A": 24000, "FITC-A": 7600, "PE-A": 7100, "APC-A": 700},
+    {"id": "E04", "label": "double-negative",   "FSC-A": 50000, "SSC-A": 19000, "FITC-A": 650,  "PE-A": 700,  "APC-A": 550},
+    {"id": "E05", "label": "APC-high other",    "FSC-A": 51000, "SSC-A": 21000, "FITC-A": 800,  "PE-A": 600,  "APC-A": 4500},
+    {"id": "E06", "label": "dim lymphocyte",    "FSC-A": 53000, "SSC-A": 23000, "FITC-A": 400,  "PE-A": 350,  "APC-A": 400},
+    {"id": "E07", "label": "FITC extreme",      "FSC-A": 49000, "SSC-A": 18000, "FITC-A": 120000, "PE-A": 800, "APC-A": 700},
+    {"id": "E08", "label": "PE overflow",       "FSC-A": 47000, "SSC-A": 17000, "FITC-A": 500,  "PE-A": "Infinity", "APC-A": 600},
+    {"id": "E09", "label": "P1 edge boundary",  "FSC-A": 52000, "SSC-A": 10000, "FITC-A": 6900, "PE-A": 600,  "APC-A": 500},
+    {"id": "E10", "label": "debris",            "FSC-A": 8000,  "SSC-A": 2000,  "FITC-A": 100,  "PE-A": 100,  "APC-A": 100},
+    {"id": "E11", "label": "FITC unconvertible","FSC-A": 50500, "SSC-A": 20500, "FITC-A": "NaN","PE-A": 500,  "APC-A": 400},
+    {"id": "E12", "label": "PE unconvertible",  "FSC-A": 46000, "SSC-A": 16000, "FITC-A": 300,  "PE-A": "NA", "APC-A": 200}
+  ]
+}

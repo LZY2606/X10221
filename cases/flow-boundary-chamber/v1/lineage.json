@@ -1,0 +1,42 @@
+{
+  "doc": "gates_and_lineage",
+  "doc_version": 1,
+  "gates": [
+    {
+      "id": "G00",
+      "name": "All Events",
+      "kind": "root",
+      "parent": null,
+      "input_space": {"x": "FSC-A", "y": "SSC-A", "basis": "raw linear ADC counts"},
+      "polygon": null
+    },
+    {
+      "id": "G01",
+      "name": "Lymphocytes",
+      "kind": "polygon",
+      "parent": "G00",
+      "input_space": {"x": "FSC-A", "y": "SSC-A", "basis": "raw linear ADC counts"},
+      "polygon": [
+        [40000, 10000],
+        [60000, 10000],
+        [60000, 30000],
+        [40000, 30000]
+      ],
+      "boundary_rule": "on-edge counts as inside"
+    },
+    {
+      "id": "G02",
+      "name": "FITC positive",
+      "kind": "polygon",
+      "parent": "G01",
+      "input_space": {"x": "FITC-A(compensated,asinh,cofactor=150)", "y": "APC-A(compensated,asinh,cofactor=150)", "basis": "compensated asinh units"},
+      "polygon": [
+        [3.5, -1.0],
+        [8.0, -1.0],
+        [8.0, 4.5],
+        [3.5, 4.5]
+      ],
+      "boundary_rule": "on-edge counts as inside"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "doc": "transform_params",
+  "doc_version": 1,
+  "applies_to": ["FITC-A", "PE-A", "APC-A"],
+  "method": "asinh",
+  "params": {"cofactor": 150.0},
+  "formula": "y = asinh(x / cofactor)",
+  "input_unit": "compensated ADC counts",
+  "output_unit": "dimensionless asinh units"
+}
