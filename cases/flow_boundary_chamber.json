@@ -1,0 +1,734 @@
+{
+  "case_format": 1,
+  "title": "Flow boundary chamber: compensation matrix, gating lineage and population uncertainty",
+  "package": {
+    "package_id": "pkg-flow-boundary-1",
+    "label": "Flow boundary chamber baseline",
+    "coordinate_convention": "FSC/SSC in raw ADC counts [0,1024]; FL axes compensated then asinh(cofactor 150)",
+    "channels": [
+      {
+        "id": "FSC-A",
+        "name": "Forward Scatter A",
+        "detector": "FSC",
+        "fluorophore": null,
+        "unit": "ADC count",
+        "range_min": 0.0,
+        "range_max": 1024.0
+      },
+      {
+        "id": "SSC-A",
+        "name": "Side Scatter A",
+        "detector": "SSC",
+        "fluorophore": null,
+        "unit": "ADC count",
+        "range_min": 0.0,
+        "range_max": 1024.0
+      },
+      {
+        "id": "FL1-A",
+        "name": "Green Fluorescence A",
+        "detector": "FL1",
+        "fluorophore": "FITC",
+        "unit": "ADC count",
+        "range_min": 0.0,
+        "range_max": 1024.0
+      },
+      {
+        "id": "FL2-A",
+        "name": "Orange Fluorescence A",
+        "detector": "FL2",
+        "fluorophore": "PE",
+        "unit": "ADC count",
+        "range_min": 0.0,
+        "range_max": 1024.0
+      }
+    ],
+    "spillover": {
+      "id": "spill-1",
+      "description": "FITC/PE spillover estimated from compensation beads, single-stain controls",
+      "labels": [
+        "FL1-A",
+        "FL2-A"
+      ],
+      "controls": {
+        "FL1-A": [
+          "e09",
+          "e10"
+        ],
+        "FL2-A": [
+          "e12"
+        ]
+      }
+    },
+    "matrix": {
+      "id": "matrix-v1",
+      "spillover_id": "spill-1",
+      "coefficients": [
+        [
+          1.0,
+          0.12
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "basis_note": "S: observed = S * emitted, rows=detectors FL1,FL2 columns=emitters FITC,PE; bead controls spill-1"
+    },
+    "transform": {
+      "id": "xform-v1",
+      "kind": "asinh",
+      "cofactor": 150.0,
+      "output_unit": "asinh-scaled ADC (cofactor 150)",
+      "applies_to": [
+        "FL1-A",
+        "FL2-A"
+      ]
+    },
+    "gates": [
+      {
+        "logical_id": "g_cells",
+        "version_id": "g_cells@1",
+        "name": "All cells",
+        "x": {
+          "channel_id": "FSC-A",
+          "space": "Raw",
+          "matrix_id": null,
+          "transform_id": null
+        },
+        "y": {
+          "channel_id": "SSC-A",
+          "space": "Raw",
+          "matrix_id": null,
+          "transform_id": null
+        },
+        "polygon": [
+          [
+            150,
+            150
+          ],
+          [
+            1024,
+            150
+          ],
+          [
+            1024,
+            1024
+          ],
+          [
+            150,
+            1024
+          ]
+        ],
+        "boundary_rule": "include"
+      },
+      {
+        "logical_id": "g_lymph",
+        "version_id": "g_lymph@1",
+        "name": "Lymphocytes",
+        "x": {
+          "channel_id": "FSC-A",
+          "space": "Raw",
+          "matrix_id": null,
+          "transform_id": null
+        },
+        "y": {
+          "channel_id": "SSC-A",
+          "space": "Raw",
+          "matrix_id": null,
+          "transform_id": null
+        },
+        "polygon": [
+          [
+            400,
+            400
+          ],
+          [
+            650,
+            400
+          ],
+          [
+            650,
+            560
+          ],
+          [
+            400,
+            560
+          ]
+        ],
+        "boundary_rule": "exclude"
+      },
+      {
+        "logical_id": "g_flpos",
+        "version_id": "g_flpos@1",
+        "name": "FITC positive",
+        "x": {
+          "channel_id": "FL1-A",
+          "space": "CompensatedAsinh",
+          "matrix_id": "matrix-v1",
+          "transform_id": "xform-v1"
+        },
+        "y": {
+          "channel_id": "FL2-A",
+          "space": "CompensatedAsinh",
+          "matrix_id": "matrix-v1",
+          "transform_id": "xform-v1"
+        },
+        "polygon": [
+          [
+            300,
+            -300
+          ],
+          [
+            1100,
+            -300
+          ],
+          [
+            1100,
+            1100
+          ],
+          [
+            300,
+            1100
+          ]
+        ],
+        "boundary_rule": "include"
+      }
+    ],
+    "relations": [
+      {
+        "child_logical": "g_cells",
+        "parent_logical": null
+      },
+      {
+        "child_logical": "g_lymph",
+        "parent_logical": "g_cells"
+      },
+      {
+        "child_logical": "g_flpos",
+        "parent_logical": "g_lymph"
+      }
+    ],
+    "events": [
+      {
+        "id": "e01",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "520",
+            "numeric": 520,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "480",
+            "numeric": 480,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "820",
+            "numeric": 820,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "120",
+            "numeric": 120,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e02",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "500",
+            "numeric": 500,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "500",
+            "numeric": 500,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "760",
+            "numeric": 760,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "90",
+            "numeric": 90,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e03",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "600",
+            "numeric": 600,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "520",
+            "numeric": 520,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "690",
+            "numeric": 690,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "200",
+            "numeric": 200,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e04",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "470",
+            "numeric": 470,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "510",
+            "numeric": 510,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "720",
+            "numeric": 720,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "140",
+            "numeric": 140,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e05",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "560",
+            "numeric": 560,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "450",
+            "numeric": 450,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "640",
+            "numeric": 640,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "260",
+            "numeric": 260,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e06",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "430",
+            "numeric": 430,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "470",
+            "numeric": 470,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "300",
+            "numeric": 300,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "180",
+            "numeric": 180,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e07",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "550",
+            "numeric": 550,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "520",
+            "numeric": 520,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "260",
+            "numeric": 260,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "220",
+            "numeric": 220,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e08",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "480",
+            "numeric": 480,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "470",
+            "numeric": 470,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "210",
+            "numeric": 210,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "300",
+            "numeric": 300,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e09",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "250",
+            "numeric": 250,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "240",
+            "numeric": 240,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "120",
+            "numeric": 120,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "90",
+            "numeric": 90,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e10",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "180",
+            "numeric": 180,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "300",
+            "numeric": 300,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "90",
+            "numeric": 90,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "60",
+            "numeric": 60,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e11",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "400",
+            "numeric": 400,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "480",
+            "numeric": 480,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "300",
+            "numeric": 300,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "250",
+            "numeric": 250,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e12",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "95",
+            "numeric": 95,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "90",
+            "numeric": 90,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "40",
+            "numeric": 40,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "30",
+            "numeric": 30,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e13",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "540",
+            "numeric": 540,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "490",
+            "numeric": 490,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "2000",
+            "numeric": 2000,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "80",
+            "numeric": 80,
+            "diagnostics": []
+          }
+        ]
+      },
+      {
+        "id": "e14",
+        "values": [
+          {
+            "channel_id": "FSC-A",
+            "raw_text": "NaN",
+            "numeric": null,
+            "diagnostics": [
+              "unconvertible at capture: instrument wrote NaN"
+            ]
+          },
+          {
+            "channel_id": "SSC-A",
+            "raw_text": "505",
+            "numeric": 505.0,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL1-A",
+            "raw_text": "700",
+            "numeric": 700.0,
+            "diagnostics": []
+          },
+          {
+            "channel_id": "FL2-A",
+            "raw_text": "110",
+            "numeric": 110.0,
+            "diagnostics": []
+          }
+        ]
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "scn-near-singular",
+      "title": "Near-singular compensation matrix",
+      "description": "Replace spillover fit with a near-collinear matrix; inverse must not be silently taken.",
+      "steps": [
+        {
+          "type": "revise-matrix",
+          "matrix": {
+            "id": "matrix-v2-singular",
+            "spillover_id": "spill-1",
+            "coefficients": [
+              [
+                1.0,
+                0.999999
+              ],
+              [
+                1.000001,
+                1.0
+              ]
+            ],
+            "basis_note": "faulty refit: detector rows nearly collinear; determinant ~ -1e-6"
+          }
+        }
+      ]
+    },
+    {
+      "id": "scn-transform",
+      "title": "Transform parameter revision",
+      "description": "Change asinh cofactor 150 -> 300; only asinh gates and descendants go stale.",
+      "steps": [
+        {
+          "type": "revise-transform",
+          "transform": {
+            "id": "xform-v2",
+            "kind": "asinh",
+            "cofactor": 300.0,
+            "output_unit": "asinh-scaled ADC (cofactor 300)",
+            "applies_to": [
+              "FL1-A",
+              "FL2-A"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "scn-local-patch",
+      "title": "Local source data patch",
+      "description": "Move one fluorescence event; only FL gate subtree is invalidated, FSC gates untouched.",
+      "steps": [
+        {
+          "type": "patch-source",
+          "reason": "FL1 detector gain re-calibrated for e07",
+          "changes": [
+            {
+              "event_id": "e07",
+              "channel_id": "FL1-A",
+              "new_raw_text": "800"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scn-rename-gate",
+      "title": "Gate nested rename",
+      "description": "Revise and rename the nested FL gate; logical identity and parent relations survive.",
+      "steps": [
+        {
+          "type": "revise-gate",
+          "gate": {
+            "logical_id": "g_flpos",
+            "version_id": "g_flpos@2",
+            "name": "FITC+ (renamed: FITC positive gate)",
+            "x": {
+              "channel_id": "FL1-A",
+              "space": "CompensatedAsinh",
+              "matrix_id": "matrix-v2-singular",
+              "transform_id": "xform-v1"
+            },
+            "y": {
+              "channel_id": "FL2-A",
+              "space": "CompensatedAsinh",
+              "matrix_id": "matrix-v2-singular",
+              "transform_id": "xform-v1"
+            },
+            "polygon": [
+              [
+                150,
+                -300
+              ],
+              [
+                1100,
+                -300
+              ],
+              [
+                1100,
+                1100
+              ],
+              [
+                150,
+                1100
+              ]
+            ],
+            "boundary_rule": "include"
+          }
+        }
+      ]
+    }
+  ]
+}
