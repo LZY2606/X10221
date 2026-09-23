@@ -1,0 +1,11 @@
+{
+  "stable_id": "gate-lineage-v1",
+  "version": "lineage-v1",
+  "root_population_id": "POP-ROOT",
+  "edges": [
+    {"edge_id": "EDGE-LYM", "stable_id": "edge-root-lym", "child_gate": "G-LYM", "parent_population": "POP-ROOT", "child_population": "POP-LYM"},
+    {"edge_id": "EDGE-SING", "stable_id": "edge-lym-sing", "child_gate": "G-SING", "parent_population": "POP-LYM", "child_population": "POP-SING"},
+    {"edge_id": "EDGE-CD3", "stable_id": "edge-sing-cd3", "child_gate": "G-CD3", "parent_population": "POP-SING", "child_population": "POP-CD3"},
+    {"edge_id": "EDGE-CD4", "stable_id": "edge-cd3-cd4", "child_gate": "G-CD4", "parent_population": "POP-CD3", "child_population": "POP-CD4"}
+  ]
+}

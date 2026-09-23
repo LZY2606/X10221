@@ -1,0 +1,12 @@
+{
+  "stable_id": "gate-set-v1",
+  "version": "gates-v1",
+  "coordinate_basis": "asinh(FITC-A,PE-A) display coordinates",
+  "boundary_rule": "closed polygon; edges inclusive within boundary_epsilon",
+  "gates": [
+    {"gate_id": "G-LYM", "stable_id": "gate-lym", "name": "Lymphocytes", "x_channel": "FITC-A", "y_channel": "PE-A", "polygon": [[-0.1, -0.1], [0.8, -0.1], [0.8, 0.5], [-0.1, 0.5]], "coordinate_unit": "dimensionless asinh coordinate"},
+    {"gate_id": "G-SING", "stable_id": "gate-sing", "name": "Singlets", "x_channel": "FITC-A", "y_channel": "PE-A", "polygon": [[-0.1, -0.1], [0.9, -0.1], [0.9, 0.6], [-0.1, 0.6]], "coordinate_unit": "dimensionless asinh coordinate"},
+    {"gate_id": "G-CD3", "stable_id": "gate-cd3", "name": "CD3 T cells", "x_channel": "FITC-A", "y_channel": "PE-A", "polygon": [[0.35, -0.1], [1.0, -0.1], [1.0, 0.25], [0.35, 0.25]], "coordinate_unit": "dimensionless asinh coordinate"},
+    {"gate_id": "G-CD4", "stable_id": "gate-cd4", "name": "CD4 T cells", "x_channel": "FITC-A", "y_channel": "PE-A", "polygon": [[0.35, 0.04], [0.76, 0.04], [0.76, 0.19], [0.35, 0.19]], "coordinate_unit": "dimensionless asinh coordinate"}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "stable_id": "spillover-metadata-v1",
+  "fcs_keyword": "$SPILLOVER",
+  "version": "spill-v1",
+  "detector_order": ["FITC-A", "PE-A"],
+  "single_stain_controls": [
+    {"control_id": "sst-FITC", "stable_id": "sst-fitc-v1", "fluorophore": "FITC", "primary_detector": "FITC-A", "spillover_into": [{"detector": "PE-A", "coefficient": 0.04, "unit": "fraction-of-primary-detector"}]},
+    {"control_id": "sst-PE", "stable_id": "sst-pe-v1", "fluorophore": "PE", "primary_detector": "PE-A", "spillover_into": [{"detector": "FITC-A", "coefficient": 0.08, "unit": "fraction-of-primary-detector"}]}
+  ],
+  "matrix_orientation": "rows are single-stain controls; columns are detectors",
+  "coordinate_basis": "uncompensated detector pulse area"
+}

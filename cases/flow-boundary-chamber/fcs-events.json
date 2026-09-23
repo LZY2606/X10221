@@ -1,0 +1,21 @@
+{
+  "format": "FCS3.1-offline-event-records",
+  "source_bytes": {
+    "byte_order": "little-endian",
+    "datatype": "floating-point-event-array",
+    "sha256": "3f1c9a506b1f6e7d4a0c2b18d9e5a77f63410c8b92d7e4f106a3c5b8d9e0f112",
+    "raw_segment_repr": "BEGINANALYSIS FLOW-BOUNDARY-CHAMBER; $P1F,F/530/30-A; $P2F,PE/585/40-A; $P1R,262144; $P2R,262144; ENDANALYSIS"
+  },
+  "channels": [
+    {"id": "FITC-A", "stable_id": "channel-fitc-a", "name": "FITC-A", "detector": "530/30 BP", "fluorophore": "FITC", "unit": "pulse-area-scale-units", "raw_range": {"min": "0", "max": "262143", "unit": "ADC-count"}, "coordinate_basis": "raw detector pulse area"},
+    {"id": "PE-A", "stable_id": "channel-pe-a", "name": "PE-A", "detector": "585/40 BP", "fluorophore": "PE", "unit": "pulse-area-scale-units", "raw_range": {"min": "0", "max": "262143", "unit": "ADC-count"}, "coordinate_basis": "raw detector pulse area"}
+  ],
+  "events": [
+    {"event_id": "E01", "stable_id": "event-E01", "values": {"FITC-A": {"raw_repr": "20", "value": 20.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}, "PE-A": {"raw_repr": "10", "value": 10.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}}},
+    {"event_id": "E02", "stable_id": "event-E02", "values": {"FITC-A": {"raw_repr": "250", "value": 250.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}, "PE-A": {"raw_repr": "40", "value": 40.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}}},
+    {"event_id": "E03", "stable_id": "event-E03", "values": {"FITC-A": {"raw_repr": "30", "value": 30.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}, "PE-A": {"raw_repr": "500", "value": 500.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}}},
+    {"event_id": "E04", "stable_id": "event-E04", "values": {"FITC-A": {"raw_repr": "600", "value": 600.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}, "PE-A": {"raw_repr": "46.7", "value": 46.7, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": ["boundary-probe"]}}},
+    {"event_id": "E05", "stable_id": "event-E05", "values": {"FITC-A": {"raw_repr": "900", "value": 900.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}, "PE-A": {"raw_repr": "120", "value": 120.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}}},
+    {"event_id": "E06", "stable_id": "event-E06", "values": {"FITC-A": {"raw_repr": "700", "value": 700.0, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": []}, "PE-A": {"raw_repr": "OVERFLOW", "value": null, "unit": "ADC-count", "coordinate_basis": "raw detector pulse area", "diagnostics": ["OVERFLOW", "extreme-signal", "unconvertible-value-preserved"]}}}
+  ]
+}

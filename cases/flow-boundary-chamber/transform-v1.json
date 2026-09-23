@@ -1,0 +1,9 @@
+{
+  "stable_id": "transform-params-v1",
+  "version": "transform-v1",
+  "family": "asinh",
+  "parameters": {"cofactor_m": 4.5, "top_of_scale_t": 1000.0, "additional_zero_a": 0.0, "boundary_epsilon": 0.001},
+  "units": {"cofactor_m": "dimensionless", "top_of_scale_t": "ADC-count", "additional_zero_a": "ADC-count", "output": "dimensionless asinh coordinate"},
+  "formula": "asinh(m * compensated / t) / asinh(m)",
+  "coordinate_basis": "compensated detector pulse area normalized to asinh display coordinates"
+}

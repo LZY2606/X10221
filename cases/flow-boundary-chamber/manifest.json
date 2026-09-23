@@ -1,0 +1,15 @@
+{
+  "case_id": "flow-boundary-chamber-v1",
+  "domain": "flow-cytometry/compensation/gating-lineage",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "offline": true,
+  "coordinate_policy": "原始层保留 FCS 表示、单位和坐标基准；补偿与 asinh 只写入派生层。",
+  "materials": [
+    {"kind": "fcs_events", "path": "fcs-events.json", "version": "events-v1"},
+    {"kind": "spillover_metadata", "path": "spillover.json", "version": "spill-v1"},
+    {"kind": "compensation_matrix", "path": "compensation-v1.json", "version": "matrix-v1"},
+    {"kind": "transform_parameters", "path": "transform-v1.json", "version": "transform-v1"},
+    {"kind": "gate_polygons", "path": "gates-v1.json", "version": "gates-v1"},
+    {"kind": "gate_parent_child", "path": "lineage-v1.json", "version": "lineage-v1"}
+  ]
+}

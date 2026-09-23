@@ -1,0 +1,9 @@
+{
+  "stable_id": "compensation-matrix-v1",
+  "version": "matrix-v1",
+  "detector_order": ["FITC-A", "PE-A"],
+  "rows": [[1.0, 0.08], [0.04, 1.0]],
+  "unit": "dimensionless spillover fraction",
+  "coordinate_basis": "M * compensated_signal = raw_signal",
+  "source_metadata": "spill-v1"
+}
