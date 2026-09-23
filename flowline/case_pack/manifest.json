@@ -1,0 +1,24 @@
+{
+  "schema": "flowline.case-pack/v1",
+  "case_id": "flow-boundary-chamber-v1",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "created": "2026-09-24",
+  "files": {
+    "events": "events.fcs",
+    "event_meta": "events.meta.json",
+    "spillover": "spillover.json",
+    "compensation": "compensation.json",
+    "transforms": "transforms.json",
+    "gates": "gates.json"
+  },
+  "adc_max": 262143.0,
+  "narrative_stations": [
+    "baseline_separately_versioned",
+    "near_singular_compensation_blocked",
+    "extreme_signals_and_boundary_points",
+    "gate_nested_rename",
+    "localized_source_change",
+    "upstream_stale_propagation",
+    "concurrent_same_version_conflict"
+  ]
+}

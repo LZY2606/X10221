@@ -1,0 +1,76 @@
+{
+  "schema": "flowline.spillover/v1",
+  "id": "spill-base",
+  "derivation": {
+    "method": "median_ratio_single_stain",
+    "controls": [
+      "controls/single_stain_fitca.fcs",
+      "controls/single_stain_pea.fcs",
+      "controls/single_stain_apca.fcs"
+    ],
+    "rounding": "round_half_up_2dp"
+  },
+  "row_basis": "measured_channel",
+  "column_basis": "true_fluorophore",
+  "matrix_order": [
+    "FITC-A",
+    "PE-A",
+    "APC-A"
+  ],
+  "matrix": [
+    [
+      1.0,
+      0.06,
+      0.0
+    ],
+    [
+      0.15,
+      1.0,
+      0.04
+    ],
+    [
+      0.0,
+      0.08,
+      1.0
+    ]
+  ],
+  "unit": "fraction_of_primary_signal",
+  "controls": [
+    {
+      "file": "controls/single_stain_fitca.fcs",
+      "fluorophore": "FITC-A",
+      "detector_channel": "FITC-A",
+      "brightness_scales": [
+        12000,
+        9000,
+        6000,
+        3000
+      ],
+      "unit": "ADC_counts"
+    },
+    {
+      "file": "controls/single_stain_pea.fcs",
+      "fluorophore": "PE-A",
+      "detector_channel": "PE-A",
+      "brightness_scales": [
+        12000,
+        9000,
+        6000,
+        3000
+      ],
+      "unit": "ADC_counts"
+    },
+    {
+      "file": "controls/single_stain_apca.fcs",
+      "fluorophore": "APC-A",
+      "detector_channel": "APC-A",
+      "brightness_scales": [
+        12000,
+        9000,
+        6000,
+        3000
+      ],
+      "unit": "ADC_counts"
+    }
+  ]
+}

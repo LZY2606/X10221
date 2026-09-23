@@ -1,0 +1,125 @@
+{
+  "schema": "flowline.event-meta/v1",
+  "events": [
+    {
+      "event_id": "E01",
+      "kind": "lymph_cd4",
+      "note": "CD4 bright"
+    },
+    {
+      "event_id": "E02",
+      "kind": "lymph_cd4",
+      "note": "CD4 bright"
+    },
+    {
+      "event_id": "E03",
+      "kind": "lymph_cd4",
+      "note": "CD4 dim-positive"
+    },
+    {
+      "event_id": "E04",
+      "kind": "lymph_cd4",
+      "note": "CD4 bright, high SSC edge"
+    },
+    {
+      "event_id": "E05",
+      "kind": "lymph_cd8",
+      "note": "CD8 bright"
+    },
+    {
+      "event_id": "E06",
+      "kind": "lymph_cd8",
+      "note": "CD8 positive"
+    },
+    {
+      "event_id": "E07",
+      "kind": "lymph_cd8",
+      "note": "CD8 bright"
+    },
+    {
+      "event_id": "E08",
+      "kind": "lymph_dneg",
+      "note": "double negative"
+    },
+    {
+      "event_id": "E09",
+      "kind": "lymph_dneg",
+      "note": "double negative"
+    },
+    {
+      "event_id": "E10",
+      "kind": "lymph_dneg",
+      "note": "double negative"
+    },
+    {
+      "event_id": "E11",
+      "kind": "lymph_cd4",
+      "note": "lymph gate corner (90000,40000)"
+    },
+    {
+      "event_id": "E12",
+      "kind": "lymph_cd8",
+      "note": "lymph gate corner (70000,20000)"
+    },
+    {
+      "event_id": "E13",
+      "kind": "monocyte",
+      "note": "monocyte, PE bright"
+    },
+    {
+      "event_id": "E14",
+      "kind": "monocyte",
+      "note": "monocyte"
+    },
+    {
+      "event_id": "E15",
+      "kind": "monocyte",
+      "note": "monocyte, PE bright"
+    },
+    {
+      "event_id": "E16",
+      "kind": "debris",
+      "note": "debris low FSC"
+    },
+    {
+      "event_id": "E17",
+      "kind": "debris",
+      "note": "debris"
+    },
+    {
+      "event_id": "E18",
+      "kind": "debris",
+      "note": "debris"
+    },
+    {
+      "event_id": "E19",
+      "kind": "debris",
+      "note": "debris just under cell gate"
+    },
+    {
+      "event_id": "E20",
+      "kind": "boundary",
+      "note": "ON cell-gate bottom edge (60000,20000)"
+    },
+    {
+      "event_id": "E21",
+      "kind": "boundary",
+      "note": "ON cell-gate bottom edge (100000,20000)"
+    },
+    {
+      "event_id": "E22",
+      "kind": "saturated",
+      "note": "FITC saturated at ADC ceiling"
+    },
+    {
+      "event_id": "E23",
+      "kind": "negative_raw",
+      "note": "negative FITC after compensation (autofluo)"
+    },
+    {
+      "event_id": "E24",
+      "kind": "nan_value",
+      "note": "PE value unconvertible (NaN); kept with diagnostic"
+    }
+  ]
+}

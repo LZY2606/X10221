@@ -1,0 +1,48 @@
+{
+  "schema": "flowline.transforms/v1",
+  "id": "transforms-v1",
+  "parameters": [
+    {
+      "channel": "FSC-A",
+      "family": "linear",
+      "scale": 1.0,
+      "unit": "ADC_counts",
+      "coordinate_basis": "raw"
+    },
+    {
+      "channel": "SSC-A",
+      "family": "linear",
+      "scale": 1.0,
+      "unit": "ADC_counts",
+      "coordinate_basis": "raw"
+    },
+    {
+      "channel": "FITC-A",
+      "family": "asinh",
+      "cofactor": 150.0,
+      "unit": "asinh(ADC_counts/150)",
+      "coordinate_basis": "compensated"
+    },
+    {
+      "channel": "PE-A",
+      "family": "asinh",
+      "cofactor": 150.0,
+      "unit": "asinh(ADC_counts/150)",
+      "coordinate_basis": "compensated"
+    },
+    {
+      "channel": "APC-A",
+      "family": "asinh",
+      "cofactor": 150.0,
+      "unit": "asinh(ADC_counts/150)",
+      "coordinate_basis": "compensated"
+    },
+    {
+      "channel": "Time",
+      "family": "linear",
+      "scale": 1.0,
+      "unit": "ms",
+      "coordinate_basis": "raw"
+    }
+  ]
+}

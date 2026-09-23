@@ -1,0 +1,134 @@
+{
+  "schema": "flowline.gates/v1",
+  "id": "gates-v1",
+  "gates": [
+    {
+      "id": "gate-cells",
+      "label": "Cells",
+      "geometry": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            50000,
+            20000
+          ],
+          [
+            105000,
+            20000
+          ],
+          [
+            190000,
+            60000
+          ],
+          [
+            190000,
+            140000
+          ],
+          [
+            50000,
+            140000
+          ]
+        ]
+      },
+      "axes": [
+        {
+          "channel": "FSC-A",
+          "space": "raw",
+          "unit": "ADC_counts"
+        },
+        {
+          "channel": "SSC-A",
+          "space": "raw",
+          "unit": "ADC_counts"
+        }
+      ],
+      "parent": null
+    },
+    {
+      "id": "gate-lymphocytes",
+      "label": "Lymphocytes",
+      "geometry": {
+        "type": "polygon",
+        "coordinates": [
+          [
+            70000,
+            20000
+          ],
+          [
+            90000,
+            20000
+          ],
+          [
+            90000,
+            40000
+          ],
+          [
+            70000,
+            40000
+          ]
+        ]
+      },
+      "axes": [
+        {
+          "channel": "FSC-A",
+          "space": "raw",
+          "unit": "ADC_counts"
+        },
+        {
+          "channel": "SSC-A",
+          "space": "raw",
+          "unit": "ADC_counts"
+        }
+      ],
+      "parent": "gate-cells"
+    },
+    {
+      "id": "gate-cd4",
+      "label": "CD4+",
+      "geometry": {
+        "type": "rectangle",
+        "x_min": 2.5,
+        "x_max": 6.0,
+        "y_min": -1.0,
+        "y_max": 2.0
+      },
+      "axes": [
+        {
+          "channel": "FITC-A",
+          "space": "asinh_compensated",
+          "unit": "asinh(ADC_counts/150)"
+        },
+        {
+          "channel": "PE-A",
+          "space": "asinh_compensated",
+          "unit": "asinh(ADC_counts/150)"
+        }
+      ],
+      "parent": "gate-lymphocytes"
+    },
+    {
+      "id": "gate-cd8",
+      "label": "CD8+",
+      "geometry": {
+        "type": "rectangle",
+        "x_min": -1.0,
+        "x_max": 2.0,
+        "y_min": 2.5,
+        "y_max": 6.0
+      },
+      "axes": [
+        {
+          "channel": "FITC-A",
+          "space": "asinh_compensated",
+          "unit": "asinh(ADC_counts/150)"
+        },
+        {
+          "channel": "PE-A",
+          "space": "asinh_compensated",
+          "unit": "asinh(ADC_counts/150)"
+        }
+      ],
+      "parent": "gate-lymphocytes"
+    }
+  ]
+}

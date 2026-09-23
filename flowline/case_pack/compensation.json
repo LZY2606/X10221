@@ -1,0 +1,95 @@
+{
+  "schema": "flowline.compensation/v1",
+  "id": "comp-base",
+  "candidates": [
+    {
+      "id": "comp-base-inverse",
+      "source_spillover": "spill-base",
+      "matrix_order": [
+        "FITC-A",
+        "PE-A",
+        "APC-A"
+      ],
+      "matrix": [
+        [
+          1.009111,
+          -0.060741,
+          0.00243
+        ],
+        [
+          -0.151853,
+          1.012351,
+          -0.040494
+        ],
+        [
+          0.012148,
+          -0.080988,
+          1.00324
+        ]
+      ],
+      "unit": "dimensionless_compensation_gain",
+      "note": "exact inverse of spill-base at import"
+    },
+    {
+      "id": "comp-near-singular",
+      "source_spillover": "spill-base",
+      "matrix_order": [
+        "FITC-A",
+        "PE-A",
+        "APC-A"
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.7,
+          0.0
+        ],
+        [
+          0.7,
+          1.0,
+          0.7
+        ],
+        [
+          0.0,
+          0.7,
+          1.0
+        ]
+      ],
+      "unit": "dimensionless_compensation_gain",
+      "matrix_kind": "spillover_proposal",
+      "note": "strong 70% spillover chain; det=0.02, condition number ~198; must not be silently inverted",
+      "expect": "blocked_near_singular"
+    },
+    {
+      "id": "comp-singular",
+      "source_spillover": "spill-base",
+      "matrix_order": [
+        "FITC-A",
+        "PE-A",
+        "APC-A"
+      ],
+      "matrix": [
+        [
+          1.0,
+          0.70710678,
+          0.0
+        ],
+        [
+          0.70710678,
+          1.0,
+          0.70710678
+        ],
+        [
+          0.0,
+          0.70710678,
+          1.0
+        ]
+      ],
+      "unit": "dimensionless_compensation_gain",
+      "matrix_kind": "spillover_proposal",
+      "note": "1/sqrt(2) chain tridiagonal; det == 0 (columns linearly dependent)",
+      "expect": "blocked_singular"
+    }
+  ],
+  "adopted": null
+}
