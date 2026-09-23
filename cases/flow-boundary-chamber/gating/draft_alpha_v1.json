@@ -1,0 +1,91 @@
+{
+  "draft": "alpha",
+  "version": 1,
+  "sample_ref": "sample_a",
+  "gates": [
+    {
+      "id": "g1-lymph",
+      "version": 1,
+      "name": "Lymphocytes",
+      "parent": null,
+      "x_channel": "FSC-A",
+      "y_channel": "SSC-A",
+      "basis": "raw_detector",
+      "unit": "AU",
+      "polygon": [
+        [
+          60000.0,
+          15000.0
+        ],
+        [
+          120000.0,
+          15000.0
+        ],
+        [
+          120000.0,
+          60000.0
+        ],
+        [
+          60000.0,
+          60000.0
+        ]
+      ]
+    },
+    {
+      "id": "g2-fitc-pos",
+      "version": 1,
+      "name": "FITC+",
+      "parent": "g1-lymph@1",
+      "x_channel": "FITC-A",
+      "y_channel": "PE-A",
+      "basis": "asinh(cofactor=150)",
+      "unit": "AU",
+      "polygon": [
+        [
+          4.0,
+          0.0
+        ],
+        [
+          8.0,
+          0.0
+        ],
+        [
+          8.0,
+          8.0
+        ],
+        [
+          4.0,
+          8.0
+        ]
+      ]
+    },
+    {
+      "id": "g3-dp",
+      "version": 1,
+      "name": "DP",
+      "parent": "g2-fitc-pos@1",
+      "x_channel": "FITC-A",
+      "y_channel": "PE-A",
+      "basis": "asinh(cofactor=150)",
+      "unit": "AU",
+      "polygon": [
+        [
+          4.0,
+          4.5
+        ],
+        [
+          8.0,
+          4.5
+        ],
+        [
+          8.0,
+          8.0
+        ],
+        [
+          4.0,
+          8.0
+        ]
+      ]
+    }
+  ]
+}

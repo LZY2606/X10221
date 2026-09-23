@@ -1,0 +1,40 @@
+{
+  "id": "spillover-meta",
+  "version": 1,
+  "unit": "ratio",
+  "basis": "median_single_stain_minus_unstained",
+  "fluorochromes": [
+    "FITC",
+    "PE"
+  ],
+  "detectors": [
+    "FITC-A",
+    "PE-A"
+  ],
+  "entries": [
+    {
+      "fluorochrome": "FITC",
+      "detector": "FITC-A",
+      "coefficient": 1.0,
+      "control_ref": "ctrl_fitc"
+    },
+    {
+      "fluorochrome": "FITC",
+      "detector": "PE-A",
+      "coefficient": 0.08,
+      "control_ref": "ctrl_fitc"
+    },
+    {
+      "fluorochrome": "PE",
+      "detector": "FITC-A",
+      "coefficient": 0.15,
+      "control_ref": "ctrl_pe"
+    },
+    {
+      "fluorochrome": "PE",
+      "detector": "PE-A",
+      "coefficient": 1.0,
+      "control_ref": "ctrl_pe"
+    }
+  ]
+}

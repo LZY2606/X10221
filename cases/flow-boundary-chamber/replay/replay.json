@@ -1,0 +1,59 @@
+{
+  "id": "replay-flow-boundary-chamber",
+  "narrative": "import -> near-singular matrix -> adjudicate -> transform revision -> gate rename -> local source change -> conflicting decisions",
+  "steps": [
+    {
+      "op": "apply_matrix",
+      "matrix": "compensation/matrix_v2_near_singular.json",
+      "actor": "reviewer-a",
+      "expect": "rejected_near_singular"
+    },
+    {
+      "op": "adjudicate",
+      "candidate_kind": "regularized_inverse",
+      "pick": "lambda=0.01",
+      "decision": "accept",
+      "actor": "reviewer-a"
+    },
+    {
+      "op": "adjudicate",
+      "candidate_kind": "regularized_inverse",
+      "pick": "lambda=0.0001",
+      "decision": "reject",
+      "actor": "reviewer-b"
+    },
+    {
+      "op": "revise_transform",
+      "channel": "FITC-A",
+      "cofactor": 100.0,
+      "actor": "reviewer-a",
+      "expect": "stale:g2-fitc-pos,g3-dp"
+    },
+    {
+      "op": "rename_gate",
+      "gate_id": "g3-dp",
+      "draft": "alpha",
+      "new_name": "DP (FITC+PE+)",
+      "actor": "reviewer-b"
+    },
+    {
+      "op": "amend_source",
+      "source": "sample_a",
+      "patch": [
+        {
+          "event_index": 0,
+          "channel": "FITC-A",
+          "raw_value": "50000"
+        }
+      ],
+      "actor": "reviewer-b",
+      "expect": "local_invalidation"
+    },
+    {
+      "op": "concurrent_adjudicate",
+      "actor_a": "reviewer-a",
+      "actor_b": "reviewer-b",
+      "expect": "conflict"
+    }
+  ]
+}

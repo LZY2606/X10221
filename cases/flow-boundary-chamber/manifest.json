@@ -1,0 +1,45 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "\u6d41\u5f0f\u8fb9\u754c\u5ba4\uff1a\u8865\u507f\u77e9\u9635\u3001\u95e8\u63a7\u7cfb\u8c31\u4e0e\u7ec6\u80de\u7fa4\u4e0d\u786e\u5b9a\u6027",
+  "fcs": {
+    "beads_unstained": {
+      "path": "fcs/beads_unstained.fcs",
+      "events": 200
+    },
+    "ctrl_fitc": {
+      "path": "fcs/ctrl_fitc.fcs",
+      "events": 200
+    },
+    "ctrl_pe": {
+      "path": "fcs/ctrl_pe.fcs",
+      "events": 200
+    },
+    "sample_a": {
+      "path": "fcs/sample_a.fcs",
+      "events": 302
+    }
+  },
+  "spillover": [
+    "spillover/spillover_v1.json"
+  ],
+  "compensation": [
+    "compensation/matrix_v1.json",
+    "compensation/matrix_v2_near_singular.json"
+  ],
+  "transforms": [
+    "transforms/transforms_v1.json"
+  ],
+  "gating": [
+    "gating/draft_alpha_v1.json",
+    "gating/draft_beta_v1.json"
+  ],
+  "replay": "replay/replay.json",
+  "scenarios": [
+    "singular_matrix",
+    "extreme_signals",
+    "boundary_points",
+    "gate_nesting_rename",
+    "upstream_stale_propagation",
+    "concurrent_same_version_edit"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "comp-matrix",
+  "version": 1,
+  "unit": "ratio",
+  "fluorochromes": [
+    "FITC",
+    "PE"
+  ],
+  "detectors": [
+    "FITC-A",
+    "PE-A"
+  ],
+  "matrix": [
+    [
+      1.0,
+      0.15
+    ],
+    [
+      0.08,
+      1.0
+    ]
+  ],
+  "derived_from": "spillover-meta@1"
+}

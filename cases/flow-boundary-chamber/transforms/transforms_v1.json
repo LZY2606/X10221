@@ -1,0 +1,30 @@
+{
+  "id": "transform-params",
+  "version": 1,
+  "kind": "asinh",
+  "basis_template": "asinh(cofactor={cofactor})",
+  "channels": [
+    {
+      "channel": "FSC-A",
+      "kind": "linear",
+      "unit": "AU"
+    },
+    {
+      "channel": "SSC-A",
+      "kind": "linear",
+      "unit": "AU"
+    },
+    {
+      "channel": "FITC-A",
+      "kind": "asinh",
+      "cofactor": 150.0,
+      "unit": "AU"
+    },
+    {
+      "channel": "PE-A",
+      "kind": "asinh",
+      "cofactor": 150.0,
+      "unit": "AU"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "comp-matrix",
+  "version": 2,
+  "unit": "ratio",
+  "fluorochromes": [
+    "FITC",
+    "PE"
+  ],
+  "detectors": [
+    "FITC-A",
+    "PE-A"
+  ],
+  "matrix": [
+    [
+      1.0,
+      0.999999
+    ],
+    [
+      0.999999,
+      1.0
+    ]
+  ],
+  "derived_from": "manual-upload",
+  "note": "near-singular: determinant ~ 2e-6, must NOT be silently inverted"
+}
