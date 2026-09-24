@@ -1,0 +1,24 @@
+[package]
+name = "flow-lineage-gsb"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "flow_lineage"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flow-lineage-gsb"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+rusqlite = { version = "0.37", features = ["bundled", "blob"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { value_recursion = "128", version = "1" }
+sha2 = "0.10"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
+
+[dev-dependencies]
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+tempfile = "3"
