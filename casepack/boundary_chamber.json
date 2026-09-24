@@ -1,0 +1,57 @@
+{
+  "case_id": "boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。",
+  "coordinate_basis": "logicle-display-v1",
+  "channels": [
+    {"name": "FL1-H", "unit": "a.u.", "range": 262143},
+    {"name": "FL2-H", "unit": "a.u.", "range": 262143}
+  ],
+  "fcs_events": [
+    {"file": "sample_A.fcs", "index": 0, "values": {"FL1-H": "520.0", "FL2-H": "610.0"}},
+    {"file": "sample_A.fcs", "index": 1, "values": {"FL1-H": "262143", "FL2-H": "12.0"}, "note": "extreme: saturated detector"},
+    {"file": "sample_A.fcs", "index": 2, "values": {"FL1-H": "550.0", "FL2-H": "400.0"}, "note": "boundary: exactly on gate-cd3 edge"},
+    {"file": "sample_A.fcs", "index": 3, "values": {"FL1-H": "not-a-number", "FL2-H": "88.1"}, "note": "unconvertible raw token"},
+    {"file": "sample_A.fcs", "index": 4, "values": {"FL1-H": "200.0", "FL2-H": "200.0"}},
+    {"file": "sample_A.fcs", "index": 5, "values": {"FL1-H": "640.0", "FL2-H": "520.0"}},
+    {"file": "sample_A.fcs", "index": 6, "values": {"FL1-H": "480.0", "FL2-H": "450.0"}},
+    {"file": "sample_A.fcs", "index": 7, "values": {"FL1-H": "120.0", "FL2-H": "130.0"}}
+  ],
+  "single_stain_controls": [
+    {"id": "ctrl-fl1", "channel": "FL1-H", "spill_into": {"FL2-H": 0.35}},
+    {"id": "ctrl-fl2", "channel": "FL2-H", "spill_into": {"FL1-H": 0.12}}
+  ],
+  "spillover": {
+    "channels": ["FL1-H", "FL2-H"],
+    "matrix": [[1.0, 0.35], [0.12, 1.0]],
+    "source_controls": ["ctrl-fl1", "ctrl-fl2"]
+  },
+  "transform": {"kind": "logicle", "params": {"T": 262143.0, "W": 0.5, "M": 4.5, "A": 0.0}, "basis": "logicle-display-v1"},
+  "gates": [
+    {"id": "gate-lymph", "name": "Lymphocytes", "parent": null,
+     "polygon": [[100.0, 100.0], [1000.0, 100.0], [1000.0, 1000.0], [100.0, 1000.0]]},
+    {"id": "gate-cd3", "name": "CD3+", "parent": "gate-lymph",
+     "polygon": [[400.0, 400.0], [700.0, 400.0], [700.0, 700.0], [400.0, 700.0]]}
+  ],
+  "scenarios": [
+    {"kind": "param_revision", "artifact": "transform", "params": {"T": 262143.0, "W": 0.4, "M": 4.5, "A": 0.0},
+     "comment": "一次参数修订：logicle W 0.5 -> 0.4"},
+    {"kind": "matrix_singular", "artifact": "comp-matrix",
+     "matrix": [[1.0, 1.0], [1.0, 1.0]],
+     "comment": "近奇异补偿矩阵不能被默默求逆"},
+    {"kind": "extreme_signal",
+     "events": [{"file": "sample_B.fcs", "index": 0, "values": {"FL1-H": "262143", "FL2-H": "262143"}}],
+     "comment": "极端信号：双通道饱和"},
+    {"kind": "boundary_point", "gate_id": "gate-cd3", "point": [550.0, 400.0],
+     "comment": "边界点：恰好在门边上，保留全部合法候选"},
+    {"kind": "local_source_change", "control": "ctrl-fl1", "spill_into": {"FL2-H": 0.41},
+     "comment": "只影响局部依赖的源数据改动：ctrl-fl1 溢漏行"},
+    {"kind": "gate_rename_nested", "gate_id": "gate-cd3", "new_name": "CD3-pos",
+     "comment": "门嵌套改名：稳定 id 不变，名字单独版本化"},
+    {"kind": "upstream_stale", "gate_id": "gate-lymph",
+     "new_polygon": [[100.0, 100.0], [900.0, 100.0], [900.0, 900.0], [100.0, 900.0]],
+     "comment": "上游过期传播：下游标记过期而不覆盖"},
+    {"kind": "concurrent_edit", "branch": "main",
+     "comment": "同版本并发修改：后提交者看到版本冲突及双方差异"}
+  ]
+}
