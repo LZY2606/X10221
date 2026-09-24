@@ -1,0 +1,107 @@
+{
+  "id": "boundary-lab",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案后，审阅者逐步复核从原始信号到最终细胞群的每次变换。基线版本把原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形和父子关系分开版本化；随后每次只改动一个直接来源：一次参数修订（近奇异 spillover 矩阵）、一次只影响局部依赖的源数据改动（PE 单染系数）、一次上游门修订（Lymph 边界右移）、一次门嵌套改名（FITC+ → FITC-pos），以及一次互相冲突的人工决定（同版本并发修改）。重放记录实际经过矩阵奇异、极端信号、边界点、门嵌套改名、上游过期传播和同版本并发修改六种情形，审阅者能从最终状态反查哪条材料、哪版规则和哪次决定造成了差异。",
+  "artifacts": [
+    {"key": "raw", "kind": "raw-channels", "name": "FCS 事件（原始通道值）"},
+    {"key": "meta", "kind": "spillover-meta", "name": "单染对照 spillover 元数据"},
+    {"key": "comp", "kind": "compensation-matrix", "name": "spillover 矩阵"},
+    {"key": "transform", "kind": "transform-params", "name": "对数变换参数"},
+    {"key": "polygon", "kind": "gate-polygon", "name": "门多边形"},
+    {"key": "hierarchy", "kind": "gate-hierarchy", "name": "门父子关系"}
+  ],
+  "baseline": {
+    "raw": {
+      "channels": ["FSC-A", "SSC-A", "FITC", "PE"],
+      "detector": {"linear_max": 262144.0, "unit": "RFU"},
+      "events": [
+        {"id": "e01", "values": {"FSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e02", "values": {"FSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "1500", "value": 1500.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "1500", "value": 1500.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e03", "values": {"FSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e04", "values": {"FSC-A": {"raw": "150", "value": 150.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e05", "values": {"FSC-A": {"raw": "1500000", "value": 1500000.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e06", "values": {"FSC-A": {"raw": "1500", "value": 1500.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e07", "values": {"FSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "300000", "value": 300000.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e08", "values": {"FSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "SATURATED", "value": null, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e09", "values": {"FSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "-50", "value": -50.0, "unit": "RFU", "basis": "acquisition"}}},
+        {"id": "e10", "values": {"FSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "SSC-A": {"raw": "15000", "value": 15000.0, "unit": "RFU", "basis": "acquisition"}, "FITC": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}, "PE": {"raw": "150000", "value": 150000.0, "unit": "RFU", "basis": "acquisition"}}}
+      ]
+    },
+    "meta": {
+      "coordinate_basis": "acquisition",
+      "controls": [
+        {"fluorochrome": "FITC", "detector": "PE", "coefficient": 0.15, "unit": "fraction"},
+        {"fluorochrome": "PE", "detector": "FITC", "coefficient": 0.02, "unit": "fraction"}
+      ]
+    },
+    "comp": {
+      "order": ["FITC", "PE"],
+      "matrix": [[1.0, 0.15], [0.02, 1.0]],
+      "unit": "fraction",
+      "basis": "spillover"
+    },
+    "transform": {
+      "transforms": {
+        "FSC-A": {"kind": "log", "cofactor": 150.0, "output_unit": "log10(RFU/150)", "output_basis": "transformed"},
+        "SSC-A": {"kind": "log", "cofactor": 150.0, "output_unit": "log10(RFU/150)", "output_basis": "transformed"},
+        "FITC": {"kind": "log", "cofactor": 150.0, "output_unit": "log10(RFU/150)", "output_basis": "transformed"},
+        "PE": {"kind": "log", "cofactor": 150.0, "output_unit": "log10(RFU/150)", "output_basis": "transformed"}
+      }
+    },
+    "polygon": {
+      "gates": [
+        {"gate_id": "G1", "x_channel": "FSC-A", "y_channel": "SSC-A", "basis": "transformed", "points": [[1.0, 1.0], [3.0, 1.0], [3.0, 3.0], [1.0, 3.0]]},
+        {"gate_id": "G2", "x_channel": "FITC", "y_channel": "PE", "basis": "transformed", "points": [[2.0, 0.5], [4.0, 0.5], [4.0, 4.0], [2.0, 4.0]]}
+      ]
+    },
+    "hierarchy": {
+      "nodes": [
+        {"gate_id": "G1", "name": "Lymph", "parent": null},
+        {"gate_id": "G2", "name": "FITC+", "parent": "G1"}
+      ]
+    }
+  },
+  "revisions": [
+    {
+      "key": "polygon",
+      "note": "上游门修订：Lymph 左边界右移（1.0 → 1.2），下游群体标记过期而不覆盖",
+      "payload": {
+        "gates": [
+          {"gate_id": "G1", "x_channel": "FSC-A", "y_channel": "SSC-A", "basis": "transformed", "points": [[1.2, 1.0], [3.0, 1.0], [3.0, 3.0], [1.2, 3.0]]},
+          {"gate_id": "G2", "x_channel": "FITC", "y_channel": "PE", "basis": "transformed", "points": [[2.0, 0.5], [4.0, 0.5], [4.0, 4.0], [2.0, 4.0]]}
+        ]
+      }
+    },
+    {
+      "key": "hierarchy",
+      "note": "门嵌套改名：FITC+ → FITC-pos，gate_id 不变，身份稳定",
+      "payload": {
+        "nodes": [
+          {"gate_id": "G1", "name": "Lymph", "parent": null},
+          {"gate_id": "G2", "name": "FITC-pos", "parent": "G1"}
+        ]
+      }
+    },
+    {
+      "key": "meta",
+      "note": "局部源数据改动：PE 单染系数 0.02 → 0.021，只应波及荧光补偿依赖",
+      "payload": {
+        "coordinate_basis": "acquisition",
+        "controls": [
+          {"fluorochrome": "FITC", "detector": "PE", "coefficient": 0.15, "unit": "fraction"},
+          {"fluorochrome": "PE", "detector": "FITC", "coefficient": 0.021, "unit": "fraction"}
+        ]
+      }
+    },
+    {
+      "key": "comp",
+      "note": "参数修订：近奇异 spillover 矩阵（行列式 ≈ 1e-12），派生层必须拒绝默默求逆",
+      "payload": {
+        "order": ["FITC", "PE"],
+        "matrix": [[1.0, 1.0], [1.0, 1.000000000001]],
+        "unit": "fraction",
+        "basis": "spillover"
+      }
+    }
+  ]
+}
