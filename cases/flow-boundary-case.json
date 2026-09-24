@@ -1,0 +1,369 @@
+{
+  "case_id": "flow-boundary-suite",
+  "schema": "flow-boundary-case/v1",
+  "description": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "coordinate_basis": "Event rows use detector channel engineering units. Raw values remain detector-native; derived values use compensated dimensionless fluorescence or arcsinh coordinates.",
+  "channels": [
+    {
+      "id": "ch-fsc",
+      "name": "FSC-A",
+      "parameter": "forward_scatter_area",
+      "unit": "a.u.",
+      "kind": "scatter"
+    },
+    {
+      "id": "ch-ssc",
+      "name": "SSC-A",
+      "parameter": "side_scatter_area",
+      "unit": "a.u.",
+      "kind": "scatter"
+    },
+    {
+      "id": "ch-fitc",
+      "name": "FITC-A",
+      "parameter": "green_fluorescence_area",
+      "unit": "a.u.",
+      "kind": "fluorescence"
+    },
+    {
+      "id": "ch-pe",
+      "name": "PE-A",
+      "parameter": "orange_fluorescence_area",
+      "unit": "a.u.",
+      "kind": "fluorescence"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt-001",
+      "ordered_channels": [
+        "ch-fsc",
+        "ch-ssc",
+        "ch-fitc",
+        "ch-pe"
+      ],
+      "values": [
+        120.0,
+        95.0,
+        210.0,
+        70.0
+      ],
+      "unit": "a.u.",
+      "flags": []
+    },
+    {
+      "id": "evt-002",
+      "ordered_channels": [
+        "ch-fsc",
+        "ch-ssc",
+        "ch-fitc",
+        "ch-pe"
+      ],
+      "values": [
+        130.0,
+        105.0,
+        70.0,
+        210.0
+      ],
+      "unit": "a.u.",
+      "flags": []
+    },
+    {
+      "id": "evt-003",
+      "ordered_channels": [
+        "ch-fsc",
+        "ch-ssc",
+        "ch-fitc",
+        "ch-pe"
+      ],
+      "values": [
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ],
+      "unit": "a.u.",
+      "flags": [
+        "boundary"
+      ]
+    },
+    {
+      "id": "evt-004",
+      "ordered_channels": [
+        "ch-fsc",
+        "ch-ssc",
+        "ch-fitc",
+        "ch-pe"
+      ],
+      "values": [
+        150.0,
+        120.0,
+        1000000.0,
+        45.0
+      ],
+      "unit": "a.u.",
+      "flags": [
+        "extreme_high"
+      ]
+    },
+    {
+      "id": "evt-005",
+      "ordered_channels": [
+        "ch-fsc",
+        "ch-ssc",
+        "ch-fitc",
+        "ch-pe"
+      ],
+      "values": [
+        10.0,
+        8.0,
+        -50.0,
+        12.0
+      ],
+      "unit": "a.u.",
+      "flags": [
+        "extreme_low"
+      ]
+    },
+    {
+      "id": "evt-006",
+      "ordered_channels": [
+        "ch-fsc",
+        "ch-ssc",
+        "ch-fitc",
+        "ch-pe"
+      ],
+      "values": [
+        5.0,
+        5.0,
+        "OVERFLOW",
+        "40"
+      ],
+      "raw_representations": [
+        {
+          "value": 5.0,
+          "representation": "5.0"
+        },
+        {
+          "value": 5.0,
+          "representation": "5.0"
+        },
+        {
+          "value": "OVERFLOW",
+          "representation": "OVERFLOW"
+        },
+        {
+          "value": "40",
+          "representation": "40"
+        }
+      ],
+      "unit": "a.u.",
+      "flags": [
+        "unconvertible_fluorescence"
+      ]
+    }
+  ],
+  "single_stain_controls": [
+    {
+      "id": "ctrl-fitc",
+      "fluorophore": "FITC",
+      "channel": "ch-fitc",
+      "event_ids": [
+        "evt-001"
+      ],
+      "basis": "spectral spillover estimate"
+    },
+    {
+      "id": "ctrl-pe",
+      "fluorophore": "PE",
+      "channel": "ch-pe",
+      "event_ids": [
+        "evt-002"
+      ],
+      "basis": "spectral spillover estimate"
+    }
+  ],
+  "spillover": {
+    "id": "spill-base",
+    "ordered_channels": [
+      "ch-fitc",
+      "ch-pe"
+    ],
+    "matrix": [
+      [
+        1.0,
+        0.02
+      ],
+      [
+        0.08,
+        1.0
+      ]
+    ],
+    "unit": "fraction",
+    "source_controls": [
+      "ctrl-fitc",
+      "ctrl-pe"
+    ],
+    "coordinate_basis": "fraction of detector signal observed in detector columns"
+  },
+  "near_singular_spillover": {
+    "id": "spill-near-singular",
+    "ordered_channels": [
+      "ch-fitc",
+      "ch-pe"
+    ],
+    "matrix": [
+      [
+        1.0,
+        1.0
+      ],
+      [
+        1.000001,
+        1.0
+      ]
+    ],
+    "unit": "fraction",
+    "source_controls": [
+      "ctrl-fitc",
+      "ctrl-pe"
+    ],
+    "coordinate_basis": "deliberately near-dependent detector columns"
+  },
+  "compensation": {
+    "id": "comp-base",
+    "spillover_id": "spill-base",
+    "method": "exact_inverse_when_well_conditioned",
+    "near_singular_threshold": 1e-05
+  },
+  "transform": {
+    "id": "trans-base",
+    "channels": [
+      "ch-fitc",
+      "ch-pe"
+    ],
+    "family": "arcsinh",
+    "cofactor": 150.0,
+    "input_unit": "compensated a.u.",
+    "output_unit": "arcsinh dimension"
+  },
+  "gates": [
+    {
+      "id": "gate-cells-v1",
+      "name": "Cells",
+      "gate_type": "polygon",
+      "x_channel": "ch-fsc",
+      "y_channel": "ch-ssc",
+      "coordinate_basis": "raw scatter a.u.",
+      "polygon": [
+        [
+          100,
+          50
+        ],
+        [
+          180,
+          50
+        ],
+        [
+          180,
+          150
+        ],
+        [
+          100,
+          150
+        ]
+      ],
+      "parent_id": null
+    },
+    {
+      "id": "gate-fitc-v1",
+      "name": "FITC positive",
+      "gate_type": "polygon",
+      "x_channel": "ch-fitc",
+      "y_channel": "ch-pe",
+      "coordinate_basis": "compensated fluorescence a.u.",
+      "polygon": [
+        [
+          100,
+          -100000
+        ],
+        [
+          2000000,
+          -100000
+        ],
+        [
+          2000000,
+          100000
+        ],
+        [
+          -100,
+          100000
+        ]
+      ],
+      "parent_id": "gate-cells-v1"
+    },
+    {
+      "id": "gate-pe-v1",
+      "name": "PE positive",
+      "gate_type": "polygon",
+      "x_channel": "ch-fitc",
+      "y_channel": "ch-pe",
+      "coordinate_basis": "compensated fluorescence a.u.",
+      "polygon": [
+        [
+          -100000,
+          100
+        ],
+        [
+          -100000,
+          2000000
+        ],
+        [
+          100000,
+          2000000
+        ],
+        [
+          100000,
+          -100
+        ]
+      ],
+      "parent_id": "gate-cells-v1"
+    }
+  ],
+  "fixed_expectations": {
+    "baseline_cell_event_ids": [
+      "evt-001",
+      "evt-002",
+      "evt-003",
+      "evt-004"
+    ],
+    "boundary_event_ids": [
+      "evt-003"
+    ],
+    "extreme_event_ids": [
+      "evt-004",
+      "evt-005"
+    ],
+    "fitc_positive_event_ids": [
+      "evt-001",
+      "evt-004"
+    ],
+    "pe_positive_event_ids": [
+      "evt-002"
+    ],
+    "denominator_rule": "child percentage denominator is the exact parent population version",
+    "near_singular_event": "MATRIX_NEAR_SINGULAR_REJECTED",
+    "upstream_revision_event": "UPSTREAM_GATE_REVISED_DESCENDANTS_STALE",
+    "concurrent_event": "SAME_VERSION_CONCURRENT_MODIFICATION",
+    "root_event_ids": [
+      "evt-001",
+      "evt-002",
+      "evt-003",
+      "evt-004",
+      "evt-005",
+      "evt-006"
+    ],
+    "unconvertible_event_ids": [
+      "evt-006"
+    ]
+  }
+}
