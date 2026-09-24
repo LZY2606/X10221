@@ -1,0 +1,63 @@
+{
+  "kind": "revisions",
+  "description": "按序回放边界情形：每次只改动一个直接来源，观察失效范围是否被限制在正确范围。",
+  "revisions": [
+    {
+      "rev_id": "rev-comp-near-singular",
+      "target": "comp_matrix",
+      "to_version": 2,
+      "payload": {
+        "kind": "comp_matrix", "version": 2,
+        "channel_order": ["FITC-A", "PE-A"],
+        "matrix": [[1.0, 0.9999999], [0.9999999, 1.0]],
+        "unit": "dimensionless",
+        "source": "operator paste from unverified spreadsheet"
+      },
+      "scenario": "矩阵奇异",
+      "expect": ["comp.near_singular_rejected"],
+      "note": "行列式≈1.4e-14，条件数≈1.4e7；不得默默求逆，必须保留候选：沿用 v1 / 单位矩阵 / 人工录入。"
+    },
+    {
+      "rev_id": "rev-gates-rename",
+      "target": "gates",
+      "to_version": 2,
+      "payload": {
+        "kind": "gates", "version": 2,
+        "gates": [
+          {"gate_id": "g-lymph", "label": "Lymphocytes", "parent": null,
+           "channels": ["FSC-A", "SSC-A"], "space": "raw",
+           "polygon": [[40000, 20000], [120000, 20000], [120000, 90000], [40000, 90000]]},
+          {"gate_id": "g-cd3", "label": "CD3+ T 细胞", "parent": "g-lymph",
+           "channels": ["FITC-A", "SSC-A"], "space": "transformed",
+           "polygon": [[3000, 20000], [9000, 20000], [9000, 90000], [3000, 90000]]},
+          {"gate_id": "g-cd19", "label": "CD19+", "parent": "g-cd3",
+           "channels": ["PE-A", "FITC-A"], "space": "transformed",
+           "polygon": [[3000, 3000], [9000, 3000], [9000, 9000], [3000, 9000]]}
+        ]
+      },
+      "scenario": "门嵌套改名",
+      "expect": ["gate.renamed", "stale.propagated"],
+      "note": "g-cd3 改名（嵌套父门），几何不变；子门 g-cd19 的既有结果标记过期而不覆盖。"
+    },
+    {
+      "rev_id": "rev-raw-local",
+      "target": "raw_channels",
+      "to_version": 2,
+      "payload": {
+        "kind": "raw_channels", "version": 2,
+        "patch": [{"event_id": "e09", "set": {"FITC-A": 50000}}],
+        "note": "只修正 e09 的 FITC-A 记录错误（录入时漏位），其余事件不变"
+      },
+      "scenario": "上游过期传播（局部）",
+      "expect": ["stale.propagated"],
+      "note": "只影响 g-cd3 / g-cd19 结果；g-lymph 结果不得被波及。"
+    },
+    {
+      "rev_id": "rev-conflict",
+      "target": "decision",
+      "scenario": "同版本并发修改",
+      "expect": ["conflict.detected"],
+      "note": "两个窗口基于同一分支头分别提交相互冲突的裁定，后提交者必须看到版本冲突与双方差异。"
+    }
+  ]
+}

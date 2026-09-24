@@ -1,0 +1,14 @@
+{
+  "kind": "spillover",
+  "version": 1,
+  "controls": [
+    {"control_id": "ctrl-fitc", "fluor": "FITC", "stained_detector": "FITC-A",
+     "medians": {"FITC-A": {"value": 48000.0, "unit": "AU"}, "PE-A": {"value": 5760.0, "unit": "AU"}},
+     "background": {"FITC-A": {"value": 100.0, "unit": "AU"}, "PE-A": {"value": 100.0, "unit": "AU"}},
+     "note": "单染对照：FITC 阳性群在 PE-A 检测器溢出 12%"},
+    {"control_id": "ctrl-pe", "fluor": "PE", "stained_detector": "PE-A",
+     "medians": {"FITC-A": {"value": 1260.0, "unit": "AU"}, "PE-A": {"value": 42000.0, "unit": "AU"}},
+     "background": {"FITC-A": {"value": 100.0, "unit": "AU"}, "PE-A": {"value": 100.0, "unit": "AU"}},
+     "note": "单染对照：PE 阳性群在 FITC-A 检测器溢出 3%"}
+  ]
+}

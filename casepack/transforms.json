@@ -1,0 +1,9 @@
+{
+  "kind": "transform_params",
+  "version": 1,
+  "transform": "asinh",
+  "params": {"cofactor": 150.0, "scale": 1000.0},
+  "applies_to": ["FITC-A", "PE-A"],
+  "unit": "scaled-asinh",
+  "basis": "asinh(v/cofactor)*scale"
+}

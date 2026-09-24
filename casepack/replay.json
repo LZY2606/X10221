@@ -1,0 +1,29 @@
+{
+  "kind": "replay",
+  "description": "重放脚本：从导入到最终复核的完整叙事，覆盖六类边界情形。",
+  "steps": [
+    {"step": 1, "op": "load_casepack", "note": "导入原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形与父子关系（分开版本化）"},
+    {"step": 2, "op": "recompute", "branch": "main",
+     "expect_events": ["gate.boundary_ambiguous", "signal.extreme_unconvertible"],
+     "note": "e15 恰好落在 g-lymph 左边界（边界点，双候选保留）；e16 FITC-A=300000 超出 18-bit 检测上限（极端信号，原值保留+诊断）"},
+    {"step": 3, "op": "apply_revision", "rev_id": "rev-comp-near-singular",
+     "expect_events": ["comp.near_singular_rejected"],
+     "note": "近奇异补偿矩阵被拒绝求逆，生成候选集等待裁定"},
+    {"step": 4, "op": "decide", "subject": "cand:comp.near_singular", "action": "accept",
+     "params": {"choice": "use_previous_version"},
+     "note": "裁定：沿用补偿矩阵 v1；被采纳与未采纳候选都保留"},
+    {"step": 5, "op": "apply_revision", "rev_id": "rev-gates-rename",
+     "expect_events": ["gate.renamed", "stale.propagated"],
+     "note": "嵌套父门改名，下游结果标记过期而不覆盖"},
+    {"step": 6, "op": "apply_revision", "rev_id": "rev-raw-local",
+     "expect_events": ["stale.propagated"],
+     "note": "局部源数据改动，失效范围仅限 g-cd3/g-cd19"},
+    {"step": 7, "op": "concurrent_decisions",
+     "note": "同版本并发修改：两个窗口同时基于同一分支头提交冲突裁定",
+     "expect_events": ["conflict.detected"]},
+    {"step": 8, "op": "undo_last_decision",
+     "note": "撤销最近一次裁定并恢复前一分支状态"},
+    {"step": 9, "op": "export_import_roundtrip",
+     "note": "导出、删除本地数据库、再导入；身份、顺序与来源关系必须保持"}
+  ]
+}

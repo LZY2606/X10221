@@ -1,0 +1,15 @@
+{
+  "kind": "gates",
+  "version": 1,
+  "gates": [
+    {"gate_id": "g-lymph", "label": "Lymphocytes", "parent": null,
+     "channels": ["FSC-A", "SSC-A"], "space": "raw",
+     "polygon": [[40000, 20000], [120000, 20000], [120000, 90000], [40000, 90000]]},
+    {"gate_id": "g-cd3", "label": "CD3+", "parent": "g-lymph",
+     "channels": ["FITC-A", "SSC-A"], "space": "transformed",
+     "polygon": [[3000, 20000], [9000, 20000], [9000, 90000], [3000, 90000]]},
+    {"gate_id": "g-cd19", "label": "CD19+", "parent": "g-cd3",
+     "channels": ["PE-A", "FITC-A"], "space": "transformed",
+     "polygon": [[3000, 3000], [9000, 3000], [9000, 9000], [3000, 9000]]}
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "pack_id": "flow-boundary-lab",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "version": 1,
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。",
+  "units_and_basis": {
+    "fluorescence_channels": {"unit": "AU", "basis": "raw detector scale", "detector_max": 262144.0, "detector_bits": 18},
+    "scatter_channels": {"unit": "AU", "basis": "raw detector scale"},
+    "transformed": {"unit": "scaled-asinh", "basis": "asinh(v/cofactor)*scale"},
+    "percent": {"unit": "%", "basis": "count / parent-population-count (parent version pinned)"},
+    "gate_polygon": {"unit": "channel-value", "basis": "transformed space for fluorescence, raw for scatter"}
+  },
+  "files": {
+    "raw_channels": "raw_channels.json",
+    "spillover": "spillover.json",
+    "comp_matrix": "comp_matrix.json",
+    "transforms": "transforms.json",
+    "gates": "gates.json",
+    "revisions": "revisions.json",
+    "replay": "replay.json"
+  }
+}
