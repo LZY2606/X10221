@@ -1,0 +1,5 @@
+{
+  "id": "draft-b",
+  "title": "草案 B：边界事件排除出 Live",
+  "decisions": [{"subject": "e7@g-live", "verdict": "reject", "rationale": "边界点按排除处理"}]
+}

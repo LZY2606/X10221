@@ -1,0 +1,24 @@
+{
+  "tree_id": "tree-4color",
+  "note": "nested rename: Live -> Lymphocytes/Live, children re-pointed, downstream stale",
+  "gates": [
+    {
+      "id": "g-live",
+      "name": "Lymphocytes/Live",
+      "parent": null,
+      "x_channel": "FL1-A",
+      "y_channel": "FL2-A",
+      "basis": "compensated-linear",
+      "polygon": [[1000, 1000], [100000, 1000], [100000, 100000], [1000, 100000]]
+    },
+    {
+      "id": "g-cd3",
+      "name": "CD3+",
+      "parent": "g-live",
+      "x_channel": "FL3-A",
+      "y_channel": "FL4-A",
+      "basis": "compensated-linear",
+      "polygon": [[2000, 2000], [80000, 2000], [2000, 80000]]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "xform-display",
+  "versions": [
+    {"version": 1, "kind": "asinh", "params": {"cofactor": 150.0}, "unit": "fluorescence-intensity", "basis": "asinh/cofactor-150"},
+    {"version": 2, "kind": "asinh", "params": {"cofactor": 500.0}, "unit": "fluorescence-intensity", "basis": "asinh/cofactor-500"}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "spill-4color",
+  "unit": "fraction-of-primary-channel",
+  "basis": "single-stain-controls",
+  "controls": [
+    {"control": "FL1-single", "primary": "FL1-A", "measured": {"FL1-A": 1.00, "FL2-A": 0.12, "FL3-A": 0.02, "FL4-A": 0.01}},
+    {"control": "FL2-single", "primary": "FL2-A", "measured": {"FL1-A": 0.03, "FL2-A": 1.00, "FL3-A": 0.08, "FL4-A": 0.02}},
+    {"control": "FL3-single", "primary": "FL3-A", "measured": {"FL1-A": 0.01, "FL2-A": 0.04, "FL3-A": 1.00, "FL4-A": 0.10}},
+    {"control": "FL4-single", "primary": "FL4-A", "measured": {"FL1-A": 0.01, "FL2-A": 0.02, "FL3-A": 0.05, "FL4-A": 1.00}}
+  ]
+}

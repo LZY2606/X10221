@@ -1,0 +1,12 @@
+{
+  "id": "comp-4color",
+  "unit": "spillover-coefficient",
+  "basis": "FL1-A,FL2-A,FL3-A,FL4-A",
+  "note": "near-singular: rows 3 and 4 differ by 1e-12",
+  "matrix": [
+    [1.00, 0.12, 0.02, 0.01],
+    [0.03, 1.00, 0.08, 0.02],
+    [0.01, 0.04, 1.00, 0.10],
+    [0.01, 0.04, 1.000000000001, 0.10]
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "replay-boundary-chamber",
+  "steps": [
+    {"op": "import_baseline", "expect": {"kinds_versioned_separately": ["raw_events", "spillover", "comp_matrix", "transform", "gate", "gate_tree"]}},
+    {"op": "revise_transform", "to_version": 2, "expect": {"rule": "transform.revised", "invalidates": "display-only"}},
+    {"op": "swap_comp_matrix", "to": "comp_matrix_singular.json", "expect": {"rule": "comp.near_singular", "status": "blocked", "no_silent_inverse": true}},
+    {"op": "boundary_point", "event": "e7", "gate": "g-live", "expect": {"rule": "gate.boundary", "status": "ambiguous", "candidates": ["in", "out"]}},
+    {"op": "conflicting_decisions", "drafts": ["draft-a", "draft-b"], "expect": {"rule": "draft.concurrent_conflict", "both_diffs_kept": true}},
+    {"op": "rename_upstream_gate", "to": "gates_v2_rename.json", "expect": {"rule": "gate.upstream_stale", "downstream": ["g-cd3"], "overwrite": false}}
+  ],
+  "assertions": [
+    "conclusions carry stable identities",
+    "provenance chain resolvable from final state",
+    "invalidation scope limited to dependents",
+    "export/import preserves identity, order, provenance"
+  ]
+}
