@@ -1,0 +1,12 @@
+{
+  "kind": "comp_matrix",
+  "id": "comp:provisional-identity",
+  "status": "provisional",
+  "basis": "identity-placeholder",
+  "matrix": [
+    [1.0, 0.0],
+    [0.0, 1.0]
+  ],
+  "detectors": ["FL1-A", "FL2-A"],
+  "note": "基线占位：真正的补偿矩阵须经裁定（近奇异 spillover 不允许默默求逆）"
+}

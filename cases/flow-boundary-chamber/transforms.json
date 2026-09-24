@@ -1,0 +1,8 @@
+{
+  "kind": "transform_params",
+  "id": "xform:logicle-v1",
+  "transforms": [
+    {"channel": "FL1-A", "type": "logicle", "params": {"T": 262144, "W": 0.5, "M": 4.5, "A": 0.0}, "basis": "logicle(T,W,M,A)", "unit": "au"},
+    {"channel": "FL2-A", "type": "logicle", "params": {"T": 262144, "W": 0.5, "M": 4.5, "A": 0.0}, "basis": "logicle(T,W,M,A)", "unit": "au"}
+  ]
+}

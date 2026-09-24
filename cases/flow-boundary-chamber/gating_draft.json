@@ -1,0 +1,19 @@
+{
+  "kind": "gate_polygons",
+  "id": "gates:draft-v1",
+  "gates": [
+    {"gate_id": "gate:lymph", "name": "Lymphocytes", "channels": ["FSC-A", "SSC-A"], "unit": "au", "basis": "linear",
+     "edge_rule": "inclusive",
+     "polygon": [[45000, 10000], [60000, 10000], [60000, 25000], [45000, 25000]]},
+    {"gate_id": "gate:singlet", "name": "Singlets", "channels": ["FSC-A", "FSC-H"], "unit": "au", "basis": "linear",
+     "edge_rule": "inclusive",
+     "polygon": [[45000, 38000], [60000, 38000], [60000, 47000], [45000, 47000]]},
+    {"gate_id": "gate:fitc-pos", "name": "FITC+", "channels": ["FL1-A"], "unit": "au", "basis": "logicle(T,W,M,A)",
+     "edge_rule": "inclusive",
+     "threshold": {"channel": "FL1-A", "op": ">=", "value": 4000}}
+  ],
+  "relations": [
+    {"parent": "gate:lymph", "child": "gate:singlet"},
+    {"parent": "gate:singlet", "child": "gate:fitc-pos"}
+  ]
+}

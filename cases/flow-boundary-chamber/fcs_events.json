@@ -1,0 +1,25 @@
+{
+  "kind": "raw_channels",
+  "id": "raw:boundary-chamber",
+  "source": "flow-platform-import",
+  "acquired_at": "2026-09-19T09:30:00+09:00",
+  "channels": [
+    {"name": "FSC-A", "unit": "au", "scale": "linear", "range": 262144},
+    {"name": "SSC-A", "unit": "au", "scale": "linear", "range": 262144},
+    {"name": "FSC-H", "unit": "au", "scale": "linear", "range": 262144},
+    {"name": "FL1-A", "unit": "au", "scale": "logicle", "range": 262144, "fluorochrome": "FITC"},
+    {"name": "FL2-A", "unit": "au", "scale": "logicle", "range": 262144, "fluorochrome": "PE"}
+  ],
+  "events": [
+    {"id": "ev-001", "values": {"FSC-A": {"raw": "52100", "unit": "au"}, "SSC-A": {"raw": "18200", "unit": "au"}, "FSC-H": {"raw": "41000", "unit": "au"}, "FL1-A": {"raw": "850", "unit": "au"}, "FL2-A": {"raw": "640", "unit": "au"}}},
+    {"id": "ev-002", "values": {"FSC-A": {"raw": "53400", "unit": "au"}, "SSC-A": {"raw": "19100", "unit": "au"}, "FSC-H": {"raw": "42500", "unit": "au"}, "FL1-A": {"raw": "5200", "unit": "au"}, "FL2-A": {"raw": "900", "unit": "au"}}},
+    {"id": "ev-003", "values": {"FSC-A": {"raw": "49800", "unit": "au"}, "SSC-A": {"raw": "17600", "unit": "au"}, "FSC-H": {"raw": "40200", "unit": "au"}, "FL1-A": {"raw": "700", "unit": "au"}, "FL2-A": {"raw": "4800", "unit": "au"}}},
+    {"id": "ev-004", "values": {"FSC-A": {"raw": "56000", "unit": "au"}, "SSC-A": {"raw": "21000", "unit": "au"}, "FSC-H": {"raw": "44000", "unit": "au"}, "FL1-A": {"raw": "6100", "unit": "au"}, "FL2-A": {"raw": "1100", "unit": "au"}}},
+    {"id": "ev-005", "values": {"FSC-A": {"raw": "262143", "unit": "au", "flag": "saturated"}, "SSC-A": {"raw": "24500", "unit": "au"}, "FSC-H": {"raw": "46000", "unit": "au"}, "FL1-A": {"raw": "262143", "unit": "au", "flag": "saturated"}, "FL2-A": {"raw": "1300", "unit": "au"}}},
+    {"id": "ev-006", "values": {"FSC-A": {"raw": "51200", "unit": "au"}, "SSC-A": {"raw": "18400", "unit": "au"}, "FSC-H": {"raw": "41500", "unit": "au"}, "FL1-A": {"raw": "-200", "unit": "au", "flag": "subzero_after_comp"}, "FL2-A": {"raw": "720", "unit": "au"}}},
+    {"id": "ev-007", "values": {"FSC-A": {"raw": "50000", "unit": "au"}, "SSC-A": {"raw": "18000", "unit": "au"}, "FSC-H": {"raw": "40000", "unit": "au"}, "FL1-A": {"raw": "1500", "unit": "au"}, "FL2-A": {"raw": "1000", "unit": "au"}, "note": "boundary: FSC-A=50000 恰好落在 lymph 门边上"}},
+    {"id": "ev-008", "values": {"FSC-A": {"raw": "120000", "unit": "au"}, "SSC-A": {"raw": "90000", "unit": "au"}, "FSC-H": {"raw": "88000", "unit": "au"}, "FL1-A": {"raw": "900", "unit": "au"}, "FL2-A": {"raw": "800", "unit": "au"}}},
+    {"id": "ev-009", "values": {"FSC-A": {"raw": "50500", "unit": "au"}, "SSC-A": {"raw": "18300", "unit": "au"}, "FSC-H": {"raw": "82000", "unit": "au"}, "FL1-A": {"raw": "4800", "unit": "au"}, "FL2-A": {"raw": "950", "unit": "au"}, "note": "doublet: FSC-H 偏高"}},
+    {"id": "ev-010", "values": {"FSC-A": {"raw": "51900", "unit": "au"}, "SSC-A": {"raw": "18000", "unit": "au"}, "FSC-H": {"raw": "40800", "unit": "au"}, "FL1-A": {"raw": "overflow", "unit": "au"}, "FL2-A": {"raw": "700", "unit": "au"}, "note": "FL1-A 原始表示不可转换，保留原值并附诊断"}}
+  ]
+}

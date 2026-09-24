@@ -1,0 +1,15 @@
+{
+  "kind": "scenario",
+  "id": "scenario:boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "steps": [
+    {"step": 1, "action": "import_baseline", "desc": "导入 FCS 事件、单染对照、spillover、变换参数、门控草案；六个存储分开版本化为 v1"},
+    {"step": 2, "action": "evaluate_compensation", "desc": "对近奇异 spillover 求补偿：禁止默默求逆，产出候选与机器可读事件"},
+    {"step": 3, "action": "compute_populations", "desc": "计算群体计数与百分比，分母钉住父群版本；边界点 ev-007 按 edge_rule 计入"},
+    {"step": 4, "action": "revise_transform", "desc": "参数修订：logicle W 0.5→0.8，仅使依赖 FL1-A/FL2-A 变换的派生失效"},
+    {"step": 5, "action": "revise_gate", "desc": "局部源改动：gate:fitc-pos 阈值 4000→4500，下游群体标记过期而不覆盖"},
+    {"step": 6, "action": "rename_gate", "desc": "门嵌套改名：FITC+ → FITC_high，身份不变，子关系按 id 续接"},
+    {"step": 7, "action": "conflicting_rulings", "desc": "同版本并发修改：两个窗口基于同一 expected_seq 提交裁定，后提交者收到冲突与双方差异"},
+    {"step": 8, "action": "export_wipe_reimport", "desc": "导出档案、删除本地库、再导入：身份、顺序、来源关系保持"}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "kind": "single_stain_controls",
+  "id": "controls:fitc-pe",
+  "controls": [
+    {"fluorochrome": "FITC", "detector": "FL1-A", "positive_median": {"raw": "48200", "unit": "au"}, "negative_median": {"raw": "310", "unit": "au"}},
+    {"fluorochrome": "PE", "detector": "FL2-A", "positive_median": {"raw": "61500", "unit": "au"}, "negative_median": {"raw": "280", "unit": "au"}}
+  ]
+}

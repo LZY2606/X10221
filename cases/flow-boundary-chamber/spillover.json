@@ -1,0 +1,16 @@
+{
+  "kind": "spillover",
+  "id": "spill:fitc-pe",
+  "metadata": {
+    "derived_from": "controls:fitc-pe",
+    "detectors": ["FL1-A", "FL2-A"],
+    "fluorochromes": ["FITC", "PE"],
+    "unit": "ratio",
+    "basis": "median-normalized"
+  },
+  "matrix": [
+    [1.0, 0.85],
+    [0.8499999, 0.7225]
+  ],
+  "note": "近奇异：第二行 ≈ 0.85 × 第一行，归一化行列式 ≈ 5.8e-8，禁止默默求逆"
+}

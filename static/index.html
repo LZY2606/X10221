@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>流式边界室 · 补偿/门控谱系复核</title>
+<style>
+  body { font-family: -apple-system, "PingFang SC", sans-serif; margin: 0; background: #0f1420; color: #dde3ee; }
+  header { padding: 10px 16px; background: #171e30; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  header h1 { font-size: 16px; margin: 0 12px 0 0; }
+  button { background: #2b3a5e; color: #dde3ee; border: 1px solid #3d4f7d; border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+  button:hover { background: #37497a; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+  section { background: #171e30; border-radius: 8px; padding: 10px 12px; }
+  h2 { font-size: 13px; margin: 0 0 8px; color: #8fb3ff; }
+  table { border-collapse: collapse; width: 100%; font-size: 12px; }
+  td, th { border: 1px solid #2a3550; padding: 3px 6px; text-align: left; }
+  .stale { color: #ff9d6b; } .current { color: #7de6a3; }
+  .evt { font-size: 11px; border-bottom: 1px solid #232c44; padding: 3px; cursor: pointer; }
+  .evt:hover { background: #1e2740; }
+  .evt.sel { background: #27335c; }
+  pre { font-size: 11px; white-space: pre-wrap; word-break: break-all; background: #10162a; padding: 6px; border-radius: 6px; max-height: 220px; overflow: auto; }
+  canvas { background: #0b0f1c; border-radius: 6px; }
+  .pill { display: inline-block; padding: 1px 6px; border-radius: 8px; font-size: 11px; margin: 1px; }
+  .pend { background: #4a3a1a; } .acc { background: #1d4a2c; } .rej { background: #4a1d1d; }
+  #conflict { color: #ff7d7d; font-size: 12px; white-space: pre-wrap; }
+  .cols { display: flex; gap: 8px; } .cols > div { flex: 1; }
+  select, input { background: #10162a; color: #dde3ee; border: 1px solid #2a3550; border-radius: 4px; padding: 2px 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>流式边界室 · 补偿矩阵 / 门控系谱 / 细胞群不确定性</h1>
+  <button onclick="loadCase()">载入案例</button>
+  <button onclick="replay()">重放场景</button>
+  <button onclick="computePops()">重算群体</button>
+  <button onclick="doExport()">导出档案</button>
+  <button onclick="wipeReimport()">清空并重导入验证</button>
+  <button onclick="refresh()">刷新</button>
+</header>
+<main>
+  <section>
+    <h2>通道散点（视图选择不改写原数据）</h2>
+    <div>
+      X <select id="sx" onchange="draw()"><option>FSC-A</option><option>SSC-A</option><option>FSC-H</option><option>FL1-A</option><option>FL2-A</option></select>
+      Y <select id="sy" onchange="draw()"><option>SSC-A</option><option>FSC-A</option><option>FSC-H</option><option>FL1-A</option><option>FL2-A</option></select>
+      <label><input type="checkbox" id="useComp" onchange="draw()"> 补偿后</label>
+    </div>
+    <canvas id="scatter" width="440" height="300"></canvas>
+    <div id="gateTree"></div>
+  </section>
+  <section>
+    <h2>群体与分母来源（分母钉住父群版本）</h2>
+    <div id="pops"></div>
+    <h2 style="margin-top:8px">补偿前后差异</h2>
+    <div id="compDiff"></div>
+  </section>
+  <section>
+    <h2>候选与裁定（接受/否定/撤销均生成事件）</h2>
+    <div id="cands"></div>
+    <h2 style="margin-top:8px">双窗口并发保存演示</h2>
+    <button onclick="conflictDemo()">两个窗口同时提交裁定</button>
+    <div id="conflict"></div>
+  </section>
+  <section>
+    <h2>草案并排（稳定身份逐版本可读）</h2>
+    <div>
+      A v<input id="va" value="1" size="2"> B v<input id="vb" value="3" size="2">
+      <button onclick="compare()">并排比较</button>
+    </div>
+    <div class="cols"><div><pre id="draftA"></pre></div><div><pre id="draftB"></pre></div></div>
+  </section>
+  <section>
+    <h2>分开版本化的六个存储</h2>
+    <div id="stores"></div>
+    <h2 style="margin-top:8px">诊断（不可转换值留在原位置）</h2>
+    <div id="diags"></div>
+  </section>
+  <section>
+    <h2>事件流（点击旧事件恢复当时依赖版本与可见结论）</h2>
+    <div id="events" style="max-height:420px;overflow:auto"></div>
+    <pre id="evtDetail"></pre>
+  </section>
+</main>
+<script>
+let S = null, selEvt = null;
+async function api(path, body) {
+  const r = await fetch(path, body === undefined ? {} : {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)});
+  return {status: r.status, json: await r.json()};
+}
+async function refresh() { S = (await api('/api/state')).json; render(); }
+async function loadCase() { await api('/api/case/load', {}); await refresh(); }
+async function replay() { await api('/api/scenario/replay', {}); await refresh(); }
+async function computePops() { await api('/api/populations/compute', {}); await refresh(); }
+async function doExport() {
+  const a = (await api('/api/export')).json;
+  const blob = new Blob([JSON.stringify(a, null, 2)], {type: 'application/json'});
+  const el = document.createElement('a'); el.href = URL.createObjectURL(blob);
+  el.download = 'flow-lineage-archive.json'; el.click();
+}
+async function wipeReimport() {
+  const a = (await api('/api/export')).json;
+  await api('/api/admin/wipe', {});
+  const r = await api('/api/import', a);
+  alert(r.status === 200 ? '重导入完成：身份、顺序、来源关系保持' : '导入失败（已回滚）: ' + JSON.stringify(r.json));
+  await refresh();
+}
+function render() {
+  if (!S) return;
+  // 存储
+  document.getElementById('stores').innerHTML = '<table><tr><th>存储</th><th>版本</th><th>身份</th><th>分支</th></tr>' +
+    S.stores.map(s => `<tr><td>${s.store}</td><td>v${s.version}</td><td>${s.id}</td><td>${s.branch}</td></tr>`).join('') + '</table>';
+  // 群体
+  document.getElementById('pops').innerHTML = '<table><tr><th>群体</th><th>v</th><th>计数</th><th>分母</th><th>%</th><th>分母来源</th><th>状态</th></tr>' +
+    S.populations.map(p => `<tr><td>${p.id}</td><td>v${p.version}</td><td>${p.event_count}</td><td>${p.denominator_count}</td><td>${p.percent.toFixed(1)}</td><td>${p.basis}</td><td class="${p.status}">${p.status}</td></tr>`).join('') + '</table>';
+  // 门树
+  if (S.gate_tree.length) {
+    const t = S.gate_tree[0];
+    const parentOf = {}; t.relations.forEach(r => parentOf[r.child] = r.parent);
+    const kids = {}; t.relations.forEach(r => (kids[r.parent] = kids[r.parent] || []).push(r.child));
+    const names = {}; t.gates.forEach(g => names[g.gate_id] = g.name);
+    const roots = t.gates.map(g => g.gate_id).filter(id => !parentOf[id]);
+    const walk = (id, d) => `<div style="margin-left:${d*16}px">└ ${names[id]} <small>(${id})</small></div>` + (kids[id]||[]).map(k => walk(k, d+1)).join('');
+    document.getElementById('gateTree').innerHTML = '<h2 style="margin-top:8px">门树 (v' + t.version + ')</h2>' + roots.map(r => walk(r, 0)).join('');
+  }
+  // 补偿前后差异
+  const rows = S.scatter.filter(e => e['FL1-A'] != null && e['FL1-A_comp'] != null);
+  document.getElementById('compDiff').innerHTML = '<table><tr><th>事件</th><th>FL1-A 前</th><th>FL1-A 后</th><th>FL2-A 前</th><th>FL2-A 后</th></tr>' +
+    rows.map(e => `<tr><td>${e.id}</td><td>${e['FL1-A']}</td><td>${e['FL1-A_comp'].toFixed(1)}</td><td>${e['FL2-A']}</td><td>${e['FL2-A_comp'].toFixed(1)}</td></tr>`).join('') + '</table>';
+  // 候选
+  document.getElementById('cands').innerHTML = S.candidates.map(c => {
+    const opts = (typeof c.options === 'string' ? JSON.parse(c.options) : c.options).map(o => o.option).join(' / ');
+    return `<div>${c.id} <span class="pill ${c.status==='pending'?'pend':c.status==='accepted'?'acc':'rej'}">${c.status}</span><br>
+      <small>${c.subject} · 候选: ${opts}</small><br>
+      <button onclick="rule('${c.id}','accept',${c.created_seq})">采纳阻尼伪逆</button>
+      <button onclick="rule('${c.id}','reject',${c.created_seq})">否定</button>
+      <button onclick="undo('${c.id}')">撤销裁定</button></div>`;
+  }).join('') || '<small>无候选</small>';
+  // 诊断
+  document.getElementById('diags').innerHTML = S.diagnostics.map(d =>
+    `<div class="evt">${d.id} · ${d.subject} · 原值「${d.raw_repr}」· ${d.message}</div>`).join('') || '<small>无</small>';
+  // 事件流
+  document.getElementById('events').innerHTML = S.events.map(e =>
+    `<div class="evt ${selEvt===e.seq?'sel':''}" onclick="showEvt(${e.seq})">#${e.seq} ${e.id} · ${e.kind} · ${e.branch}</div>`).join('');
+  draw();
+}
+async function rule(cid, action, seq) {
+  const decision = action === 'accept' ? {action, option: 'damped_pseudoinverse'} : {action};
+  const r = await api('/api/rulings', {candidate_id: cid, decision, expected_seq: seq});
+  if (r.status === 409) document.getElementById('conflict').textContent = '版本冲突：\n' + JSON.stringify(r.json, null, 2);
+  await refresh();
+}
+async function undo(cid) { await api('/api/rulings/undo', {candidate_id: cid}); await refresh(); }
+async function conflictDemo() {
+  const c = S.candidates.find(x => x.status === 'pending');
+  if (!c) { document.getElementById('conflict').textContent = '无待裁定候选（先重放场景或撤销现有裁定）'; return; }
+  const seq = c.created_seq;
+  const a = await api('/api/rulings', {candidate_id: c.id, decision: {action: 'accept', option: 'damped_pseudoinverse', window: 'A'}, expected_seq: seq});
+  const b = await api('/api/rulings', {candidate_id: c.id, decision: {action: 'reject', window: 'B'}, expected_seq: seq});
+  document.getElementById('conflict').textContent =
+    '窗口A: ' + a.status + '\n窗口B(后提交): ' + b.status + '\n双方差异:\n' + JSON.stringify(b.json, null, 2);
+  await refresh();
+}
+async function compare() {
+  const a = document.getElementById('va').value, b = document.getElementById('vb').value;
+  const r = (await api(`/api/drafts/compare?store=gate_polygons&a=${a}&b=${b}`)).json;
+  document.getElementById('draftA').textContent = 'v' + a + '\n' + JSON.stringify(r.a.payload, null, 2);
+  document.getElementById('draftB').textContent = 'v' + b + '\n' + JSON.stringify(r.b.payload, null, 2);
+}
+function showEvt(seq) {
+  selEvt = seq;
+  const e = S.events.find(x => x.seq === seq);
+  const atTime = S.stores.filter(s => s.created_seq <= seq);
+  const latestAt = {};
+  atTime.forEach(s => { if (!latestAt[s.store] || latestAt[s.store].version < s.version) latestAt[s.store] = s; });
+  document.getElementById('evtDetail').textContent =
+    '事件 #' + seq + ' ' + e.kind + '\n判断依据:\n' + JSON.stringify(e.payload, null, 2) +
+    '\n当时依赖版本:\n' + Object.values(latestAt).map(s => `${s.store}=${s.id}@v${s.version}`).join('\n');
+  render();
+}
+function draw() {
+  if (!S) return;
+  const cv = document.getElementById('scatter'), ctx = cv.getContext('2d');
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  const xc = document.getElementById('sx').value, yc = document.getElementById('sy').value;
+  const comp = document.getElementById('useComp').checked;
+  const gx = e => comp && e[xc + '_comp'] != null ? e[xc + '_comp'] : e[xc];
+  const gy = e => comp && e[yc + '_comp'] != null ? e[yc + '_comp'] : e[yc];
+  const pts = S.scatter.filter(e => gx(e) != null && gy(e) != null);
+  if (!pts.length) return;
+  const xs = pts.map(gx), ys = pts.map(gy);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const px = v => 20 + (v - x0) / ((x1 - x0) || 1) * (cv.width - 40);
+  const py = v => cv.height - 20 - (v - y0) / ((y1 - y0) || 1) * (cv.height - 40);
+  pts.forEach(e => {
+    ctx.fillStyle = e.flags.length ? '#ff9d6b' : '#7db3ff';
+    ctx.beginPath(); ctx.arc(px(gx(e)), py(gy(e)), 3, 0, 7); ctx.fill();
+  });
+  ctx.fillStyle = '#8fb3ff'; ctx.font = '11px sans-serif';
+  ctx.fillText(xc + (comp ? ' (补偿后)' : ''), 24, 14);
+  ctx.fillText(yc, cv.width - 60, cv.height - 6);
+}
+refresh();
+</script>
+</body>
+</html>
