@@ -34,3 +34,5 @@ coverage/
 .vite/
 .turbo/
 *.tsbuildinfo
+flowline.db
+flowline.db-*
