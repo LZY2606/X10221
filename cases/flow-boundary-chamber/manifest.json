@@ -1,0 +1,7 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "raw_file": "raw/boundary-events.fcs.txt",
+  "event_log": "events.jsonl",
+  "identity_policy": "event_id is stable across export, database deletion, import and branch replay"
+}

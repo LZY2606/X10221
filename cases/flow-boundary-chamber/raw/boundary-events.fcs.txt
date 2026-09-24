@@ -1,0 +1,11 @@
+FLOW BOUNDARY CHAMBER SYNTHETIC FCS TEXT / version=1 / coordinate_basis=detector_count
+EVENT E1 FL1-A=10[event_count] FL2-A=10[event_count] FSC-A=100[event_count] SSC-A=20[event_count]
+EVENT E2 FL1-A=11[event_count] FL2-A=9[event_count] FSC-A=110[event_count] SSC-A=22[event_count]
+EVENT E3 FL1-A=1000000[event_count] FL2-A=10[event_count] FSC-A=120[event_count] SSC-A=24[event_count]
+EVENT E4 FL1-A=2[event_count] FL2-A=18[event_count] FSC-A=130[event_count] SSC-A=26[event_count]
+EVENT E5 FL1-A=5[event_count] FL2-A=10[event_count] FSC-A=140[event_count] SSC-A=28[event_count]
+EVENT E6 FL1-A=20[event_count] FL2-A=20[event_count] FSC-A=150[event_count] SSC-A=30[event_count]
+EVENT E7 FL1-A=UNSTABLE[unparsed_detector_count] FL2-A=10[event_count] FSC-A=160[event_count] SSC-A=32[event_count]
+SPILLOVER detectors=FL1-A,FL2-A source=single-stain-controls unit=spillover_fraction
+MATRIX rows=[[1.0,0.2],[0.1,1.0]] basis=pre_compensation_detector_counts
+NEAR_SINGULAR rows=[[1.0,1.0],[1.0,1.0000001]] reason=collinear_single_stain_controls
