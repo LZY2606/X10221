@@ -1,0 +1,74 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "coordinate_manifest": {
+    "FSC-A": { "unit": "ADC counts", "basis": "forward-scatter detector linear raw coordinate", "role": "scatter" },
+    "SSC-A": { "unit": "ADC counts", "basis": "side-scatter detector linear raw coordinate", "role": "scatter" },
+    "FITC": { "unit": "ADC counts", "basis": "FITC detector linear raw coordinate", "role": "fluorescence" },
+    "PE": { "unit": "ADC counts", "basis": "PE detector linear raw coordinate", "role": "fluorescence" },
+    "PerCP": { "unit": "ADC counts", "basis": "PerCP detector linear raw coordinate", "role": "fluorescence" }
+  },
+  "raw_events": {
+    "id": "raw-events", "version": 1,
+    "record_unit": "ADC counts",
+    "events": [
+      ["E001", { "FSC-A": "120", "SSC-A": "90", "FITC": "100", "PE": "20", "PerCP": "10" }],
+      ["E002", { "FSC-A": "250", "SSC-A": "100", "FITC": "500", "PE": "80", "PerCP": "20" }],
+      ["E003", { "FSC-A": "310", "SSC-A": "180", "FITC": "1200", "PE": "180", "PerCP": "60" }],
+      ["E004", { "FSC-A": "430", "SSC-A": "260", "FITC": "0", "PE": "9999", "PerCP": "0" }],
+      ["E005", { "FSC-A": "210", "SSC-A": "130", "FITC": "760", "PE": "95", "PerCP": "40" }],
+      ["E006", { "FSC-A": "180", "SSC-A": "80", "FITC": "OVR", "PE": "35", "PerCP": "12" }]
+    ]
+  },
+  "spillover": {
+    "id": "spillover-meta", "version": 1,
+    "matrix_id": "compensation-matrix",
+    "detector_unit": "fraction of emitting fluorophore signal",
+    "coordinate_basis": "single-stain controls acquired in linear detector space",
+    "controls": [
+      { "fluorophore": "FITC", "control": "FITC beads", "detector": "FITC" },
+      { "fluorophore": "PE", "control": "PE beads", "detector": "PE" },
+      { "fluorophore": "PerCP", "control": "PerCP beads", "detector": "PerCP" }
+    ],
+    "channels": ["FITC", "PE", "PerCP"]
+  },
+  "compensation_matrix": {
+    "id": "compensation-matrix", "version": 1,
+    "unit": "dimensionless spillover fraction",
+    "channels": ["FITC", "PE", "PerCP"],
+    "rows": [[1.0, 0.12, 0.03], [0.08, 1.0, 0.02], [0.04, 0.09, 1.0]]
+  },
+  "near_singular_matrix": {
+    "id": "compensation-matrix", "version": 2,
+    "unit": "dimensionless spillover fraction",
+    "channels": ["FITC", "PE", "PerCP"],
+    "rows": [[1.0, 0.2, 0.1], [0.5, 0.1, 0.050001], [0.1, 0.3, 1.0]],
+    "intended_replay": "submit as a proposed matrix; it must be blocked rather than silently inverted"
+  },
+  "transform": {
+    "id": "display-transform", "version": 1,
+    "input_unit": "ADC counts",
+    "output_unit": "asinh-transformed fluorescence, dimensionless display coordinate",
+    "method": "asinh",
+    "channels": ["FITC", "PE", "PerCP"],
+    "cofactors": { "FITC": 150.0, "PE": 150.0, "PerCP": 150.0 }
+  },
+  "gates": [
+    { "id": "lymphocytes", "version": 1, "label": "Lymphocytes", "x_channel": "FSC-A", "y_channel": "SSC-A", "coordinate_basis": "raw ADC scatter", "unit": "ADC counts", "boundary_policy": "include_edges", "vertices": [[100,60],[360,60],[360,220],[100,220]] },
+    { "id": "singlets", "version": 1, "label": "Singlets", "x_channel": "FSC-A", "y_channel": "SSC-A", "coordinate_basis": "raw ADC scatter", "unit": "ADC counts", "boundary_policy": "include_edges", "vertices": [[120,70],[340,70],[340,200],[120,200]] },
+    { "id": "t_cells", "version": 1, "label": "T cells", "x_channel": "FITC", "y_channel": "PE", "coordinate_basis": "asinh display", "unit": "dimensionless transformed fluorescence", "boundary_policy": "unspecified", "vertices": [[1.60,0.20],[3.20,0.20],[3.20,1.40],[1.60,1.40]] },
+    { "id": "cd4_cells", "version": 1, "label": "CD4+ cells", "x_channel": "FITC", "y_channel": "PE", "coordinate_basis": "asinh display", "unit": "dimensionless transformed fluorescence", "boundary_policy": "include_edges", "vertices": [[2.05,0.45],[3.1,0.45],[3.1,1.25],[2.05,1.25]] }
+  ],
+  "lineage": {
+    "id": "gate-lineage", "version": 1,
+    "unit": "dimensionless gate parent-child relation",
+    "coordinate_basis": "stable gate identities, not display labels",
+    "root": "all_events",
+    "edges": [
+      { "child": "lymphocytes", "parent": "all_events" },
+      { "child": "singlets", "parent": "lymphocytes" },
+      { "child": "t_cells", "parent": "singlets" },
+      { "child": "cd4_cells", "parent": "t_cells" }
+    ]
+  }
+}
