@@ -1,0 +1,12 @@
+{
+  "id": "transform_params",
+  "version": 2,
+  "units": {"basis": "log10 display, decades=4.5, offset=0", "cofactor_unit": "instrument_units"},
+  "transforms": [
+    {"channel": "FL1-FITC", "kind": "log10", "cofactor": 180.0},
+    {"channel": "FL2-PE", "kind": "log10", "cofactor": 180.0},
+    {"channel": "FL3-PerCP", "kind": "log10", "cofactor": 180.0},
+    {"channel": "FSC-A", "kind": "linear", "cofactor": 1.0},
+    {"channel": "SSC-A", "kind": "linear", "cofactor": 1.0}
+  ]
+}

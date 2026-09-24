@@ -1,0 +1,15 @@
+{
+  "id": "gate_polygon",
+  "version": 1,
+  "gates": [
+    {"gate": "lymph", "x_channel": "FSC-A", "y_channel": "SSC-A",
+     "units": {"x": "instrument_units", "y": "instrument_units", "basis": "BD-FACSCanto linear [0,262144)"},
+     "polygon": [[20000, 5000], [90000, 5000], [90000, 40000], [20000, 40000]]},
+    {"gate": "live", "x_channel": "FSC-A", "y_channel": "SSC-A",
+     "units": {"x": "instrument_units", "y": "instrument_units", "basis": "BD-FACSCanto linear [0,262144)"},
+     "polygon": [[30000, 10000], [80000, 10000], [80000, 30000], [30000, 30000]]},
+    {"gate": "cd3pos", "x_channel": "FL1-FITC", "y_channel": "FL2-PE",
+     "units": {"x": "compensated_instrument_units", "y": "compensated_instrument_units", "basis": "post-compensation linear"},
+     "polygon": [[500, -100000], [1000000, -100000], [1000000, 1000000], [500, 1000000]]}
+  ]
+}

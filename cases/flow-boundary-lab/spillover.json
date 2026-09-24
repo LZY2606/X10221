@@ -1,0 +1,10 @@
+{
+  "id": "spillover",
+  "version": 1,
+  "units": {"values": "fraction_of_primary_detector", "basis": "median fluorescence of single-stain controls, detector x dye"},
+  "controls": [
+    {"control": "FITC_single", "dye": "FL1-FITC", "spill": {"FL1-FITC": 1.0, "FL2-PE": 0.15, "FL3-PerCP": 0.01}},
+    {"control": "PE_single", "dye": "FL2-PE", "spill": {"FL1-FITC": 0.02, "FL2-PE": 1.0, "FL3-PerCP": 0.08}},
+    {"control": "PerCP_single", "dye": "FL3-PerCP", "spill": {"FL1-FITC": 0.0, "FL2-PE": 0.03, "FL3-PerCP": 1.0}}
+  ]
+}

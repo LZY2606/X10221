@@ -1,0 +1,10 @@
+{
+  "id": "gate_hierarchy",
+  "version": 2,
+  "rename_map": {"cd3pos": "cd3pos_t"},
+  "nodes": [
+    {"gate": "lymph", "parent": null},
+    {"gate": "live", "parent": "lymph"},
+    {"gate": "cd3pos_t", "parent": "live"}
+  ]
+}

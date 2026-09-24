@@ -1,0 +1,7 @@
+{
+  "id": "comp_matrix",
+  "version": 2,
+  "units": {"values": "fraction", "basis": "detector x dye, diagonal=1; hand-edited draft, rows 1-2 nearly identical"},
+  "channels": ["FL1-FITC", "FL2-PE", "FL3-PerCP"],
+  "matrix": [[1.0, 0.5, 0.1], [1.0, 0.500000001, 0.1], [0.2, 0.1, 1.0]]
+}

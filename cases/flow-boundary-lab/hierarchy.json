@@ -1,0 +1,9 @@
+{
+  "id": "gate_hierarchy",
+  "version": 1,
+  "nodes": [
+    {"gate": "lymph", "parent": null},
+    {"gate": "live", "parent": "lymph"},
+    {"gate": "cd3pos", "parent": "live"}
+  ]
+}

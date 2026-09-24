@@ -1,0 +1,21 @@
+{
+  "id": "scenarios",
+  "version": 1,
+  "narrative": "流式边界室：一次参数修订、一次局部源改动、一次冲突人工决定，覆盖六种边界情形",
+  "steps": [
+    {"id": "S1", "action": "revise_material", "kind": "transform_params", "file": "transform_params_v2.json",
+     "note": "参数修订：cofactor 150→180，依赖变换的群体失效"},
+    {"id": "S2", "action": "revise_material", "kind": "comp_matrix", "file": "comp_matrix_v2_near_singular.json",
+     "note": "局部源数据改动：近奇异补偿矩阵不能被默默求逆"},
+    {"id": "S3", "action": "conflicting_decisions", "subject": "boundary:E005@live",
+     "branches": [{"branch": "main", "option": "in", "actor": "reviewer-a"},
+                  {"branch": "review-b", "option": "out", "actor": "reviewer-b"}],
+     "note": "互相冲突的人工决定：两个分支都保留"},
+    {"id": "S4", "action": "rename_gate", "from": "cd3pos", "to": "cd3pos_t", "file": "hierarchy_v2_renamed.json",
+     "note": "门嵌套改名：保留改名映射与旧来源"},
+    {"id": "S5", "action": "revise_gate", "gate": "live", "file": "gates_v2_live_revised.json",
+     "note": "上游过期传播：下游 cd3pos 标记过期而不覆盖"},
+    {"id": "S6", "action": "concurrent_save", "draft": "draft-review",
+     "note": "同版本并发修改：后提交者看到版本冲突及双方差异"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "comp_matrix",
+  "version": 1,
+  "units": {"values": "fraction", "basis": "detector x dye, diagonal=1; inverse of spillover"},
+  "channels": ["FL1-FITC", "FL2-PE", "FL3-PerCP"],
+  "matrix": [[1.0, 0.02, 0.0], [0.15, 1.0, 0.03], [0.01, 0.08, 1.0]]
+}
