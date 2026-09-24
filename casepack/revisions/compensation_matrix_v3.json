@@ -1,0 +1,11 @@
+{
+ "channels": ["FL1", "FL2", "FL3"],
+ "matrix": [
+  [1.00, 0.15, 0.02],
+  [0.05, 1.00, 0.10],
+  [1.05, 1.15, 0.12]
+ ],
+ "unit": "spillover coefficient (to be inverted for compensation)",
+ "source": "re-estimated with failed PerCP control",
+ "note": "row3 exactly equals row1+row2: exactly singular"
+}

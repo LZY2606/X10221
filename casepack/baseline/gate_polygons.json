@@ -1,0 +1,9 @@
+{
+ "basis": "arcsinh",
+ "coordinate_note": "vertices in arcsinh display space, cofactor 150",
+ "gates": {
+  "gate1": {"channel_x": "FL1", "channel_y": "FL2", "polygon": [[1.0, 1.0], [3.0, 1.0], [3.0, 3.0], [1.0, 3.0]]},
+  "gate2": {"channel_x": "FL1", "channel_y": "FL3", "polygon": [[1.5, 1.5], [2.5, 1.5], [2.5, 2.5], [1.5, 2.5]]},
+  "gate3": {"channel_x": "FL2", "channel_y": "FL3", "polygon": [[1.6, 1.6], [2.4, 1.6], [2.4, 2.4], [1.6, 2.4]]}
+ }
+}

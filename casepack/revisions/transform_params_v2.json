@@ -1,0 +1,7 @@
+{
+ "method": "arcsinh",
+ "basis": "arcsinh",
+ "cofactor": {"FL1": 150.0, "FL2": 150.0, "FL3": 300.0},
+ "unit": "display decades",
+ "note": "parameter revision: FL3 cofactor 150 -> 300 (affects only FL3-dependent gates)"
+}

@@ -1,0 +1,7 @@
+{
+ "nodes": [
+  {"id": "n1", "name": "Lymphocytes", "parent": null, "gate": "gate1"},
+  {"id": "n2", "name": "CD3+", "parent": "n1", "gate": "gate2"},
+  {"id": "n3", "name": "CD4+", "parent": "n2", "gate": "gate3"}
+ ]
+}

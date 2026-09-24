@@ -1,0 +1,24 @@
+{
+ "steps": [
+  {"id": "s01", "op": "commit", "kind": "transform_params", "ref": "revisions/transform_params_v2.json", "narrative": "参数修订：FL3 的 arcsinh 余因子 150→300，只应影响 FL3 相关门"},
+  {"id": "s02", "op": "derive", "draft": "main", "narrative": "重新推导 main：n2/n3 曾被标记过期，n1 不受影响"},
+  {"id": "s03", "op": "commit", "kind": "fcs_events", "ref": "revisions/fcs_events_v2.json", "narrative": "源数据改动：追加 2 个事件，所有下游依赖失效"},
+  {"id": "s04", "op": "derive", "draft": "main", "narrative": "重新推导 main"},
+  {"id": "s05", "op": "commit", "kind": "compensation_matrix", "ref": "revisions/compensation_matrix_v2.json", "narrative": "近奇异补偿矩阵进入档案"},
+  {"id": "s06", "op": "derive", "draft": "main", "narrative": "推导被阻断：禁止默默求逆，保留 regularize/skip 两个合法候选"},
+  {"id": "s07", "op": "ruling", "draft": "main", "target": "compensation", "decision": "regularize", "narrative": "裁定：采纳正则化候选（被采纳结果入档）"},
+  {"id": "s08", "op": "derive", "draft": "main", "narrative": "按裁定重新推导"},
+  {"id": "s09", "op": "commit", "kind": "compensation_matrix", "ref": "revisions/compensation_matrix_v3.json", "narrative": "完全奇异矩阵进入档案"},
+  {"id": "s10", "op": "derive", "draft": "main", "narrative": "再次被阻断"},
+  {"id": "s11", "op": "ruling", "draft": "main", "target": "compensation", "decision": "skip", "narrative": "裁定：改用未补偿信号"},
+  {"id": "s12", "op": "derive", "draft": "main", "narrative": "按裁定重新推导"},
+  {"id": "s13", "op": "commit", "kind": "gate_polygons", "ref": "revisions/gate_polygons_v2.json", "narrative": "上游门 gate1 顶点修订：右边界 3.0→2.7"},
+  {"id": "s14", "op": "note", "narrative": "检查点：下游结果已标记过期但未被覆盖"},
+  {"id": "s15", "op": "derive", "draft": "main", "narrative": "显式重新推导后生成新版本结果，旧版本仍可读取"},
+  {"id": "s16", "op": "commit", "kind": "gate_tree", "ref": "revisions/gate_tree_v2.json", "narrative": "门嵌套改名：CD3+ → CD3+ T cells，群体身份不变"},
+  {"id": "s17", "op": "derive", "draft": "main", "narrative": "重新推导：名称更新，pop:main:n2 身份稳定"},
+  {"id": "s18", "op": "ruling", "draft": "alt", "target": "compensation", "decision": "skip", "narrative": "alt 草案作出不同裁定（两草案分歧，供并排比较）"},
+  {"id": "s19", "op": "derive", "draft": "alt", "narrative": "alt 按自身裁定推导"},
+  {"id": "s20", "op": "conflict_demo", "draft": "main", "target": "boundary_policy", "decisions": ["include", "exclude"], "narrative": "同版本并发修改：两个裁定基于同一 head_seq 提交，后提交者收到版本冲突及双方差异"}
+ ]
+}

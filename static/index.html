@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>流式边界室 · 补偿/门控谱系复核</title>
+<style>
+:root{--bg:#0f1420;--panel:#182034;--line:#2a3752;--fg:#dbe4f5;--dim:#8fa1c2;--acc:#5ec1ff;--warn:#ffb454;--bad:#ff6b6b;--ok:#6be39a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "SF Pro",system-ui,sans-serif}
+header{display:flex;gap:8px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+h1{font-size:16px;margin:0 12px 0 0;color:var(--acc)}
+button{background:#223052;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:5px 12px;cursor:pointer}
+button:hover{border-color:var(--acc)}
+button.primary{background:#1d3a5f;border-color:var(--acc)}
+section{margin:14px 16px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+h2{font-size:14px;margin:0 0 8px;color:var(--acc)}
+h3{font-size:13px;margin:10px 0 6px;color:var(--dim)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border:1px solid var(--line);padding:4px 8px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600}
+.badge{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11px;border:1px solid var(--line)}
+.b-ok{color:var(--ok);border-color:var(--ok)}
+.b-stale{color:var(--warn);border-color:var(--warn)}
+.b-blocked{color:var(--bad);border-color:var(--bad)}
+.b-undecided{color:var(--warn);border-color:var(--warn)}
+.mono{font-family:ui-monospace,monospace;font-size:12px}
+.dim{color:var(--dim)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px}
+canvas{background:#0b101c;border:1px solid var(--line);border-radius:8px;width:100%}
+select,input[type=text]{background:#0b101c;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 8px}
+pre{white-space:pre-wrap;word-break:break-all;background:#0b101c;border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;max-height:260px;overflow:auto}
+.ev{cursor:pointer;padding:3px 6px;border-bottom:1px solid #1c2740;font-size:12px}
+.ev:hover{background:#1c2740}
+#conflict{border-color:var(--bad);display:none}
+.step{padding:2px 0;font-size:12px;color:var(--dim)}
+.diag{border:1px solid var(--line);border-radius:8px;padding:8px;margin:6px 0}
+.cand{display:inline-block;margin:2px 4px 2px 0}
+#viewat{border-color:var(--warn);display:none}
+</style>
+</head>
+<body>
+<header>
+<h1>流式边界室 · 补偿矩阵 / 门控系谱 / 细胞群不确定性</h1>
+<button class="primary" onclick="doSeed()">载入仓库示例</button>
+<button onclick="doReplay()">重放案例步骤</button>
+<button onclick="doExport()">导出档案</button>
+<button onclick="document.getElementById('impfile').click()">导入档案</button>
+<input type="file" id="impfile" style="display:none" onchange="doImport(this)">
+<span id="msg" class="dim"></span>
+</header>
+
+<section id="narrative"><h2>案例叙事</h2><div id="story" class="dim">尚未载入示例。</div><div id="steps"></div></section>
+
+<section id="conflict"><h2>版本冲突（同版本并发修改）</h2><pre id="conflictBody"></pre></section>
+<section id="viewat"><h2>历史事件视图 <span id="viewatSeq" class="mono"></span>（恢复当时的依赖版本与可见结论，而非最新计算）</h2><pre id="viewatBody"></pre></section>
+
+<section>
+<h2>复核台</h2>
+<div class="grid3">
+<div>
+<h3>通道散点（补偿前/后差异）</h3>
+<div>
+草案 <select id="scDraft" onchange="drawScatter()"><option value="main">main</option><option value="alt">alt</option></select>
+X <select id="scX" onchange="drawScatter()"></select>
+Y <select id="scY" onchange="drawScatter()"></select>
+<select id="scComp" onchange="drawScatter()"><option value="pre">补偿前</option><option value="post" selected>补偿后</option></select>
+</div>
+<canvas id="scatter" width="520" height="380"></canvas>
+<div class="dim" id="scatterNote"></div>
+</div>
+<div>
+<h3>门树与群体（分母来源钉住父群版本）</h3>
+<div id="gattree"></div>
+</div>
+<div>
+<h3>诊断与候选裁定</h3>
+<div id="diags"></div>
+<h3>草案操作</h3>
+<div>
+草案 <select id="opDraft"></select>
+<button onclick="doDerive()">重新推导</button>
+<button onclick="doUndo()">撤销上一裁定</button>
+</div>
+<div class="dim" style="margin-top:6px">视图选择、候选切换、接受/否定只生成新事件，不改写原始数据。</div>
+</div>
+</div>
+</section>
+
+<section>
+<h2>两草案并排（每个显示值带稳定身份）</h2>
+<div>
+A <select id="cmpA" onchange="doCompare()"><option value="main">main</option></select>
+B <select id="cmpB" onchange="doCompare()"><option value="alt">alt</option></select>
+</div>
+<div id="compare"></div>
+</section>
+
+<section>
+<h2>事件日志（机器可读取的判断依据）</h2>
+<div id="events" style="max-height:300px;overflow:auto"></div>
+</section>
+
+<script>
+let STATE=null;
+const $=id=>document.getElementById(id);
+async function api(path,opts){const r=await fetch(path,opts);const j=await r.json().catch(()=>({}));if(!r.ok){if(r.status===409){showConflict(j);}throw Object.assign(new Error(j.error||r.statusText),{status:r.status,body:j});}return j;}
+function msg(t){$("msg").textContent=t;}
+function showConflict(j){$("conflict").style.display="block";$("conflictBody").textContent=JSON.stringify(j,null,1);}
+async function refresh(){STATE=await api("/api/state");renderAll();}
+async function doSeed(){await api("/api/seed",{method:"POST"});msg("示例已载入");await refresh();}
+async function doReplay(){const r=await api("/api/replay",{method:"POST"});msg("重放完成："+r.replayed.length+" 步");await refresh();}
+async function doDerive(){const d=$("opDraft").value;await api(`/api/drafts/${d}/derive`,{method:"POST"});msg("已重新推导 "+d);await refresh();}
+async function doUndo(){const d=$("opDraft").value;const r=await api(`/api/drafts/${d}/undo`,{method:"POST"});msg("已撤销裁定 evt:"+r.undone_seq);await refresh();}
+async function doRuling(draft,target,decision){
+ const d=STATE.drafts.find(x=>x.id===draft);
+ try{await api(`/api/drafts/${draft}/rulings`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({base_seq:d.head_seq,target,decision})});msg(`裁定已记录：${target}=${decision}`);}
+ catch(e){msg("冲突："+(e.body&&e.body.error||e.message));}
+ await refresh();}
+async function doExport(){const j=await api("/api/export");const blob=new Blob([JSON.stringify(j,null,1)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="flowline-archive.json";a.click();msg("已导出 "+j.events.length+" 事件");}
+async function doImport(inp){const f=inp.files[0];if(!f)return;const j=JSON.parse(await f.text());const r=await api("/api/import",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(j)});msg("导入完成 "+JSON.stringify(r.imported));await refresh();}
+async function viewAt(seq){const j=await api(`/api/events/${seq}/view`);$("viewat").style.display="block";$("viewatSeq").textContent="evt:"+seq;
+ const mats=Object.entries(j.materials).map(([k,v])=>`${k}@${v.version}`).join("  ");
+ const res=j.results.map(r=>`${r.id}@v${r.version} count=${r.content.count}${r.stale?" [过期]":""}`).join("\n");
+ $("viewatBody").textContent="依赖版本: "+mats+"\n\n可见结论:\n"+res;}
+function fmtPct(p){return p==null?"—":p.toFixed(2)+"%";}
+function denomSrc(r){const d=r.denominator;if(!d)return"—";return`${d.population}@v${d.version} (n=${d.count})`;}
+
+function renderAll(){
+ const m=STATE.casepack.manifest;
+ $("story").textContent=m?m.title+" —— "+m.narrative:"";
+ $("steps").innerHTML=(STATE.casepack.steps?STATE.casepack.steps.steps:[]).map(s=>`<div class="step mono">${s.id} [${s.op}] ${s.narrative||""}</div>`).join("");
+ const drafts=STATE.drafts.map(d=>d.id);
+ for(const sel of["opDraft","cmpA","cmpB"]){const el=$(sel);const cur=el.value;el.innerHTML=drafts.map(d=>`<option ${d===cur?"selected":""}>${d}</option>`).join("");}
+ renderTree();renderDiags();renderEvents();doCompare();drawScatter();
+}
+function renderTree(){
+ const groups=[["main","草案A 主线"],["alt","草案B 对照"]];
+ $("gattree").innerHTML=groups.map(([g,label])=>{
+  const rows=(STATE.results[g]||[]).map(r=>{
+   const c=r.content;
+   const st=r.stale?'<span class="badge b-stale">过期</span>':`<span class="badge b-${c.status}">${c.status}</span>`;
+   const cand=c.status!=="ok"?`<div class="dim">候选 include=${c.count_include_boundary} / exclude=${c.count_exclude_boundary}${Object.keys(c.comp_variants||{}).length?" comp:"+JSON.stringify(c.comp_variants):""}</div>`:"";
+   return`<tr><td class="mono">${r.id}@v${r.version}</td><td>${c.name}</td><td>${c.count??"—"}${cand}</td><td>${fmtPct(c.percent)}</td><td class="mono">${denomSrc(r)}</td><td>${st}</td></tr>`;
+  }).join("");
+  return`<h3>${label}</h3><table><tr><th>群体身份</th><th>名称</th><th>计数</th><th>%</th><th>分母来源</th><th>状态</th></tr>${rows}</table>`;
+ }).join("");
+}
+function renderDiags(){
+ $("diags").innerHTML=STATE.diagnostics.map(d=>{
+  const btns=(d.candidates||[]).filter(c=>c.id!=="keep_raw").map(c=>{
+   const target=d.code==="boundary_point"?"boundary_policy":"compensation";
+   return`<button class="cand" onclick='doRuling("main","${target}","${c.id}")'>采纳 ${c.id}</button>`;
+  }).join("");
+  const rej=d.severity==="blocking"?`<button class="cand" onclick='doRuling("main","compensation","reject")'>否定全部</button>`:"";
+  return`<div class="diag"><span class="badge b-${d.status==="resolved"?"ok":"blocked"}">${d.status}</span> <b class="mono">${d.id}</b>
+  <div class="dim mono">${JSON.stringify(d.detail)}</div>${btns}${rej}</div>`;
+ }).join("")||'<div class="dim">无诊断</div>';
+}
+function renderEvents(){
+ $("events").innerHTML=STATE.events.slice().reverse().map(e=>
+  `<div class="ev mono" onclick="viewAt(${e.seq})">evt:${e.seq} [${e.kind}] ${e.draft_id||""} ${esc(JSON.stringify(e.payload)).slice(0,180)}</div>`).join("");
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+async function doCompare(){
+ if(!STATE)return;
+ const a=$("cmpA").value||"main",b=$("cmpB").value||"alt";
+ const j=await api(`/api/compare?a=${a}&b=${b}`);
+ $("compare").innerHTML=`<table><tr><th>节点</th><th>${a} 计数</th><th>${a} %</th><th>${a} 分母</th><th>${b} 计数</th><th>${b} %</th><th>${b} 分母</th></tr>`+
+  j.rows.map(r=>`<tr><td class="mono">${r.node_id}</td>
+   <td>${r.a?r.a.content.count??"—":""}</td><td>${r.a?fmtPct(r.a.content.percent):""}</td><td class="mono">${r.a?denomSrc(r.a):""}</td>
+   <td>${r.b?r.b.content.count??"—":""}</td><td>${r.b?fmtPct(r.b.content.percent):""}</td><td class="mono">${r.b?denomSrc(r.b):""}</td></tr>`).join("")+"</table>";
+}
+async function drawScatter(){
+ if(!STATE||!STATE.materials.length)return;
+ const d=$("scDraft").value,x=$("scX").value||"FL1",y=$("scY").value||"FL2",comp=$("scComp").value;
+ const j=await api(`/api/scatter?draft=${d}&x=${x}&y=${y}&comp=${comp}`);
+ if(!$("scX").options.length){
+  for(const sel of["scX","scY"]){$(sel).innerHTML=j.channels.map(c=>`<option ${c.name===($(sel).id==="scX"?"FL1":"FL2")?"selected":""}>${c.name}</option>`).join("");}
+  return drawScatter();
+ }
+ const cv=$("scatter"),ctx=cv.getContext("2d");
+ ctx.clearRect(0,0,cv.width,cv.height);
+ const xs=j.points.map(p=>p.x),ys=j.points.map(p=>p.y);
+ const x0=Math.min(...xs,0),x1=Math.max(...xs,1),y0=Math.min(...ys,0),y1=Math.max(...ys,1);
+ const px=v=>20+(v-x0)/(x1-x0||1)*(cv.width-40);
+ const py=v=>cv.height-20-(v-y0)/(y1-y0||1)*(cv.height-40);
+ for(const g of j.gates){ctx.strokeStyle="#5ec1ff";ctx.beginPath();g.polygon.forEach(([gx,gy],i)=>i?ctx.lineTo(px(gx),py(gy)):ctx.moveTo(px(gx),py(gy)));ctx.closePath();ctx.stroke();}
+ for(const p of j.points){
+  ctx.fillStyle=p.extreme?"#ff6b6b":p.boundary?"#ffb454":"#6be39a";
+  ctx.beginPath();ctx.arc(px(p.x),py(p.y),p.boundary?4:2.5,0,7);ctx.fill();
+ }
+ $("scatterNote").textContent=`${j.points.length} 事件 · 红=极端信号(保留原值) 黄=边界点 · 原始表示: ${j.raw_repr}`;
+}
+refresh().catch(e=>msg("请先载入示例"));
+</script>
+</body>
+</html>

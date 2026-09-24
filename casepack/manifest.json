@@ -1,0 +1,22 @@
+{
+ "id": "flow-boundary-chamber",
+ "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+ "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。基线把原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形和父子关系分开版本化；随后每次只改动一个直接来源，检验矩阵奇异、极端信号、边界点、门嵌套改名、上游过期传播和同版本并发修改的影响是否被限制在正确范围。",
+ "rules": [
+  "near_singular_matrix_must_not_be_silently_inverted",
+  "denominator_pinned_to_parent_population_version",
+  "upstream_revision_marks_stale_not_overwrite"
+ ],
+ "baseline": {
+  "fcs_events": "baseline/fcs_events.json",
+  "spillover": "baseline/spillover.json",
+  "compensation_matrix": "baseline/compensation_matrix.json",
+  "transform_params": "baseline/transform_params.json",
+  "gate_polygons": "baseline/gate_polygons.json",
+  "gate_tree": "baseline/gate_tree.json"
+ },
+ "drafts": [
+  {"id": "main", "name": "草案A 主线"},
+  {"id": "alt", "name": "草案B 对照"}
+ ]
+}
