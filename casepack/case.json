@@ -1,0 +1,138 @@
+{
+  "id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "一台双通道（FL1=FITC, FL2=PE）流式平台的复核案例：导入 FCS 事件、单染对照与门控草案后，审阅者逐步核对原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形与父子关系（各自独立版本化），随后故意触发矩阵奇异、极端信号、边界点、门嵌套改名、上游过期传播与同版本并发修改六类边界组合，系统保留输入片段、判定状态与受影响对象，全部裁定可撤销、可回放、可反查来源。",
+  "basis": {
+    "detector": { "unit": "ADC_count", "basis": "linear_adc_10bit", "min": 0.0, "max": 1023.0 },
+    "channels": ["FL1", "FL2"],
+    "gate_space": "compensated_adc",
+    "display_space": "arcsinh"
+  },
+  "materials": [
+    {
+      "kind": "raw_channels", "lineage": "raw_main", "note": "FCS 事件原始通道值（v1，12 事件，含极端信号 e9 与边界点 e10）",
+      "units": { "FL1": {"unit": "ADC_count", "basis": "linear_adc_10bit"}, "FL2": {"unit": "ADC_count", "basis": "linear_adc_10bit"} },
+      "payload": { "events": [
+        {"id": "e1",  "FL1": 95.0,   "FL2": 120.0},
+        {"id": "e2",  "FL1": 200.0,  "FL2": 180.0},
+        {"id": "e3",  "FL1": 400.0,  "FL2": 350.0},
+        {"id": "e4",  "FL1": 500.0,  "FL2": 600.0},
+        {"id": "e5",  "FL1": 250.0,  "FL2": 240.0},
+        {"id": "e6",  "FL1": 700.0,  "FL2": 150.0},
+        {"id": "e7",  "FL1": 350.0,  "FL2": 680.0},
+        {"id": "e8",  "FL1": 90.0,   "FL2": 110.0},
+        {"id": "e9",  "FL1": 1040.5, "FL2": 300.0},
+        {"id": "e10", "FL1": 100.0,  "FL2": 500.0},
+        {"id": "e11", "FL1": 600.0,  "FL2": 400.0},
+        {"id": "e12", "FL1": 900.0,  "FL2": 50.0}
+      ]}
+    },
+    {
+      "kind": "spillover", "lineage": "spill_main", "note": "单染对照元数据（FITC-only / PE-only 中位数）",
+      "units": { "median": {"unit": "ADC_count", "basis": "linear_adc_10bit"} },
+      "payload": { "controls": [
+        {"name": "FITC_single", "fluorochrome": "FITC", "median": {"FL1": 512.0, "FL2": 179.2}},
+        {"name": "PE_single",   "fluorochrome": "PE",   "median": {"FL1": 10.2,  "FL2": 480.0}}
+      ]}
+    },
+    {
+      "kind": "comp_matrix", "lineage": "comp_main", "note": "补偿矩阵 v1（良态，det≈0.993）",
+      "units": { "matrix": {"unit": "ratio", "row_basis": "observed_channel[FL1,FL2]", "col_basis": "source_fluorochrome[FITC,PE]"} },
+      "payload": { "matrix": [[1.0, 0.35], [0.02, 1.0]] }
+    },
+    {
+      "kind": "transform", "lineage": "xform_main", "note": "显示变换 v1（arcsinh, cofactor=150，仅影响散点显示层）",
+      "units": { "in": {"unit": "ADC_count", "basis": "compensated_adc"}, "out": {"unit": "arcsinh", "basis": "arcsinh_150"} },
+      "payload": { "kind": "arcsinh", "cofactor": 150.0 }
+    },
+    {
+      "kind": "gate", "lineage": "g_debris", "note": "Debris 门 v1",
+      "units": { "polygon": {"unit": "ADC_count", "basis": "compensated_adc"} },
+      "payload": { "name": "Debris", "polygon": [[0.0, 0.0], [99.0, 0.0], [99.0, 300.0], [0.0, 300.0]] }
+    },
+    {
+      "kind": "gate", "lineage": "g_live", "note": "Live 门 v1（左边界 x=100 恰好穿过事件 e10）",
+      "units": { "polygon": {"unit": "ADC_count", "basis": "compensated_adc"} },
+      "payload": { "name": "Live", "polygon": [[100.0, 100.0], [800.0, 100.0], [800.0, 800.0], [100.0, 800.0]] }
+    },
+    {
+      "kind": "gate", "lineage": "g_cd3", "note": "CD3+ 门 v1（嵌套于 Live 之下）",
+      "units": { "polygon": {"unit": "ADC_count", "basis": "compensated_adc"} },
+      "payload": { "name": "CD3+", "polygon": [[300.0, 300.0], [700.0, 300.0], [700.0, 700.0], [300.0, 700.0]] }
+    },
+    {
+      "kind": "hierarchy", "lineage": "hier_main", "note": "父子关系 v1：Live 与 Debris 为根，CD3+ 嵌套于 Live",
+      "units": {},
+      "payload": { "nodes": [
+        {"gate": "g_live",   "parent": null},
+        {"gate": "g_debris", "parent": null},
+        {"gate": "g_cd3",    "parent": "g_live"}
+      ]}
+    }
+  ],
+  "replay": [
+    {"id": "baseline_import", "action": "import_baseline",
+     "note": "导入全部 v1 材料并计算 main 分支基线",
+     "expect": {"counts": {"g_live": 7, "g_cd3": 4, "g_debris": 2},
+                "diagnostics": ["extreme_signal", "boundary_point"],
+                "percent_denominator": {"g_cd3": {"population": "g_live", "count": 7}}}},
+    {"id": "boundary_point", "action": "adjudicate", "branch": "boundary-include", "new_branch_from": "main",
+     "target_kind": "boundary_point", "choose": "include",
+     "note": "边界点 e10 恰好落在 Live 门左边界：在新分支上裁定 include，main 保持默认 exclude",
+     "expect": {"branch_count": {"boundary-include": {"g_live": 8}, "main": {"g_live": 7}},
+                "candidates_preserved": ["include", "exclude"]}},
+    {"id": "extreme_signal", "action": "verify",
+     "note": "e9 的 FL1=1040.5 超出 10bit 量程：原始值留在原位并附诊断，不为画图而钳位",
+     "expect": {"raw_preserved": "e9", "diagnostic": "extreme_signal", "flagged_in_scatter": true}},
+    {"id": "singular_matrix", "action": "import", "material": {
+        "kind": "comp_matrix", "lineage": "comp_main", "note": "补偿矩阵 v2（近奇异，det≈5e-10）",
+        "units": {"matrix": {"unit": "ratio", "row_basis": "observed_channel[FL1,FL2]", "col_basis": "source_fluorochrome[FITC,PE]"}},
+        "payload": {"matrix": [[1.0, 1.0], [1.0, 1.0000000005]]}},
+     "then": [
+       {"action": "adjudicate", "branch": "main", "target_kind": "near_singular_matrix", "choose": "reject_matrix"},
+       {"action": "adjudicate", "branch": "tikhonov", "new_branch_from": "main", "target_kind": "near_singular_matrix", "choose": "tikhonov:1e-3"}
+     ],
+     "note": "近奇异矩阵不得被默默求逆：main 拒绝 v2 回退 v1，tikhonov 分支选择正则化逆，两候选并存",
+     "expect": {"diagnostic": "near_singular_matrix", "no_silent_inverse": true,
+                "candidates_preserved": ["reject_matrix", "use_identity", "tikhonov:1e-3"],
+                "main_comp_version": 1, "tikhonov_comp_version": 2}},
+    {"id": "nested_rename", "action": "import", "material": {
+        "kind": "gate", "lineage": "g_cd3", "note": "CD3+ 门 v2：仅改名为 CD3pos，多边形不变",
+        "units": {"polygon": {"unit": "ADC_count", "basis": "compensated_adc"}},
+        "payload": {"name": "CD3pos", "polygon": [[300.0, 300.0], [700.0, 300.0], [700.0, 700.0], [300.0, 700.0]]}},
+     "note": "门嵌套改名：几何未变则不失效任何结果，父子关系保持",
+     "expect": {"stale_scope": [], "hierarchy_intact": true, "display_name": "CD3pos"}},
+    {"id": "stale_propagation", "action": "import", "material": {
+        "kind": "gate", "lineage": "g_live", "note": "Live 门 v2：左边界内收至 x=120",
+        "units": {"polygon": {"unit": "ADC_count", "basis": "compensated_adc"}},
+        "payload": {"name": "Live", "polygon": [[120.0, 100.0], [800.0, 100.0], [800.0, 800.0], [120.0, 800.0]]}},
+     "then": [{"action": "recompute", "branch": "main"}],
+     "note": "上游门修订：Live 与下游 CD3+ 结果标记过期而不覆盖，Debris 不受影响；重算后百分比分母改钉 Live 新版",
+     "expect": {"stale_scope": ["count:g_live", "percent:g_live", "count:g_cd3", "percent:g_cd3"],
+                "not_stale": ["count:g_debris"], "old_results_readable": true,
+                "recomputed_denominator_version": 2}},
+    {"id": "localized_source_change", "action": "import", "material": {
+        "kind": "raw_channels", "lineage": "raw_main", "note": "FCS v2：追加事件 e13（落在 Live 内、CD3 与 Debris 外）",
+        "units": {"FL1": {"unit": "ADC_count", "basis": "linear_adc_10bit"}, "FL2": {"unit": "ADC_count", "basis": "linear_adc_10bit"}},
+        "payload": {"events": [
+          {"id": "e1", "FL1": 95.0, "FL2": 120.0}, {"id": "e2", "FL1": 200.0, "FL2": 180.0},
+          {"id": "e3", "FL1": 400.0, "FL2": 350.0}, {"id": "e4", "FL1": 500.0, "FL2": 600.0},
+          {"id": "e5", "FL1": 250.0, "FL2": 240.0}, {"id": "e6", "FL1": 700.0, "FL2": 150.0},
+          {"id": "e7", "FL1": 350.0, "FL2": 680.0}, {"id": "e8", "FL1": 90.0, "FL2": 110.0},
+          {"id": "e9", "FL1": 1040.5, "FL2": 300.0}, {"id": "e10", "FL1": 100.0, "FL2": 500.0},
+          {"id": "e11", "FL1": 600.0, "FL2": 400.0}, {"id": "e12", "FL1": 900.0, "FL2": 50.0},
+          {"id": "e13", "FL1": 250.0, "FL2": 260.0}]}},
+     "note": "局部源数据改动：新增事件只落在 Live 区域，失效范围限 Live/CD3，Debris 保持 current",
+     "expect": {"stale_scope": ["count:g_live", "percent:g_live", "count:g_cd3", "percent:g_cd3", "scatter:main"],
+                "not_stale": ["count:g_debris"]}},
+    {"id": "param_revision", "action": "import", "material": {
+        "kind": "transform", "lineage": "xform_main", "note": "显示变换 v2（cofactor 150→300，仅显示层）",
+        "units": {"in": {"unit": "ADC_count", "basis": "compensated_adc"}, "out": {"unit": "arcsinh", "basis": "arcsinh_300"}},
+        "payload": {"kind": "arcsinh", "cofactor": 300.0}},
+     "note": "参数修订：变换只服务散点显示，失效范围限 scatter，计数与百分比保持 current",
+     "expect": {"stale_scope": ["scatter:main"], "not_stale": ["count:g_live", "percent:g_cd3"]}},
+    {"id": "concurrent_edit", "action": "conflict_demo",
+     "note": "同版本并发修改：两个裁定基于同一 base_seq 提交，后提交者收到 409 与双方差异，强制提交后生成合并事件，双方决定均不丢失",
+     "expect": {"conflict_recorded": true, "both_decisions_kept": true}}
+  ]
+}
