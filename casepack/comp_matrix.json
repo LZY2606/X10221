@@ -1,0 +1,25 @@
+{
+  "kind": "comp_matrix",
+  "matrices": [
+    {
+      "id": "comp:fl-main",
+      "channels": ["FL1-FITC", "FL2-PE", "FL3-PerCP"],
+      "matrix": [
+        [1.00, 0.12, 0.02],
+        [0.08, 1.00, 0.05],
+        [0.01, 0.04, 1.00]
+      ],
+      "note": "主补偿矩阵，条件数良好。"
+    },
+    {
+      "id": "comp:fl-near-singular",
+      "channels": ["FL1-FITC", "FL2-PE", "FL3-PerCP"],
+      "matrix": [
+        [1.00, 0.30, 0.00],
+        [0.30, 1.00, 0.00],
+        [1.00, 0.30, 1e-12]
+      ],
+      "note": "近奇异矩阵：第三行几乎与第一行共线，用于检验不得默默求逆。"
+    }
+  ]
+}

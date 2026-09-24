@@ -1,0 +1,13 @@
+{
+  "kind": "transform",
+  "id": "xform:logicle-fl",
+  "params": {
+    "type": "logicle",
+    "T": 262144,
+    "W": 0.5,
+    "M": 4.5,
+    "A": 0,
+    "applies_to": ["FL1-FITC", "FL2-PE", "FL3-PerCP"],
+    "scatter_basis": "linear"
+  }
+}

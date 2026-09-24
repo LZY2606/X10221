@@ -1,0 +1,23 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。",
+  "detector_max": 262144,
+  "channels": [
+    {"name": "FSC-A", "unit": "a.u.", "basis": "linear", "range": [0, 262144]},
+    {"name": "SSC-A", "unit": "a.u.", "basis": "linear", "range": [0, 262144]},
+    {"name": "FSC-H", "unit": "a.u.", "basis": "linear", "range": [0, 262144]},
+    {"name": "FL1-FITC", "unit": "a.u.", "basis": "logicle", "range": [0, 262144]},
+    {"name": "FL2-PE", "unit": "a.u.", "basis": "logicle", "range": [0, 262144]},
+    {"name": "FL3-PerCP", "unit": "a.u.", "basis": "logicle", "range": [0, 262144]}
+  ],
+  "files": {
+    "fcs_events": "fcs_events.json",
+    "spillover": "spillover.json",
+    "comp_matrix": "comp_matrix.json",
+    "transforms": "transforms.json",
+    "gates": "gates.json",
+    "hierarchy": "hierarchy.json",
+    "scenarios": "scenarios.json"
+  }
+}

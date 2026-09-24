@@ -1,0 +1,45 @@
+{
+  "kind": "scenarios",
+  "note": "固定边界组合：每条给出触发方式与期望判定，供重放与测试断言。",
+  "scenarios": [
+    {
+      "key": "matrix_singular",
+      "action": "compensate",
+      "matrix_id": "comp:fl-near-singular",
+      "expect": {"outcome": "rejected", "candidates": ["pseudoinverse", "manual_identity", "reject_compensation"]}
+    },
+    {
+      "key": "extreme_signal",
+      "action": "inspect_event",
+      "event_idx": 7,
+      "channel": "FL2-PE",
+      "expect": {"diagnostic": "signal_out_of_range", "raw_kept": "300000"}
+    },
+    {
+      "key": "boundary_point",
+      "action": "classify",
+      "gate_id": "gate:lymphocytes",
+      "point": [40000, 10000],
+      "expect": {"hit": "OnBoundary", "candidates": ["include", "exclude"]}
+    },
+    {
+      "key": "gate_rename",
+      "action": "rename_gate",
+      "gate_id": "gate:cd3pos",
+      "new_name": "CD3-positive",
+      "expect": {"old_readable": true, "hierarchy_repointed": true}
+    },
+    {
+      "key": "stale_propagation",
+      "action": "revise_gate",
+      "gate_id": "gate:lymphocytes",
+      "expect": {"stale": ["pop:lymphocytes", "pop:singlets", "pop:cd3pos"], "not_stale": []}
+    },
+    {
+      "key": "concurrent_edit",
+      "action": "double_revise",
+      "gate_id": "gate:singlets",
+      "expect": {"first": "ok", "second": "version_conflict"}
+    }
+  ]
+}

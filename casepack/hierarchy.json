@@ -1,0 +1,9 @@
+{
+  "kind": "hierarchy",
+  "id": "tree:gating-0417",
+  "relations": [
+    {"child": "gate:lymphocytes", "parent": null},
+    {"child": "gate:singlets", "parent": "gate:lymphocytes"},
+    {"child": "gate:cd3pos", "parent": "gate:singlets"}
+  ]
+}

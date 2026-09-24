@@ -1,0 +1,11 @@
+{
+  "kind": "spillover",
+  "id": "spill:controls-0417",
+  "note": "单染对照元数据：每个对照只染一种荧光素，记录中位强度与通道基准。",
+  "controls": [
+    {"control": "FITC-only",  "fluorochrome": "FITC",  "measured_in": "FL2-PE",   "median_raw": "8400",  "unit": "a.u.", "basis": "logicle"},
+    {"control": "PE-only",    "fluorochrome": "PE",    "measured_in": "FL1-FITC", "median_raw": "5100",  "unit": "a.u.", "basis": "logicle"},
+    {"control": "PerCP-only", "fluorochrome": "PerCP", "measured_in": "FL2-PE",   "median_raw": "2600",  "unit": "a.u.", "basis": "logicle"},
+    {"control": "unstained",  "fluorochrome": null,    "measured_in": "FL1-FITC", "median_raw": "120",   "unit": "a.u.", "basis": "logicle"}
+  ]
+}

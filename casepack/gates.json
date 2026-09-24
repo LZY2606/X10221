@@ -1,0 +1,26 @@
+{
+  "kind": "gate",
+  "gates": [
+    {
+      "id": "gate:lymphocytes",
+      "name": "Lymphocytes",
+      "axes": ["FSC-A", "SSC-A"],
+      "polygon": [[30000, 10000], [70000, 10000], [70000, 35000], [30000, 35000]],
+      "note": "淋巴细胞散射门。事件 evt idx=4 (40000,15000) 与 evt idx=9 (50000,15000) 位于内部；另设边界测试点 (40000,10000) 落在下边上。"
+    },
+    {
+      "id": "gate:singlets",
+      "name": "Singlets",
+      "axes": ["FSC-A", "FSC-H"],
+      "polygon": [[35000, 30000], [65000, 30000], [65000, 60000], [35000, 60000]],
+      "note": "单细胞门，父群为 Lymphocytes。"
+    },
+    {
+      "id": "gate:cd3pos",
+      "name": "CD3+",
+      "axes": ["FL1-FITC", "FL2-PE"],
+      "polygon": [[10000, 0], [262144, 0], [262144, 262144], [10000, 262144]],
+      "note": "CD3 阳性门（补偿后 FL1 高），父群为 Singlets。"
+    }
+  ]
+}
