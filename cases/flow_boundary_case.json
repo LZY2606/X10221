@@ -1,0 +1,1566 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "description": "离线固定案例：原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形和父子关系分开版本化；覆盖矩阵奇异/近奇异、极端信号、边界点、门嵌套改名、上游过期传播与同版本并发修改。",
+  "units_and_bases": {
+    "raw_channels": "adu @ raw-detector-linear/v1",
+    "spillover": "fraction（无量纲比例）@ spillover-single-stain/v1",
+    "transformed": "asinh(adu) @ compensated-linear/v1",
+    "polygon_coordinates": "坐标基准写在各门的 frame 中（raw 或 transformed@具体版本）"
+  },
+  "materials": {
+    "raws": [
+      {
+        "raw_id": "raw-events",
+        "version": 1,
+        "origin": "platform://import/FCS/2026-09-19/specimen-001.fcs",
+        "sha256": "ec252986a80741994bbdb150dee40d052aaa335961e78d3559fae0e9720de57e",
+        "acquisition": {
+          "instrument": "FACSCanto-II/flowline-demo",
+          "date": "2026-09-19",
+          "total_events": 15
+        },
+        "channel_specs": [
+          {
+            "name": "FSC-A",
+            "unit": "adu",
+            "basis": "raw-detector-linear/v1",
+            "compensable": false
+          },
+          {
+            "name": "SSC-A",
+            "unit": "adu",
+            "basis": "raw-detector-linear/v1",
+            "compensable": false
+          },
+          {
+            "name": "FITC-A",
+            "unit": "adu",
+            "basis": "raw-detector-linear/v1",
+            "compensable": true
+          },
+          {
+            "name": "PE-A",
+            "unit": "adu",
+            "basis": "raw-detector-linear/v1",
+            "compensable": true
+          }
+        ],
+        "events": [
+          {
+            "id": "E01",
+            "channels": {
+              "FSC-A": {
+                "raw": "500",
+                "value": 500.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "300",
+                "value": 300.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "1200",
+                "value": 1200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "100",
+                "value": 100.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E02",
+            "channels": {
+              "FSC-A": {
+                "raw": "520",
+                "value": 520.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "320",
+                "value": 320.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "900",
+                "value": 900.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E03",
+            "channels": {
+              "FSC-A": {
+                "raw": "480",
+                "value": 480.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "280",
+                "value": 280.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "300",
+                "value": 300.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "150",
+                "value": 150.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E04",
+            "channels": {
+              "FSC-A": {
+                "raw": "510",
+                "value": 510.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "310",
+                "value": 310.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "90",
+                "value": 90.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "80",
+                "value": 80.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E05",
+            "channels": {
+              "FSC-A": {
+                "raw": "600",
+                "value": 600.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "400",
+                "value": 400.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "60000",
+                "value": 60000.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "12000",
+                "value": 12000.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E06",
+            "channels": {
+              "FSC-A": {
+                "raw": "495",
+                "value": 495.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "290",
+                "value": 290.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "1100",
+                "value": 1100.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "1000",
+                "value": 1000.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E07",
+            "channels": {
+              "FSC-A": {
+                "raw": "540",
+                "value": 540.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "360",
+                "value": 360.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "100",
+                "value": 100.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "250",
+                "value": 250.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E08",
+            "channels": {
+              "FSC-A": {
+                "raw": "470",
+                "value": 470.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "260",
+                "value": 260.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "950",
+                "value": 950.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "400",
+                "value": 400.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E09",
+            "channels": {
+              "FSC-A": {
+                "raw": "505",
+                "value": 505.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "305",
+                "value": 305.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "150",
+                "value": 150.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "300",
+                "value": 300.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E10",
+            "channels": {
+              "FSC-A": {
+                "raw": "560",
+                "value": 560.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "380",
+                "value": 380.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "400",
+                "value": 400.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E11",
+            "channels": {
+              "FSC-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "50",
+                "value": 50.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "80",
+                "value": 80.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "60",
+                "value": 60.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E12",
+            "channels": {
+              "FSC-A": {
+                "raw": "1200",
+                "value": 1200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "80",
+                "value": 80.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "60",
+                "value": 60.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "40",
+                "value": 40.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E13",
+            "channels": {
+              "FSC-A": {
+                "raw": "100",
+                "value": 100.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "500",
+                "value": 500.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "70",
+                "value": 70.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "50",
+                "value": 50.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E14",
+            "channels": {
+              "FSC-A": {
+                "raw": "500",
+                "value": 500.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "150",
+                "value": 150.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "300",
+                "value": 300.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E15",
+            "channels": {
+              "FSC-A": {
+                "raw": "400",
+                "value": 400.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "50000",
+                "value": 50000.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "overflow",
+                "value": null,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1",
+                "diagnostic": "value cannot be converted to f64; retained at source"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "raw_id": "raw-events",
+        "version": 2,
+        "origin": "platform://import/FCS/2026-09-19/specimen-001.fcs#local-revision-E01",
+        "sha256": "aae74a0fe4ba3b6592d10cd67305da01ce7cc84266314f215db4add782ffd9e1",
+        "acquisition": {
+          "instrument": "FACSCanto-II/flowline-demo",
+          "date": "2026-09-19",
+          "total_events": 15
+        },
+        "channel_specs": [
+          {
+            "name": "FSC-A",
+            "unit": "adu",
+            "basis": "raw-detector-linear/v1",
+            "compensable": false
+          },
+          {
+            "name": "SSC-A",
+            "unit": "adu",
+            "basis": "raw-detector-linear/v1",
+            "compensable": false
+          },
+          {
+            "name": "FITC-A",
+            "unit": "adu",
+            "basis": "raw-detector-linear/v1",
+            "compensable": true
+          },
+          {
+            "name": "PE-A",
+            "unit": "adu",
+            "basis": "raw-detector-linear/v1",
+            "compensable": true
+          }
+        ],
+        "events": [
+          {
+            "id": "E01",
+            "channels": {
+              "FSC-A": {
+                "raw": "500",
+                "value": 500.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "300",
+                "value": 300.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "90",
+                "value": 90.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "100",
+                "value": 100.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E02",
+            "channels": {
+              "FSC-A": {
+                "raw": "520",
+                "value": 520.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "320",
+                "value": 320.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "900",
+                "value": 900.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E03",
+            "channels": {
+              "FSC-A": {
+                "raw": "480",
+                "value": 480.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "280",
+                "value": 280.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "300",
+                "value": 300.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "150",
+                "value": 150.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E04",
+            "channels": {
+              "FSC-A": {
+                "raw": "510",
+                "value": 510.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "310",
+                "value": 310.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "90",
+                "value": 90.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "80",
+                "value": 80.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E05",
+            "channels": {
+              "FSC-A": {
+                "raw": "600",
+                "value": 600.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "400",
+                "value": 400.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "60000",
+                "value": 60000.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "12000",
+                "value": 12000.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E06",
+            "channels": {
+              "FSC-A": {
+                "raw": "495",
+                "value": 495.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "290",
+                "value": 290.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "1100",
+                "value": 1100.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "1000",
+                "value": 1000.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E07",
+            "channels": {
+              "FSC-A": {
+                "raw": "540",
+                "value": 540.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "360",
+                "value": 360.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "100",
+                "value": 100.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "250",
+                "value": 250.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E08",
+            "channels": {
+              "FSC-A": {
+                "raw": "470",
+                "value": 470.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "260",
+                "value": 260.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "950",
+                "value": 950.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "400",
+                "value": 400.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E09",
+            "channels": {
+              "FSC-A": {
+                "raw": "505",
+                "value": 505.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "305",
+                "value": 305.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "150",
+                "value": 150.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "300",
+                "value": 300.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E10",
+            "channels": {
+              "FSC-A": {
+                "raw": "560",
+                "value": 560.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "380",
+                "value": 380.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "400",
+                "value": 400.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E11",
+            "channels": {
+              "FSC-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "50",
+                "value": 50.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "80",
+                "value": 80.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "60",
+                "value": 60.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E12",
+            "channels": {
+              "FSC-A": {
+                "raw": "1200",
+                "value": 1200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "80",
+                "value": 80.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "60",
+                "value": 60.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "40",
+                "value": 40.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E13",
+            "channels": {
+              "FSC-A": {
+                "raw": "100",
+                "value": 100.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "500",
+                "value": 500.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "70",
+                "value": 70.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "50",
+                "value": 50.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E14",
+            "channels": {
+              "FSC-A": {
+                "raw": "500",
+                "value": 500.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "150",
+                "value": 150.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "300",
+                "value": 300.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              }
+            }
+          },
+          {
+            "id": "E15",
+            "channels": {
+              "FSC-A": {
+                "raw": "400",
+                "value": 400.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "SSC-A": {
+                "raw": "200",
+                "value": 200.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "FITC-A": {
+                "raw": "50000",
+                "value": 50000.0,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1"
+              },
+              "PE-A": {
+                "raw": "overflow",
+                "value": null,
+                "unit": "adu",
+                "basis": "raw-detector-linear/v1",
+                "diagnostic": "value cannot be converted to f64; retained at source"
+              }
+            }
+          }
+        ],
+        "source_note": "局部源数据改动：仅 E01 的 FITC-A 由 1200 改为 90，其余字节不变",
+        "changed_event_ids": [
+          "E01"
+        ]
+      }
+    ],
+    "spillovers": [
+      {
+        "spillover_id": "sp-good",
+        "version": 1,
+        "channel_order": [
+          "FITC-A",
+          "PE-A"
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.1
+          ],
+          [
+            0.05,
+            1.0
+          ]
+        ],
+        "controls": [
+          {
+            "channel": "FITC-A",
+            "control_events_ref": "single-stain://FITC-A/2026-09-19"
+          },
+          {
+            "channel": "PE-A",
+            "control_events_ref": "single-stain://PE-A/2026-09-19"
+          }
+        ],
+        "unit": "fraction",
+        "basis": "spillover-single-stain/v1"
+      },
+      {
+        "spillover_id": "sp-near",
+        "version": 1,
+        "channel_order": [
+          "FITC-A",
+          "PE-A"
+        ],
+        "matrix": [
+          [
+            1.0,
+            1.00000001
+          ],
+          [
+            1.0,
+            1.0
+          ]
+        ],
+        "controls": [
+          {
+            "channel": "FITC-A",
+            "control_events_ref": "single-stain://FITC-A/2026-09-19"
+          },
+          {
+            "channel": "PE-A",
+            "control_events_ref": "single-stain://PE-A/2026-09-19"
+          }
+        ],
+        "unit": "fraction",
+        "basis": "spillover-single-stain/v1"
+      },
+      {
+        "spillover_id": "sp-singular",
+        "version": 1,
+        "channel_order": [
+          "FITC-A",
+          "PE-A"
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.5
+          ],
+          [
+            2.0,
+            1.0
+          ]
+        ],
+        "controls": [
+          {
+            "channel": "FITC-A",
+            "control_events_ref": "single-stain://FITC-A/2026-09-19"
+          },
+          {
+            "channel": "PE-A",
+            "control_events_ref": "single-stain://PE-A/2026-09-19"
+          }
+        ],
+        "unit": "fraction",
+        "basis": "spillover-single-stain/v1"
+      }
+    ],
+    "transforms": [
+      {
+        "transform_id": "tx-asinh",
+        "version": 1,
+        "family": "asinh",
+        "cofactor": 150.0,
+        "offset": 0.0,
+        "input_unit": "adu",
+        "output_unit": "asinh(adu)",
+        "basis": "compensated-linear/v1"
+      },
+      {
+        "transform_id": "tx-asinh",
+        "version": 2,
+        "family": "asinh",
+        "cofactor": 5000.0,
+        "offset": 0.0,
+        "input_unit": "adu",
+        "output_unit": "asinh(adu)",
+        "basis": "compensated-linear/v1"
+      }
+    ],
+    "gates": [
+      {
+        "gate_id": "root-gate",
+        "version": 1,
+        "name": "All Events (ungated)",
+        "frame": {
+          "kind": "raw"
+        },
+        "x_channel": "FSC-A",
+        "y_channel": "SSC-A",
+        "vertices": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            100000.0,
+            0.0
+          ],
+          [
+            100000.0,
+            100000.0
+          ],
+          [
+            0.0,
+            100000.0
+          ]
+        ],
+        "boundary_rule": "edge-exclusive/v1"
+      },
+      {
+        "gate_id": "cell-gate",
+        "version": 1,
+        "name": "Cells",
+        "frame": {
+          "kind": "raw"
+        },
+        "x_channel": "FSC-A",
+        "y_channel": "SSC-A",
+        "vertices": [
+          [
+            300.0,
+            150.0
+          ],
+          [
+            900.0,
+            150.0
+          ],
+          [
+            900.0,
+            900.0
+          ],
+          [
+            300.0,
+            900.0
+          ]
+        ],
+        "boundary_rule": "edge-exclusive/v1"
+      },
+      {
+        "gate_id": "t-gate",
+        "version": 1,
+        "name": "T cells",
+        "frame": {
+          "kind": "transformed",
+          "transform_ref": {
+            "id": "tx-asinh",
+            "version": 1
+          },
+          "comp_ref": {
+            "id": "comp-good",
+            "version": 1
+          }
+        },
+        "x_channel": "FITC-A",
+        "y_channel": "PE-A",
+        "vertices": [
+          [
+            1.5,
+            -0.5
+          ],
+          [
+            6.5,
+            -0.5
+          ],
+          [
+            6.5,
+            5.5
+          ],
+          [
+            1.5,
+            5.5
+          ]
+        ],
+        "boundary_rule": "edge-exclusive/v1"
+      },
+      {
+        "gate_id": "t-gate",
+        "version": 2,
+        "name": "T cells CD3+",
+        "frame": {
+          "kind": "transformed",
+          "transform_ref": {
+            "id": "tx-asinh",
+            "version": 2
+          },
+          "comp_ref": {
+            "id": "comp-good",
+            "version": 1
+          }
+        },
+        "x_channel": "FITC-A",
+        "y_channel": "PE-A",
+        "vertices": [
+          [
+            1.5,
+            -0.5
+          ],
+          [
+            6.5,
+            -0.5
+          ],
+          [
+            6.5,
+            5.5
+          ],
+          [
+            1.5,
+            5.5
+          ]
+        ],
+        "boundary_rule": "edge-exclusive/v1"
+      }
+    ],
+    "lineages": [
+      {
+        "lineage_id": "lin",
+        "version": 1,
+        "edges": [
+          {
+            "child_gate": "cell-gate",
+            "parent_gate": "root-gate"
+          },
+          {
+            "child_gate": "t-gate",
+            "parent_gate": "cell-gate"
+          }
+        ]
+      },
+      {
+        "lineage_id": "lin",
+        "version": 2,
+        "edges": [
+          {
+            "child_gate": "cell-gate",
+            "parent_gate": "root-gate"
+          },
+          {
+            "child_gate": "t-gate",
+            "parent_gate": "cell-gate"
+          }
+        ],
+        "note": "随门重命名发布的谱系版本；边集合不变，名称映射钉住新版本"
+      }
+    ]
+  },
+  "baseline_ops": [
+    {
+      "op": "import_raw",
+      "ref": {
+        "id": "raw-events",
+        "version": 1
+      }
+    },
+    {
+      "op": "record_spillover",
+      "ref": {
+        "id": "sp-good",
+        "version": 1
+      }
+    },
+    {
+      "op": "derive_comp",
+      "spillover_ref": {
+        "id": "sp-good",
+        "version": 1
+      },
+      "comp_id": "comp-good",
+      "version": 1
+    },
+    {
+      "op": "record_transform",
+      "ref": {
+        "id": "tx-asinh",
+        "version": 1
+      }
+    },
+    {
+      "op": "record_gate",
+      "ref": {
+        "id": "root-gate",
+        "version": 1
+      }
+    },
+    {
+      "op": "decide_gate",
+      "ref": {
+        "id": "root-gate",
+        "version": 1
+      },
+      "state": "accepted",
+      "reason": "基线：全部导入事件作为根群"
+    },
+    {
+      "op": "record_gate",
+      "ref": {
+        "id": "cell-gate",
+        "version": 1
+      }
+    },
+    {
+      "op": "decide_gate",
+      "ref": {
+        "id": "cell-gate",
+        "version": 1
+      },
+      "state": "accepted",
+      "reason": "FSC/SSC 细胞群草案通过"
+    },
+    {
+      "op": "record_gate",
+      "ref": {
+        "id": "t-gate",
+        "version": 1
+      }
+    },
+    {
+      "op": "record_lineage",
+      "ref": {
+        "id": "lin",
+        "version": 1
+      }
+    },
+    {
+      "op": "decide_gate",
+      "ref": {
+        "id": "t-gate",
+        "version": 1
+      },
+      "state": "accepted",
+      "reason": "FITC/PE 补偿后 asinh 坐标 T 细胞门通过"
+    }
+  ],
+  "branches": {
+    "draft-near-singular": {
+      "fork": "main",
+      "ops": [
+        {
+          "op": "record_spillover",
+          "ref": {
+            "id": "sp-near",
+            "version": 1
+          }
+        },
+        {
+          "op": "derive_comp",
+          "spillover_ref": {
+            "id": "sp-near",
+            "version": 1
+          },
+          "comp_id": "comp-near",
+          "version": 1,
+          "ridge_lambdas": [
+            0.01,
+            1.0
+          ]
+        },
+        {
+          "op": "decide_comp",
+          "spillover_ref": {
+            "id": "sp-near",
+            "version": 1
+          },
+          "decision": "accepted",
+          "candidate_id": "ridge-0.01",
+          "reason": "审阅后采纳 λ=0.01 的岭回归近似；其他候选保留为未采纳"
+        }
+      ]
+    },
+    "draft-singular": {
+      "fork": "main",
+      "ops": [
+        {
+          "op": "record_spillover",
+          "ref": {
+            "id": "sp-singular",
+            "version": 1
+          }
+        },
+        {
+          "op": "derive_comp",
+          "spillover_ref": {
+            "id": "sp-singular",
+            "version": 1
+          },
+          "comp_id": "comp-singular",
+          "version": 1,
+          "ridge_lambdas": [
+            0.01
+          ]
+        },
+        {
+          "op": "decide_comp",
+          "spillover_ref": {
+            "id": "sp-singular",
+            "version": 1
+          },
+          "decision": "rejected",
+          "candidate_id": null,
+          "reason": "严格奇异：全部候选拒绝，不产生补偿版本"
+        }
+      ]
+    },
+    "draft-revision": {
+      "fork": "main",
+      "ops": [
+        {
+          "op": "record_transform",
+          "ref": {
+            "id": "tx-asinh",
+            "version": 2
+          }
+        },
+        {
+          "op": "record_gate",
+          "ref": {
+            "id": "t-gate",
+            "version": 2
+          }
+        },
+        {
+          "op": "record_lineage",
+          "ref": {
+            "id": "lin",
+            "version": 2
+          }
+        },
+        {
+          "op": "decide_gate",
+          "ref": {
+            "id": "t-gate",
+            "version": 1
+          },
+          "state": "rejected",
+          "reason": "参数修订后旧门坐标基准过期，拒绝旧版"
+        },
+        {
+          "op": "decide_gate",
+          "ref": {
+            "id": "t-gate",
+            "version": 2
+          },
+          "state": "accepted",
+          "reason": "按 asinh cofactor=5000 复核后采纳重命名门"
+        }
+      ]
+    },
+    "draft-source": {
+      "fork": "main",
+      "ops": [
+        {
+          "op": "import_raw",
+          "ref": {
+            "id": "raw-events",
+            "version": 2
+          }
+        }
+      ]
+    },
+    "draft-conflict": {
+      "fork": "main",
+      "ops": []
+    }
+  },
+  "expectations": {
+    "baseline": {
+      "populations": {
+        "root-gate": {
+          "numerator": 15,
+          "denominator": 15,
+          "fraction": 1.0
+        },
+        "cell-gate": {
+          "numerator": 12,
+          "denominator": 15,
+          "fraction": 0.8
+        },
+        "t-gate": {
+          "numerator": 4,
+          "denominator": 12,
+          "fraction": 0.3333333333333333,
+          "members": [
+            "E01",
+            "E05",
+            "E06",
+            "E08"
+          ]
+        }
+      },
+      "boundary_excluded": [
+        "E14"
+      ],
+      "extreme_event": "E05",
+      "unconvertible_event": "E15",
+      "unconvertible_retained": true,
+      "unconvertible_channel": "PE-A",
+      "sids": {
+        "raw": "raw@raw-events/v1",
+        "spillover": "spill@sp-good/v1",
+        "comp": "comp@comp-good/v1",
+        "transform": "transform@tx-asinh/v1",
+        "gate_t": "gate@t-gate/v1",
+        "lineage": "lineage@lin/v1",
+        "pop_root": "pop@root-gate/v1@raw-events/v1",
+        "pop_t": "pop@t-gate/v1@raw-events/v1"
+      }
+    },
+    "near_singular": {
+      "refused": true,
+      "near_singular": true,
+      "comp_head_unchanged_after_refusal": true,
+      "candidate_count": 2,
+      "accepted_candidate": "ridge-0.01",
+      "unadopted_candidate": "ridge-1",
+      "after_accept_comp_head": "comp@comp-near/v1"
+    },
+    "singular": {
+      "refused": true,
+      "near_singular": true,
+      "no_comp_created": true
+    },
+    "revision": {
+      "stale_after_tx2": [
+        "pop@t-gate/v1@raw-events/v1"
+      ],
+      "not_stale_after_tx2": [
+        "pop@root-gate/v1@raw-events/v1",
+        "pop@cell-gate/v1@raw-events/v1"
+      ],
+      "v2_population": {
+        "gate": "t-gate",
+        "version": 2,
+        "numerator": 1,
+        "denominator": 12
+      },
+      "old_pop_retained_stale": true
+    },
+    "source_change": {
+      "changed_event_ids": [
+        "E01"
+      ],
+      "root": {
+        "numerator": 15,
+        "value_changed": false
+      },
+      "cell": {
+        "numerator": 12,
+        "value_changed": false
+      },
+      "t": {
+        "numerator": 3,
+        "value_changed": true,
+        "lost_members": [
+          "E01"
+        ]
+      },
+      "affected_kinds": [
+        "population"
+      ]
+    },
+    "concurrency": {
+      "base_seq": 12
+    }
+  }
+}
