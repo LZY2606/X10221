@@ -1,0 +1,8 @@
+{
+  "source_id": "src:transform-params",
+  "kind": "transform_params",
+  "transforms": [
+    {"channel": "FITC-A", "type": "logicle", "T": 262144, "W": 0.5, "M": 4.5, "A": 0.0, "input_basis": "ADC counts", "display_basis": "logicle"},
+    {"channel": "PE-A", "type": "logicle", "T": 262144, "W": 0.5, "M": 4.5, "A": 0.0, "input_basis": "ADC counts", "display_basis": "logicle"}
+  ]
+}

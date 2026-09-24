@@ -1,0 +1,10 @@
+{
+  "source_id": "src:comp-matrix",
+  "kind": "compensation_matrix",
+  "channel_order": ["FITC-A", "PE-A"],
+  "matrix": [[1.0, 0.999999], [0.999999, 1.0]],
+  "unit": "ratio",
+  "basis": "ADC counts",
+  "derived_from": "src:spillover-meta",
+  "comment": "边界情形：det≈1e-6、条件数≈4e6，禁止默默求逆，必须进入候选裁定"
+}

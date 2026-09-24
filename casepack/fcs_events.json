@@ -1,0 +1,199 @@
+{
+  "source_id": "src:raw-channels",
+  "kind": "raw_channels",
+  "cytometer": "BoundaryLab FX-2",
+  "acquisition": {
+    "date": "2026-09-01",
+    "operator": "reviewer-a"
+  },
+  "channels": [
+    {
+      "name": "FITC-A",
+      "detector": "FL1",
+      "unit": "ADC counts",
+      "bits": 18,
+      "range": [
+        0,
+        262143
+      ]
+    },
+    {
+      "name": "PE-A",
+      "detector": "FL2",
+      "unit": "ADC counts",
+      "bits": 18,
+      "range": [
+        0,
+        262143
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "E-100",
+      "values": {
+        "FITC-A": 1002.4,
+        "PE-A": 550.0
+      }
+    },
+    {
+      "id": "E-101",
+      "values": {
+        "FITC-A": 1057.2,
+        "PE-A": 967.5
+      }
+    },
+    {
+      "id": "E-102",
+      "values": {
+        "FITC-A": 1102.6,
+        "PE-A": 605.0
+      }
+    },
+    {
+      "id": "E-103",
+      "values": {
+        "FITC-A": 1203.1,
+        "PE-A": 680.0
+      }
+    },
+    {
+      "id": "E-104",
+      "values": {
+        "FITC-A": 1303.4,
+        "PE-A": 735.0
+      }
+    },
+    {
+      "id": "E-105",
+      "values": {
+        "FITC-A": 1403.6,
+        "PE-A": 790.0
+      }
+    },
+    {
+      "id": "E-106",
+      "values": {
+        "FITC-A": 1504.2,
+        "PE-A": 875.0
+      }
+    },
+    {
+      "id": "E-107",
+      "values": {
+        "FITC-A": 1554.8,
+        "PE-A": 942.5
+      }
+    },
+    {
+      "id": "E-108",
+      "values": {
+        "FITC-A": 1605.4,
+        "PE-A": 1010.0
+      }
+    },
+    {
+      "id": "E-109",
+      "values": {
+        "FITC-A": 1776.0,
+        "PE-A": 1119.5
+      }
+    },
+    {
+      "id": "E-200",
+      "values": {
+        "FITC-A": 1903.0,
+        "PE-A": 915.0
+      }
+    },
+    {
+      "id": "E-201",
+      "values": {
+        "FITC-A": 1953.6,
+        "PE-A": 982.5
+      }
+    },
+    {
+      "id": "E-202",
+      "values": {
+        "FITC-A": 2004.2,
+        "PE-A": 1050.0
+      }
+    },
+    {
+      "id": "E-203",
+      "values": {
+        "FITC-A": 2054.8,
+        "PE-A": 1117.5
+      }
+    },
+    {
+      "id": "E-204",
+      "values": {
+        "FITC-A": 2105.4,
+        "PE-A": 1185.0
+      }
+    },
+    {
+      "id": "E-205",
+      "values": {
+        "FITC-A": 2206.0,
+        "PE-A": 1270.0
+      }
+    },
+    {
+      "id": "E-206",
+      "values": {
+        "FITC-A": 2306.6,
+        "PE-A": 1355.0
+      }
+    },
+    {
+      "id": "E-207",
+      "values": {
+        "FITC-A": 2407.8,
+        "PE-A": 1490.0
+      }
+    },
+    {
+      "id": "E-300",
+      "values": {
+        "FITC-A": 100.6,
+        "PE-A": 85.0
+      },
+      "note": "debris / out of lymphocyte gate"
+    },
+    {
+      "id": "E-301",
+      "values": {
+        "FITC-A": 300.7,
+        "PE-A": 165.0
+      },
+      "note": "debris / out of lymphocyte gate"
+    },
+    {
+      "id": "E-302",
+      "values": {
+        "FITC-A": 501.0,
+        "PE-A": 255.0
+      },
+      "note": "debris / out of lymphocyte gate"
+    },
+    {
+      "id": "E-303",
+      "values": {
+        "FITC-A": 3018.0,
+        "PE-A": 2550.0
+      },
+      "note": "debris / out of lymphocyte gate"
+    },
+    {
+      "id": "E-BOUNDARY",
+      "values": {
+        "FITC-A": 1501.2,
+        "PE-A": 625.0
+      },
+      "note": "lands exactly on the lymphocytes gate lower edge after compensation"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "source_id": "src:comp-matrix",
+  "kind": "compensation_matrix",
+  "channel_order": ["FITC-A", "PE-A"],
+  "matrix": [[1.0, 0.012], [0.35, 1.0]],
+  "unit": "ratio",
+  "basis": "ADC counts",
+  "derived_from": "src:spillover-meta",
+  "comment": "健康矩阵：det≈0.9958，条件数≈1.8，可直接求逆"
+}

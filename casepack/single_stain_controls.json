@@ -1,0 +1,18 @@
+{
+  "source_id": "src:spillover-meta",
+  "kind": "spillover_meta",
+  "description": "单染对照：FITC 与 PE 的溢漏元数据，补偿矩阵的测量依据",
+  "controls": [
+    {"id": "SS-FITC-pos", "fluorochrome": "FITC", "detector": "FL1", "role": "positive", "median": 18234.5, "unit": "ADC counts"},
+    {"id": "SS-FITC-neg", "fluorochrome": "FITC", "detector": "FL1", "role": "negative", "median": 98.2, "unit": "ADC counts"},
+    {"id": "SS-FITC-xFL2", "fluorochrome": "FITC", "detector": "FL2", "role": "crossover", "median": 6382.1, "unit": "ADC counts"},
+    {"id": "SS-PE-pos", "fluorochrome": "PE", "detector": "FL2", "role": "positive", "median": 15777.1, "unit": "ADC counts"},
+    {"id": "SS-PE-neg", "fluorochrome": "PE", "detector": "FL2", "role": "negative", "median": 101.4, "unit": "ADC counts"},
+    {"id": "SS-PE-xFL1", "fluorochrome": "PE", "detector": "FL1", "role": "crossover", "median": 189.3, "unit": "ADC counts"}
+  ],
+  "spillover_coefficients": {
+    "comment": "S[row=detector][col=fluorochrome]，无量纲比值",
+    "FITC-A": {"FITC": 1.0, "PE": 0.012},
+    "PE-A": {"FITC": 0.35, "PE": 1.0}
+  }
+}

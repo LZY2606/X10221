@@ -1,0 +1,47 @@
+{
+  "scenarios": [
+    {
+      "name": "matrix_singular",
+      "title": "近奇异补偿矩阵",
+      "action": "把 src:comp-matrix 切到近奇异版本并重算",
+      "expect": ["compensation.near_singular"],
+      "rule": "near_singular_matrix_must_not_be_silently_inverted"
+    },
+    {
+      "name": "extreme_signal",
+      "title": "极端信号",
+      "action": "导入含饱和/越界/不可转换值的事件批次",
+      "expect": ["import.extreme_signal"],
+      "rule": "raw_preserved_unconvertible_stays_with_diagnostics"
+    },
+    {
+      "name": "boundary_point",
+      "title": "边界点",
+      "action": "E-BOUNDARY 恰好落在淋巴细胞门下沿，归属无法唯一决定",
+      "expect": ["gate.boundary_candidate"],
+      "rule": "keep_all_legal_candidates_until_adjudicated"
+    },
+    {
+      "name": "gate_nested_rename",
+      "title": "门嵌套改名",
+      "action": "cd3pos 改名为 CD3+ T cells（仅元数据，不动多边形）",
+      "expect": ["gate.renamed"],
+      "rule": "rename_must_not_break_lineage_or_mark_stale"
+    },
+    {
+      "name": "upstream_stale",
+      "title": "上游过期传播",
+      "action": "修订 lymphocytes 门多边形，下游群体标记过期而不覆盖",
+      "expect": ["gate.revised", "lineage.stale_marked"],
+      "rule": "upstream_revision_marks_downstream_stale_no_overwrite",
+      "revised_polygon": [[850, 250], [2550, 250], [2550, 880], [850, 880]]
+    },
+    {
+      "name": "concurrent_conflict",
+      "title": "同版本并发修改",
+      "action": "两个客户端基于同一 head 版本提交不同修改，后提交者收到冲突与双方差异",
+      "expect": ["concurrency.conflict"],
+      "rule": "optimistic_version_conflict_returns_both_diffs"
+    }
+  ]
+}

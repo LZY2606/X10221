@@ -1,0 +1,41 @@
+{
+  "hierarchy": {
+    "source_id": "src:gate-hierarchy",
+    "kind": "gate_hierarchy",
+    "relations": [
+      {"gate": "lymphocytes", "parent": null},
+      {"gate": "cd3pos", "parent": "lymphocytes"}
+    ]
+  },
+  "gates": [
+    {
+      "source_id": "src:gate:lymphocytes",
+      "kind": "gate_polygon",
+      "gate_id": "lymphocytes",
+      "name": "Lymphocytes",
+      "channels": ["FITC-A", "PE-A"],
+      "space": "compensated",
+      "unit": "ADC counts",
+      "polygon": [[800, 100], [2600, 100], [2600, 900], [800, 900]]
+    },
+    {
+      "source_id": "src:gate:cd3pos",
+      "kind": "gate_polygon",
+      "gate_id": "cd3pos",
+      "name": "CD3+",
+      "channels": ["FITC-A", "PE-A"],
+      "space": "compensated",
+      "unit": "ADC counts",
+      "polygon": [[1800, 150], [2500, 150], [2500, 700], [1800, 700]]
+    }
+  ],
+  "drafts": {
+    "a": {"label": "草案 A（原始门控）", "revisions": []},
+    "b": {
+      "label": "草案 B（放宽 CD3 门下沿并改名）",
+      "revisions": [
+        {"gate_id": "cd3pos", "name": "CD3+ T cells", "polygon": [[1750, 120], [2550, 120], [2550, 720], [1750, 720]]}
+      ]
+    }
+  }
+}
