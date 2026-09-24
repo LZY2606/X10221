@@ -1,0 +1,96 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "narrative": "流式平台导入 FCS 事件、单染对照和门控草案，逐步复核从原始信号到最终细胞群的每次变换。",
+  "fcs_file": "events.fcs",
+  "channels": [
+    { "name": "FSC-A", "unit": "scatter (a.u.)", "basis": "linear", "role": "scatter" },
+    { "name": "SSC-A", "unit": "scatter (a.u.)", "basis": "linear", "role": "scatter" },
+    { "name": "FL1-A", "unit": "FITC fluorescence (a.u.)", "basis": "linear", "role": "fluorescence" },
+    { "name": "FL2-A", "unit": "PE fluorescence (a.u.)", "basis": "linear", "role": "fluorescence" },
+    { "name": "FL3-A", "unit": "unknown", "basis": "linear", "role": "unconvertible" }
+  ],
+  "spillover_meta": {
+    "artifact_id": "spillover-meta",
+    "controls": [
+      { "control_id": "ctrl-fitc", "fluorochrome": "FITC", "detector": "FL1-A", "file": "controls/ctrl-fitc.fcs", "note": "单染对照：FITC" },
+      { "control_id": "ctrl-pe", "fluorochrome": "PE", "detector": "FL2-A", "file": "controls/ctrl-pe.fcs", "note": "单染对照：PE" }
+    ],
+    "detectors": ["FL1-A", "FL2-A"],
+    "measured_at": "2026-09-19T00:33:12+09:00",
+    "operator": "platform-import"
+  },
+  "comp_matrix": {
+    "artifact_id": "comp-matrix",
+    "channels": ["FL1-A", "FL2-A"],
+    "matrix": [[1.0, 0.8], [0.8, 0.6400005]],
+    "unit": "fraction-of-primary-detector",
+    "basis": "linear",
+    "note": "刻意构造的近奇异 spillover 矩阵：det ≈ 5e-7，条件数远超阈值，用于检验『近奇异补偿矩阵不能被默默求逆』。"
+  },
+  "transform_params": {
+    "artifact_id": "transform-params",
+    "transform": "logicle",
+    "channels": {
+      "FL1-A": { "cofactor": 150.0, "unit": "FITC fluorescence (a.u.)", "basis_in": "compensated-linear", "basis_out": "logicle(cofactor=150)" },
+      "FL2-A": { "cofactor": 150.0, "unit": "PE fluorescence (a.u.)", "basis_in": "compensated-linear", "basis_out": "logicle(cofactor=150)" }
+    }
+  },
+  "transform_params_v2": {
+    "channels": {
+      "FL1-A": { "cofactor": 400.0, "basis_out": "logicle(cofactor=400)" },
+      "FL2-A": { "cofactor": 400.0, "basis_out": "logicle(cofactor=400)" }
+    },
+    "note": "参数修订：cofactor 150 → 400，应使补偿事件与全部细胞群失效但不覆盖。"
+  },
+  "gates": [
+    {
+      "gate_id": "P1", "name": "Lymphocytes",
+      "x_channel": "FSC-A", "y_channel": "SSC-A",
+      "x_basis": "linear", "y_basis": "linear",
+      "polygon": [[20000, 5000], [90000, 5000], [90000, 60000], [20000, 60000]],
+      "parent": null
+    },
+    {
+      "gate_id": "P3", "name": "SSC-hi",
+      "x_channel": "SSC-A", "y_channel": "FSC-A",
+      "x_basis": "linear", "y_basis": "linear",
+      "polygon": [[40000, 0], [200000, 0], [200000, 200000], [40000, 200000]],
+      "parent": null
+    },
+    {
+      "gate_id": "P2", "name": "Dye-positive",
+      "x_channel": "FL1-A", "y_channel": "FL2-A",
+      "x_basis": "compensated-linear", "y_basis": "compensated-linear",
+      "polygon": [[-5000, -5000], [30000, -5000], [30000, 20000], [-5000, 20000]],
+      "parent": "P1"
+    }
+  ],
+  "hierarchy": {
+    "artifact_id": "gate-hierarchy",
+    "root": "ALL",
+    "edges": [["ALL", "P1"], ["ALL", "P3"], ["P1", "P2"]]
+  },
+  "hierarchy_v2_rename": {
+    "renames": { "P2": "Dye-positive (restained)" },
+    "note": "门嵌套改名：仅改显示名，门身份 P2 与其在树中的嵌套位置不变。"
+  },
+  "spillover_meta_v2": {
+    "patch": { "controls_note": "重新测定 ctrl-pe 的电压，仅影响 FL2-A 相关元数据" },
+    "note": "只影响局部依赖的源数据改动：仅 comp-matrix 及其下游失效，门多边形与层级不受影响。"
+  },
+  "replay_script": [
+    { "step": "import", "comment": "初始导入：原始通道值 / spillover 元数据 / 补偿矩阵 / 变换参数 / 门多边形 / 父子关系，六类对象分开版本化" },
+    { "step": "derive_compensation", "comment": "触发『矩阵奇异』：近奇异矩阵拒绝静默求逆，产生候选" },
+    { "step": "adjudicate_compensation", "comment": "人工裁定：采纳 Tikhonov λ=1e-3 候选，未采纳候选一并归档" },
+    { "step": "derive_events", "comment": "补偿派生：触发『极端信号』诊断，原值保留原位" },
+    { "step": "derive_populations", "comment": "门控派生：触发『边界点』诊断，保留全部合法候选" },
+    { "step": "adjudicate_boundary", "comment": "人工裁定：边界点计入门内" },
+    { "step": "revise_transform", "comment": "参数修订：cofactor 150→400，下游标记过期" },
+    { "step": "local_source_change", "comment": "局部源数据改动：spillover 元数据 v2，仅局部依赖失效" },
+    { "step": "rename_gate", "comment": "门嵌套改名：层级 v2，P2 身份不变" },
+    { "step": "concurrent_conflict", "comment": "同版本并发修改：两个窗口基于同一版本保存，后提交者收到冲突与双方差异" },
+    { "step": "resolve_conflict", "comment": "冲突解决：在新分支 review-B 上保留双方" },
+    { "step": "final_rederive", "comment": "最终复核：重算补偿与细胞群，分母钉住父群版本" }
+  ]
+}

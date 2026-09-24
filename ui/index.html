@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FlowChamber · 流式边界室复核</title>
+<style>
+  :root { --bg:#f6f7f9; --panel:#fff; --line:#d9dee6; --ink:#1f2937; --muted:#6b7280;
+          --accent:#1d4ed8; --warn:#b45309; --bad:#b91c1c; --ok:#15803d; --stale:#9a3412; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:13px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+         color:var(--ink); background:var(--bg); }
+  header { padding:10px 16px; background:#0f172a; color:#fff; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  header h1 { font-size:15px; margin:0; font-weight:600; }
+  header .sub { color:#9fb3d1; font-size:12px; }
+  button { border:1px solid var(--line); background:#fff; border-radius:6px; padding:5px 10px;
+           cursor:pointer; font-size:12px; }
+  button:hover { border-color:var(--accent); color:var(--accent); }
+  button.primary { background:var(--accent); color:#fff; border-color:var(--accent); }
+  button.warn { color:var(--warn); border-color:var(--warn); }
+  .wrap { display:grid; grid-template-columns: 300px 1fr; gap:12px; padding:12px; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 12px; }
+  .panel h2 { font-size:13px; margin:0 0 8px; display:flex; justify-content:space-between; align-items:center; }
+  .panel + .panel { margin-top:12px; }
+  .muted { color:var(--muted); font-size:11px; }
+  .badge { display:inline-block; padding:0 6px; border-radius:10px; font-size:11px; }
+  .b-valid { background:#dcfce7; color:var(--ok); }
+  .b-stale { background:#ffedd5; color:var(--stale); }
+  .b-blocked { background:#fee2e2; color:var(--bad); }
+  .b-open { background:#fef9c3; color:#854d0e; }
+  .b-resolved { background:#dcfce7; color:var(--ok); }
+  table { border-collapse:collapse; width:100%; font-size:12px; }
+  th,td { border-bottom:1px solid var(--line); padding:4px 6px; text-align:left; vertical-align:top; }
+  th { color:var(--muted); font-weight:600; }
+  .tree { font-family:ui-monospace,monospace; font-size:12px; line-height:1.9; }
+  .tree .name { cursor:pointer; }
+  .tree .stale { color:var(--stale); }
+  canvas { background:#fff; border:1px solid var(--line); border-radius:6px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .compare { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .col-a { border-left:3px solid var(--accent); padding-left:8px; }
+  .col-b { border-left:3px solid var(--warn); padding-left:8px; }
+  details summary { cursor:pointer; font-weight:600; }
+  .cand { border:1px dashed var(--line); border-radius:6px; padding:6px 8px; margin:6px 0; }
+  .diff { font-family:ui-monospace,monospace; font-size:11px; color:var(--bad); }
+  #toast { position:fixed; right:16px; bottom:16px; background:#111827; color:#fff; padding:8px 12px;
+           border-radius:6px; font-size:12px; display:none; max-width:420px; }
+  input,select { font-size:12px; padding:3px 6px; border:1px solid var(--line); border-radius:5px; }
+  .ev { cursor:pointer; padding:2px 4px; border-radius:4px; }
+  .ev:hover { background:#eef2ff; }
+  .ev.at { background:#dbeafe; }
+  pre { white-space:pre-wrap; word-break:break-all; font-size:11px; max-height:180px; overflow:auto;
+        background:#f8fafc; padding:6px; border-radius:6px; }
+  .identity { color:var(--muted); font-family:ui-monospace,monospace; font-size:10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>FlowChamber · 流式边界室</h1>
+  <span class="sub">补偿矩阵 · 门控系谱 · 细胞群不确定性 —— 逐步复核，不覆盖历史</span>
+  <span style="flex:1"></span>
+  <button class="primary" onclick="loadCase()">① 载入仓库内示例</button>
+  <button onclick="replayCase()">② 跑边界情形脚本</button>
+  <button onclick="makeConflict()">③ 制造并发冲突</button>
+  <button onclick="roundtrip()">④ 导出→删除→重导校验</button>
+  <select id="branchSel" onchange="refresh()"><option value="main">main</option></select>
+</header>
+
+<div id="replayBanner" style="display:none; background:#fef3c7; padding:6px 16px; font-size:12px;">
+  历史视图：正在查看事件 <b id="atSeq"></b> 时的依赖版本与结论（只读）。
+  <button onclick="clearReplay()">回到最新</button>
+</div>
+
+<div class="wrap">
+  <div>
+    <div class="panel">
+      <h2>门控树（父子关系）<span class="muted" id="hierVer"></span></h2>
+      <div id="tree" class="tree muted">尚未载入案例</div>
+    </div>
+    <div class="panel">
+      <h2>细胞群与分母来源</h2>
+      <div id="pops"></div>
+    </div>
+    <div class="panel">
+      <h2>诊断 / 候选 / 裁定</h2>
+      <div id="diags" class="muted">—</div>
+    </div>
+    <div class="panel">
+      <h2>冲突档案</h2>
+      <div id="conflicts" class="muted">—</div>
+    </div>
+    <div class="panel">
+      <h2>事件时间线 <span class="muted">点击回到当时</span></h2>
+      <div id="events" style="max-height:260px;overflow:auto"></div>
+    </div>
+  </div>
+
+  <div>
+    <div class="panel">
+      <h2>通道散点（原始 FSC-A / SSC-A + P1 门）
+        <span>
+          <label class="muted">视图：</label>
+          <select id="viewMode" onchange="renderScatter()">
+            <option value="raw">原始信号</option>
+            <option value="comp">补偿后 FL1/FL2</option>
+            <option value="prepost">补偿前后并排</option>
+          </select>
+        </span>
+      </h2>
+      <div id="scatterHost" class="grid2"><canvas id="cv" width="520" height="420"></canvas></div>
+      <div class="muted" id="scatterNote"></div>
+    </div>
+
+    <div class="panel">
+      <h2>两个草案并排</h2>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+        <select id="cmpA"><option value="main">main</option></select>
+        <select id="cmpB"><option value="review-B">review-B</option></select>
+        <button onclick="renderCompare()">并排读回</button>
+        <span class="muted">每个显示值带稳定身份 id@version</span>
+      </div>
+      <div id="compare" class="compare muted">尚未对比</div>
+    </div>
+
+    <div class="panel">
+      <h2>失效范围（依赖传播，标记过期不覆盖）</h2>
+      <div id="inval"></div>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+<script>
+let STATE=null, EVENTS=[], REPLAY_SEQ=null, CURRENT_BRANCH="main", LAST_ARCHIVE=null;
+const api = async (path, opts={}) => {
+  const r = await fetch(path, Object.assign({headers:{'Content-Type':'application/json'}}, opts));
+  const j = await r.json();
+  return {status:r.status, body:j};
+};
+const toast = (m) => { const t=document.getElementById('toast'); t.textContent=m; t.style.display='block';
+  clearTimeout(t._h); t._h=setTimeout(()=>t.style.display='none', 4000); };
+
+async function refresh() {
+  CURRENT_BRANCH = document.getElementById('branchSel').value;
+  const seq = REPLAY_SEQ ? `&seq=${REPLAY_SEQ}` : '';
+  const {body} = await api(`/api/state?branch=${CURRENT_BRANCH}${seq}`);
+  STATE = body.state;
+  renderAll();
+}
+
+function headArtifact(id, branch=CURRENT_BRANCH) {
+  const v = STATE.heads[[id, branch].join('')] ?? STATE.heads[JSON.stringify([id,branch])];
+  return null; // heads 以对象映射返回，见 renderAll 中的处理
+}
+function head(id, branch=CURRENT_BRANCH) {
+  const v = STATE.heads[`${id}|${branch}`];
+  if (v === undefined) return null;
+  return STATE.artifacts.find(a => a.id===id && a.version===v) || null;
+}
+function derivedHead(id, branch=CURRENT_BRANCH) {
+  const v = STATE.derived_heads[`${id}|${branch}`];
+  if (v === undefined) return null;
+  return STATE.derived.find(d => d.id===id && d.version===v) || null;
+}
+const esc = (s) => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ident = (a) => `<span class="identity">${esc(a.id)}@${a.version}</span>`;
+
+function renderAll() {
+  if (!STATE) return;
+  renderBranches(); renderTree(); renderPops(); renderDiags();
+  renderConflicts(); renderEvents(); renderInval(); renderScatter();
+}
+
+function renderBranches() {
+  const sel = document.getElementById('branchSel');
+  const cur = sel.value;
+  sel.innerHTML = STATE.branches.map(b=>`<option ${b===cur?'selected':''}>${b}</option>`).join('');
+  for (const id of ['cmpA','cmpB']) {
+    const el = document.getElementById(id); const v = el.value;
+    el.innerHTML = STATE.branches.map(b=>`<option ${b===v?'selected':''}>${b}</option>`).join('');
+  }
+}
+
+function renderTree() {
+  const h = head('gate-hierarchy');
+  const host = document.getElementById('tree');
+  if (!h) { host.textContent='尚未载入案例'; return; }
+  document.getElementById('hierVer').textContent = `gate-hierarchy@${h.version}`;
+  const edges = h.payload.edges || [];
+  const names = h.payload.names || {};
+  const children = {};
+  edges.forEach(([p,c]) => { (children[p]=children[p]||[]).push(c); });
+  const walk = (n, depth) => {
+    const pop = derivedHead(`pop:${n}`);
+    const badge = pop ? ` <span class="badge b-${pop.status}">${pop.status}</span>` : '';
+    const nm = names[n] || n;
+    let html = `<div style="margin-left:${depth*14}px">
+      <span class="name" title="gate:${esc(n)}">${esc(nm)}</span>
+      <span class="identity">${n==='ALL'?'':`gate:${n}@${(head('gate:'+n)||{}).version||'?'}`}</span>${badge}</div>`;
+    (children[n]||[]).forEach(c => html += walk(c, depth+1));
+    return html;
+  };
+  host.innerHTML = walk('ALL', 0);
+}
+
+function renderPops() {
+  const host = document.getElementById('pops');
+  const pops = STATE.derived.filter(d => d.kind==='population' && d.branch===CURRENT_BRANCH
+    && STATE.derived_heads[`${d.id}|${d.branch}`]===d.version);
+  if (!pops.length) { host.innerHTML='<span class="muted">尚未派生细胞群</span>'; return; }
+  let html = `<table><tr><th>群体</th><th>计数</th><th>分母（钉住父群版本）</th><th>比例</th><th>状态</th></tr>`;
+  for (const d of pops) {
+    const p = d.payload, den = p.denominator||{};
+    const denTxt = den.population_version===null
+      ? `ALL（全部事件 ${den.count}）`
+      : `${den.gate}@pop#${den.population_version}（${den.count}）`;
+    const cand = (p.candidates||[]).length
+      ? `<div class="muted">候选：${p.candidates.map(c=>`${c.boundary_policy}=${(c.fraction*100).toFixed(2)}%`).join(' / ')}</div>` : '';
+    html += `<tr><td>${esc(p.gate_name)}<div class="identity">${d.id}#${d.version}</div></td>
+      <td>${p.count}${p.count_boundary?`<div class="muted">边界 ${p.count_boundary}</div>`:''}</td>
+      <td>${esc(denTxt)}</td>
+      <td>${(p.fraction*100).toFixed(2)}%${cand}</td>
+      <td><span class="badge b-${d.status}">${d.status}</span></td></tr>`;
+  }
+  host.innerHTML = html + '</table>';
+}
+
+function renderDiags() {
+  const host = document.getElementById('diags');
+  const diags = STATE.diagnostics;
+  if (!diags.length) { host.innerHTML='<span class="muted">—</span>'; return; }
+  host.innerHTML = diags.map(d => {
+    const cands = (d.candidates||[]).map(c => `
+      <div class="cand">候选 <b>${esc(c.id)}</b> ${esc(c.label||c.boundary_policy||'')}
+        ${c.param!==undefined&&c.param!==null?` λ=${c.param}`:''}
+        ${c.fraction!==undefined?` 比例=${(c.fraction*100).toFixed(2)}%`:''}
+        ${c.residual!==undefined?` 残差=${c.residual.toExponential(2)}`:''}
+        ${d.status==='open'?`<button onclick="adjudicate('${d.id}','${c.id}')">采纳</button>`:''}
+      </div>`).join('');
+    const res = d.resolution ? `<div class="muted">裁定：${esc(JSON.stringify(d.resolution))}</div>` : '';
+    const undoBtn = d.status==='resolved'
+      ? `<button class="warn" onclick="undoAdj('${d.id}')">撤销裁定</button>` : '';
+    return `<details ${d.status==='open'?'open':''}><summary>
+      <span class="badge b-${d.status==='open'?'open':'resolved'}">${d.status}</span>
+      ${esc(d.code)} · ${esc(d.subject)}</summary>
+      <div class="identity">${esc(d.id)}</div>
+      <pre>${esc(JSON.stringify(d.detail,null,1))}</pre>${cands}${res}${undoBtn}</details>`;
+  }).join('');
+}
+
+async function adjudicate(diagId, candId) {
+  const {status, body} = await api('/api/adjudicate', {method:'POST', body: JSON.stringify({
+    diagnostic_id: diagId, action:'accept', candidate_id: candId,
+    rationale: '审阅页采纳', branch: CURRENT_BRANCH})});
+  toast(status===200 ? '裁定已记录（新事件，不改写历史）' : `失败：${body.error||''}`);
+  refresh();
+}
+async function undoAdj(diagId) {
+  const ev = EVENTS.find(e => e.kind==='adjudicated' && e.payload.diagnostic===diagId);
+  if (!ev) { toast('找不到裁定事件'); return; }
+  const {status, body} = await api('/api/adjudicate/undo', {method:'POST', body: JSON.stringify({
+    adjudication_event_id: ev.id, branch: CURRENT_BRANCH})});
+  toast(status===200 ? '已撤销，恢复前一分支' : `失败：${body.error||''}`);
+  refresh();
+}
+
+function renderConflicts() {
+  const host = document.getElementById('conflicts');
+  if (!STATE.conflicts.length) { host.innerHTML='<span class="muted">—</span>'; return; }
+  host.innerHTML = STATE.conflicts.map(c => `
+    <div class="cand"><b>${esc(c.artifact)}</b> 分支 ${esc(c.branch)}：
+      你的 base=v${c.base_version}，当前 head=v${c.head_version}
+      <div class="diff">${(c.diff||[]).map(d=>esc(JSON.stringify(d))).join('<br>')}</div>
+      <div class="muted">双方负载均留档；可在新分支上保留双方。</div></div>`).join('');
+}
+
+function renderEvents() {
+  const host = document.getElementById('events');
+  host.innerHTML = EVENTS.map(e => `
+    <div class="ev ${REPLAY_SEQ===e.seq?'at':''}" onclick="replayAt(${e.seq})">
+      #${e.seq} <b>${e.kind}</b> <span class="muted">${esc(e.actor)} · ${esc(e.branch)}</span>
+      <div class="identity">${esc(e.id)}</div></div>`).join('');
+}
+async function replayAt(seq) {
+  REPLAY_SEQ = seq;
+  document.getElementById('replayBanner').style.display='block';
+  document.getElementById('atSeq').textContent = '#'+seq;
+  await refresh();
+}
+function clearReplay() {
+  REPLAY_SEQ = null;
+  document.getElementById('replayBanner').style.display='none';
+  refresh();
+}
+
+function renderInval() {
+  const host = document.getElementById('inval');
+  if (!STATE.invalidations.length) { host.innerHTML='<span class="muted">—</span>'; return; }
+  host.innerHTML = STATE.invalidations.map(i => `
+    <div class="cand"><b>${esc(i.cause_event)}</b> → 标记过期（不覆盖）：
+      ${(i.affected||[]).map(a=>`<span class="badge b-stale">${esc(a)}</span>`).join(' ')}
+      <span class="muted">scope=${esc(i.scope)}</span></div>`).join('');
+}
+function scatterData() {
+  const raw = head('raw-channels');
+  const comp = derivedHead('comp-events');
+  if (!raw) return null;
+  const names = raw.payload.channels.map(c=>c.name);
+  const rows = raw.payload.events.map(e => {
+    const o = {}; e.values.forEach(v => o[v.channel] = v.raw_value); return o;
+  });
+  const compRows = comp ? comp.payload.rows : null;
+  const compCh = comp ? comp.payload.channels : [];
+  return {names, rows, compRows, compCh, rawVer: raw.version, compVer: comp?comp.version:null};
+}
+
+function drawScatter(cv, pts, opts={}) {
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0,0,cv.width,cv.height);
+  const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
+  const xmin = Math.min(...xs,0), xmax = Math.max(...xs,1);
+  const ymin = Math.min(...ys,0), ymax = Math.max(...ys,1);
+  const px = x => 30 + (x-xmin)/(xmax-xmin||1)*(cv.width-50);
+  const py = y => cv.height-30 - (y-ymin)/(ymax-ymin||1)*(cv.height-50);
+  ctx.strokeStyle='#d9dee6'; ctx.strokeRect(30,10,cv.width-50,cv.height-50);
+  for (const p of pts) {
+    ctx.fillStyle = p.c || '#1d4ed8';
+    ctx.beginPath(); ctx.arc(px(p.x), py(p.y), p.r||2.2, 0, 7); ctx.fill();
+  }
+  if (opts.poly) {
+    ctx.strokeStyle='#b45309'; ctx.lineWidth=1.5; ctx.beginPath();
+    opts.poly.forEach(([x,y],i)=> i?ctx.lineTo(px(x),py(y)):ctx.moveTo(px(x),py(y)));
+    ctx.closePath(); ctx.stroke();
+  }
+  ctx.fillStyle='#6b7280'; ctx.font='10px sans-serif';
+  ctx.fillText(opts.xl||'', 34, cv.height-8);
+  ctx.save(); ctx.translate(8, cv.height/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText(opts.yl||'', -20, 0); ctx.restore();
+}
+
+function renderScatter() {
+  const d = scatterData();
+  const host = document.getElementById('scatterHost');
+  const note = document.getElementById('scatterNote');
+  if (!d) { note.textContent='载入案例后显示散点'; return; }
+  const mode = document.getElementById('viewMode').value;
+  const g1 = head('gate:P1');
+  const poly = g1 ? g1.payload.polygon : null;
+  const popP1 = derivedHead('pop:P1');
+  const boundary = popP1 ? (popP1.payload.boundary_event_indices||[]) : [];
+  const members = popP1 ? (popP1.payload.member_event_indices||[]) : [];
+  const extreme = [];
+  if (d.compRows) d.compRows.forEach(r => { if ((r.notes||[]).length) extreme.push(r.event_index); });
+
+  const color = i => extreme.includes(i) ? '#b91c1c'
+    : boundary.includes(i) ? '#b45309'
+    : members.includes(i) ? '#1d4ed8' : '#9ca3af';
+
+  host.innerHTML = '';
+  const mk = (w=520,h=420) => { const c=document.createElement('canvas'); c.width=w;c.height=h; host.appendChild(c); return c; };
+  if (mode==='raw') {
+    const pts = d.rows.map((r,i)=>({x:r['FSC-A'], y:r['SSC-A'], c:color(i), r: boundary.includes(i)?4:2.2}));
+    drawScatter(mk(), pts, {poly, xl:'FSC-A (linear)', yl:'SSC-A (linear)'});
+    note.textContent = `raw-channels@${d.rawVer} · 蓝=P1内 橙=边界点 红=极端信号（原值保留原位）`;
+  } else if (mode==='comp') {
+    if (!d.compRows) { note.textContent='尚无补偿派生'; return; }
+    const [cx, cy] = d.compCh;
+    const pts = d.compRows.map((r,i)=>({x:r.compensated[0], y:r.compensated[1], c:color(i)}));
+    drawScatter(mk(), pts, {xl:`${cx} 补偿后`, yl:`${cy} 补偿后`});
+    note.textContent = `comp-events#${d.compVer} · 补偿矩阵版本见分母来源面板`;
+  } else {
+    const ptsRaw = d.rows.map((r,i)=>({x:r['FL1-A'], y:r['FL2-A'], c:color(i)}));
+    const cv1 = mk(480,400); drawScatter(cv1, ptsRaw, {xl:'FL1-A 原始', yl:'FL2-A 原始'});
+    if (d.compRows) {
+      const ptsC = d.compRows.map((r,i)=>({x:r.compensated[0], y:r.compensated[1], c:color(i)}));
+      const cv2 = mk(480,400); drawScatter(cv2, ptsC, {xl:'FL1-A 补偿后', yl:'FL2-A 补偿后'});
+    }
+    note.textContent = '补偿前后差异并排：左原始 / 右补偿后';
+  }
+}
+
+async function renderCompare() {
+  const a = document.getElementById('cmpA').value, b = document.getElementById('cmpB').value;
+  const [ra, rb] = await Promise.all([
+    api(`/api/state?branch=${a}`), api(`/api/state?branch=${b}`)]);
+  const host = document.getElementById('compare');
+  const col = (st, branch, cls) => {
+    const pops = st.state.derived.filter(d=>d.kind==='population' && d.branch===branch
+      && st.state.derived_heads[`${d.id}|${d.branch}`]===d.version);
+    const hierV = st.state.heads[`gate-hierarchy|${branch}`];
+    const rows = pops.map(d=>{
+      const p=d.payload, den=p.denominator||{};
+      return `<tr><td>${esc(p.gate_name)} <span class="identity">${d.id}#${d.version}</span></td>
+        <td>${p.count}</td><td>${esc(den.gate)}@pop#${den.population_version??'ALL'}</td>
+        <td>${(p.fraction*100).toFixed(2)}%</td><td><span class="badge b-${d.status}">${d.status}</span></td></tr>`;
+    }).join('');
+    return `<div class="${cls}"><h3>分支 ${esc(branch)} · gate-hierarchy@${hierV??'-'}</h3>
+      <table><tr><th>群体</th><th>计数</th><th>分母</th><th>比例</th><th>状态</th></tr>${rows||'<tr><td colspan=5 class=muted>无派生</td></tr>'}</table></div>`;
+  };
+  host.innerHTML = col(ra.body, a, 'col-a') + col(rb.body, b, 'col-b');
+}
+
+async function loadEvents() {
+  const {body} = await api('/api/events');
+  EVENTS = body.events || [];
+}
+
+async function loadCase() {
+  const {status, body} = await api('/api/case/load', {method:'POST'});
+  toast(status===200 ? '案例已导入（六类对象分开版本化）' : (body.error||'导入失败'));
+  await loadEvents(); await refresh();
+}
+async function replayCase() {
+  const {status, body} = await api('/api/case/replay', {method:'POST'});
+  toast(status===200 ? `重放完成：${(body.steps||[]).length} 步，六类边界情形已实际经过` : (body.error||'重放失败'));
+  await loadEvents(); await refresh();
+}
+async function makeConflict() {
+  const hier = head('gate-hierarchy');
+  if (!hier) { toast('先载入案例'); return; }
+  const staleBase = Math.max(1, hier.version - 1);
+  const {status, body} = await api('/api/commit', {method:'POST', body: JSON.stringify({
+    id:'gate-hierarchy', kind:'gate_hierarchy', branch:'main',
+    base_version: staleBase,
+    payload: Object.assign({}, hier.payload, {note:'并发窗口的旧版本保存'}),
+    actor: 'reviewer-window-2'})});
+  toast(status===409 ? `已制造冲突：base=v${body.conflict.base_version} vs head=v${body.conflict.head_version}，双方差异见左栏` : '未触发冲突');
+  await loadEvents(); await refresh();
+}
+async function roundtrip() {
+  const exp = await api('/api/export');
+  const before = JSON.stringify(exp.body.events.map(e=>e.id));
+  await api('/api/reset', {method:'POST'});
+  const imp = await api('/api/import', {method:'POST', body: JSON.stringify(exp.body)});
+  const exp2 = await api('/api/export');
+  const after = JSON.stringify(exp2.body.events.map(e=>e.id));
+  toast(imp.body.ok && before===after
+    ? `导出→删除本地库→重导：${imp.body.events_imported} 个事件，身份/顺序/来源关系一致`
+    : '校验失败：身份或顺序不一致');
+  await loadEvents(); await refresh();
+}
+
+(async function init(){
+  await loadEvents();
+  await refresh();
+})();
+</script>
+</body>
+</html>

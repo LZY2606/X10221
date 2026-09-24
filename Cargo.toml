@@ -1,0 +1,17 @@
+[package]
+name = "flowchamber"
+version = "0.1.0"
+edition = "2021"
+description = "流式边界室：补偿矩阵、门控系谱与细胞群不确定性 —— 流式细胞术/补偿/门控谱系复核工具"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.22"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+reqwest = { version = "0.12", default-features = false, features = ["json"] }
