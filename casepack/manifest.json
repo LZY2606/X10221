@@ -1,0 +1,33 @@
+{
+  "name": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "description": "离线固定案例包：流式平台导出的 FCS 事件、单染对照 spillover、补偿矩阵、arcsinh 变换参数、门多边形与父子关系。基线版本后依次安排参数修订、局部源数据改动与互相冲突的人工决定，重放记录实际经过近奇异矩阵、极端信号、边界点、门嵌套改名、上游过期传播与同版本并发修改。",
+  "domain_rules": [
+    {
+      "id": "near_singular_matrix",
+      "rule": "近奇异补偿矩阵不能被默默求逆：条件数超过阈值时保留全部合法候选（沿用旧矩阵/岭正则伪逆/恒等），由审阅者显式裁定。"
+    },
+    {
+      "id": "pinned_denominator",
+      "rule": "门的百分比分母必须钉住父群版本：分母引用父门的稳定 id、门版本、计数与计算事件序号。"
+    },
+    {
+      "id": "stale_not_overwrite",
+      "rule": "修订上游门或参数后，下游结果只标记过期，不覆盖旧数值；显式重算才产生新版本，历史快照保留。"
+    },
+    {
+      "id": "raw_preserved",
+      "rule": "所有领域量携带单位或坐标基准；导入保留原始表示，派生层才做规范化；无法转换的值留在原位置并附诊断，不为画图丢弃。"
+    }
+  ],
+  "files": [
+    "fcs_events.json",
+    "raw_events_v2.json",
+    "spillover.json",
+    "comp_matrix.json",
+    "comp_matrix_v2.json",
+    "transforms.json",
+    "gates.json",
+    "tree.json",
+    "scenarios.json"
+  ]
+}

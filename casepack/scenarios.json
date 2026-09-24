@@ -1,0 +1,61 @@
+{
+  "steps": [
+    {
+      "id": "extreme_signal",
+      "title": "极端信号：局部源数据改动",
+      "narrative": "追加 raw_events@v2：E-EXTREME-2 的 FITC-A 原始读数 5000000 超出 18 位 ADC 上限 262143。原始表示保留在原位置并附诊断，失效范围只含派生群体，不触碰矩阵/变换/门。",
+      "action": "import_raw_v2",
+      "expect": "diagnostic:extreme_signal 事件；受影响对象 = [populations]"
+    },
+    {
+      "id": "near_singular",
+      "title": "近奇异补偿矩阵不能被默默求逆",
+      "narrative": "登记 comp_matrix@v2（条件数约 4e10，超过阈值 1e10）。系统不求逆，生成候选集：沿用 comp_matrix@v1 / 岭正则伪逆 / 恒等矩阵，等待审阅者裁定。",
+      "action": "near_singular_matrix",
+      "expect": "rule:near_singular_matrix 事件携带条件数与候选；依赖补偿的群体进入 undecided"
+    },
+    {
+      "id": "boundary_point",
+      "title": "边界点计入并标记",
+      "narrative": "修订 lymph 门多边形（v2），使边 x=1000 恰好穿过事件 E-BOUND(1000,500)。边界点按规则计入门内，但留下 boundary 判定记录。",
+      "action": "revise_gate_boundary",
+      "gate": "lymph",
+      "polygon": [[0.0, 0.0], [1000.0, 0.0], [1000.0, 1000.0], [0.0, 1000.0]],
+      "expect": "diagnostic:boundary_point 事件；E-BOUND 计入 lymph 且带 boundary 标记"
+    },
+    {
+      "id": "gate_rename",
+      "title": "门嵌套改名不破坏子门引用",
+      "narrative": "lymph 更名为「淋巴细胞 / Lymph（更名）」（v3）。子门 tcells 按稳定 id 引用父门，改名后谱系与分母钉住关系保持。",
+      "action": "rename_gate",
+      "gate": "lymph",
+      "new_name": "淋巴细胞 / Lymph（更名）",
+      "expect": "gate_renamed 事件；tcells 的 parent 引用与分母钉住不变"
+    },
+    {
+      "id": "param_revision",
+      "title": "变换参数修订触发下游过期",
+      "narrative": "FITC-A 的 arcsinh 余因子 150 → 300（transform_params@v2）。下游 tcells 群体只标记过期，旧计数与百分比保留可见。",
+      "action": "revise_transform",
+      "channel": "FITC-A",
+      "cofactor": 300.0,
+      "expect": "rule:stale_not_overwrite 事件；tcells 状态 = stale 且旧数值未被覆盖"
+    },
+    {
+      "id": "upstream_stale",
+      "title": "上游门修订向下传播过期",
+      "narrative": "再次修订 lymph 门多边形（v4）。依赖链 lymph → tcells 上，tcells 被标记过期而非静默重算。",
+      "action": "revise_gate_polygon",
+      "gate": "lymph",
+      "polygon": [[0.0, 0.0], [1000.0, 0.0], [1000.0, 900.0], [0.0, 900.0]],
+      "expect": "rule:stale_not_overwrite 事件列出受影响门 [lymph, tcells]"
+    },
+    {
+      "id": "concurrent_conflict",
+      "title": "同版本并发修改与冲突人工决定",
+      "narrative": "从 main 当前头部开出分支 review-b。两窗口基于同一版本各自保存：后提交者看到版本冲突与双方差异；若候选仍待裁定，两分支做出互相冲突的采纳/否定决定并各自保留。",
+      "action": "concurrent_conflict",
+      "expect": "conflicts 表记录 expected/actual 与双方 diff；冲突决定各自留在分支历史中"
+    }
+  ]
+}

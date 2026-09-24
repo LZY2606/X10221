@@ -1,0 +1,9 @@
+{
+  "source": "单染对照（FITC-only / PE-only），离线固定导出",
+  "entries": [
+    {"detector": "FITC-A", "fluorochrome": "FITC", "coefficient": 1.0},
+    {"detector": "FITC-A", "fluorochrome": "PE", "coefficient": 0.12},
+    {"detector": "PE-A", "fluorochrome": "FITC", "coefficient": 0.35},
+    {"detector": "PE-A", "fluorochrome": "PE", "coefficient": 1.0}
+  ]
+}

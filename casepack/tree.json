@@ -1,0 +1,7 @@
+{
+  "edges": [
+    {"child": "root", "parent": null},
+    {"child": "lymph", "parent": "root"},
+    {"child": "tcells", "parent": "lymph"}
+  ]
+}

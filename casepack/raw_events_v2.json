@@ -1,0 +1,7 @@
+{
+  "note": "情景步骤 1 的局部源数据改动：只新增两个事件行，不影响矩阵/变换/门。",
+  "append_events": [
+    {"id": "E-EXTREME-2", "channels": {"FSC-A": {"raw": "520", "value": 520.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "230", "value": 230.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "5000000", "value": 5000000.0, "unit": "a.u.", "basis": "raw", "adc_limit": 262143}, "PE-A": {"raw": "2600", "value": 2600.0, "unit": "a.u.", "basis": "raw"}}, "flags": ["extreme"]},
+    {"id": "E-13", "channels": {"FSC-A": {"raw": "460", "value": 460.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "210", "value": 210.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "3600", "value": 3600.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "2600", "value": 2600.0, "unit": "a.u.", "basis": "raw"}}, "flags": []}
+  ]
+}

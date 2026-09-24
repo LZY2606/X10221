@@ -1,0 +1,7 @@
+{
+  "gates": [
+    {"gate_id": "root", "name": "全部事件", "channels": ["FSC-A", "SSC-A"], "basis": "raw", "polygon": []},
+    {"gate_id": "lymph", "name": "淋巴细胞", "channels": ["FSC-A", "SSC-A"], "basis": "raw", "polygon": [[0.0, 0.0], [900.0, 0.0], [900.0, 1000.0], [0.0, 1000.0]]},
+    {"gate_id": "tcells", "name": "T细胞", "channels": ["FITC-A", "PE-A"], "basis": "transformed", "polygon": [[2.5, 0.5], [6.0, 0.5], [6.0, 6.0], [2.5, 6.0]]}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "per_channel": {
+    "FSC-A": {"kind": "linear", "cofactor": 1.0},
+    "SSC-A": {"kind": "linear", "cofactor": 1.0},
+    "FITC-A": {"kind": "arcsinh", "cofactor": 150.0},
+    "PE-A": {"kind": "arcsinh", "cofactor": 150.0}
+  }
+}

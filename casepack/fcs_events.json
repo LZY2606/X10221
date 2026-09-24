@@ -1,0 +1,31 @@
+{
+  "instrument": {
+    "name": "FlowBoundary-Cyto A1（离线固定导出）",
+    "adc_bits": 18,
+    "adc_max": 262143,
+    "time_unit": "s"
+  },
+  "channel_order": ["FSC-A", "SSC-A", "FITC-A", "PE-A"],
+  "channel_meta": [
+    {"name": "FSC-A", "unit": "a.u.", "basis": "raw", "coordinate": "area"},
+    {"name": "SSC-A", "unit": "a.u.", "basis": "raw", "coordinate": "area"},
+    {"name": "FITC-A", "unit": "a.u.", "basis": "raw", "coordinate": "area", "fluorochrome": "FITC"},
+    {"name": "PE-A", "unit": "a.u.", "basis": "raw", "coordinate": "area", "fluorochrome": "PE"}
+  ],
+  "events": [
+    {"id": "E-01", "channels": {"FSC-A": {"raw": "420", "value": 420.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "180", "value": 180.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "2500", "value": 2500.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "1200", "value": 1200.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-02", "channels": {"FSC-A": {"raw": "450", "value": 450.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "200", "value": 200.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "3000", "value": 3000.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "2000", "value": 2000.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-03", "channels": {"FSC-A": {"raw": "500", "value": 500.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "220", "value": 220.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "4500", "value": 4500.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "3500", "value": 3500.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-04", "channels": {"FSC-A": {"raw": "600", "value": 600.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "300", "value": 300.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "6000", "value": 6000.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "5200", "value": 5200.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-05", "channels": {"FSC-A": {"raw": "700", "value": 700.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "350", "value": 350.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "7800", "value": 7800.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "8800", "value": 8800.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-06", "channels": {"FSC-A": {"raw": "800", "value": 800.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "400", "value": 400.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "2100", "value": 2100.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "900", "value": 900.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-07", "channels": {"FSC-A": {"raw": "550", "value": 550.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "260", "value": 260.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "5200", "value": 5200.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "4100", "value": 4100.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-08", "channels": {"FSC-A": {"raw": "650", "value": 650.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "320", "value": 320.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "6800", "value": 6800.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "6300", "value": 6300.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-09", "channels": {"FSC-A": {"raw": "1500", "value": 1500.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "900", "value": 900.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "20000", "value": 20000.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "18000", "value": 18000.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-10", "channels": {"FSC-A": {"raw": "1600", "value": 1600.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "950", "value": 950.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "25000", "value": 25000.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "22000", "value": 22000.0, "unit": "a.u.", "basis": "raw"}}, "flags": []},
+    {"id": "E-BOUND", "channels": {"FSC-A": {"raw": "1000", "value": 1000.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "500", "value": 500.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "3000", "value": 3000.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "4000", "value": 4000.0, "unit": "a.u.", "basis": "raw"}}, "flags": ["boundary_candidate"]},
+    {"id": "E-EXTREME", "channels": {"FSC-A": {"raw": "500", "value": 500.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "200", "value": 200.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "4194304", "value": 4194304.0, "unit": "a.u.", "basis": "raw", "adc_limit": 262143}, "PE-A": {"raw": "2000", "value": 2000.0, "unit": "a.u.", "basis": "raw"}}, "flags": ["extreme"]},
+    {"id": "E-UNPARSE", "channels": {"FSC-A": {"raw": "480", "value": 480.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "190", "value": 190.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "2800", "value": 2800.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "N/A", "value": null, "unit": "a.u.", "basis": "raw"}}, "flags": ["unconvertible"]},
+    {"id": "E-12", "channels": {"FSC-A": {"raw": "430", "value": 430.0, "unit": "a.u.", "basis": "raw"}, "SSC-A": {"raw": "170", "value": 170.0, "unit": "a.u.", "basis": "raw"}, "FITC-A": {"raw": "3200", "value": 3200.0, "unit": "a.u.", "basis": "raw"}, "PE-A": {"raw": "1500", "value": 1500.0, "unit": "a.u.", "basis": "raw"}}, "flags": []}
+  ]
+}
