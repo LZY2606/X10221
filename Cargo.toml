@@ -1,0 +1,31 @@
+[package]
+name = "flow-lineage"
+version = "0.1.0"
+edition = "2021"
+description = "流式边界室：FCS 补偿矩阵、门控系谱与细胞群不确定性的离线复核工具"
+
+[[bin]]
+name = "flow-lineage"
+path = "src/main.rs"
+
+[lib]
+name = "flow_lineage"
+path = "src/lib.rs"
+
+[dependencies]
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "sync"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
+sha2 = "0.10"
+tower = "0.5"
+tower-http = { version = "0.6", features = ["fs"] }
+anyhow = "1"
+thiserror = "2"
+
+[dev-dependencies]
+flow-lineage = { path = ".", features = [] }
+
+[profile.dev]
+opt-level = 0
