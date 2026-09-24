@@ -1,0 +1,861 @@
+{
+ "pack": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+ "pack_id": "boundary-chamber",
+ "pack_version": 1,
+ "panel": {
+  "channels": [
+   "FSC-A",
+   "SSC-A",
+   "FITC-A",
+   "PE-A",
+   "APC-A"
+  ],
+  "fluorescence": [
+   "FITC-A",
+   "PE-A",
+   "APC-A"
+  ],
+  "unit": "ADC channel (18-bit, 0-262143)",
+  "basis": "linear acquisition scale"
+ },
+ "artifacts": {
+  "raw_events": {
+   "series": "raw:events",
+   "kind": "RawChannels",
+   "label": "原始通道值",
+   "unit": "ADC channel (18-bit, 0-262143)",
+   "basis": "linear acquisition scale",
+   "events": [
+    {
+     "id": "ev-001",
+     "raw": {
+      "FSC-A": 57185.0,
+      "SSC-A": 34091.0,
+      "FITC-A": 43406.0,
+      "PE-A": 27513.0,
+      "APC-A": 9345.0
+     }
+    },
+    {
+     "id": "ev-002",
+     "raw": {
+      "FSC-A": 57654.0,
+      "SSC-A": 38895.0,
+      "FITC-A": 47430.0,
+      "PE-A": 32042.0,
+      "APC-A": 11109.0
+     }
+    },
+    {
+     "id": "ev-003",
+     "raw": {
+      "FSC-A": 64342.0,
+      "SSC-A": 31483.0,
+      "FITC-A": 36890.0,
+      "PE-A": 31043.0,
+      "APC-A": 11171.0
+     }
+    },
+    {
+     "id": "ev-004",
+     "raw": {
+      "FSC-A": 65487.0,
+      "SSC-A": 16469.0,
+      "FITC-A": 35523.0,
+      "PE-A": 25532.0,
+      "APC-A": 9627.0
+     }
+    },
+    {
+     "id": "ev-005",
+     "raw": {
+      "FSC-A": 63360.0,
+      "SSC-A": 29633.0,
+      "FITC-A": 47009.0,
+      "PE-A": 27045.0,
+      "APC-A": 10838.0
+     }
+    },
+    {
+     "id": "ev-006",
+     "raw": {
+      "FSC-A": 64336.0,
+      "SSC-A": 24711.0,
+      "FITC-A": 53671.0,
+      "PE-A": 31175.0,
+      "APC-A": 12275.0
+     }
+    },
+    {
+     "id": "ev-007",
+     "raw": {
+      "FSC-A": 53176.0,
+      "SSC-A": 24084.0,
+      "FITC-A": 42985.0,
+      "PE-A": 28522.0,
+      "APC-A": 11252.0
+     }
+    },
+    {
+     "id": "ev-008",
+     "raw": {
+      "FSC-A": 62733.0,
+      "SSC-A": 26421.0,
+      "FITC-A": 39718.0,
+      "PE-A": 27281.0,
+      "APC-A": 11810.0
+     }
+    },
+    {
+     "id": "ev-009",
+     "raw": {
+      "FSC-A": 51113.0,
+      "SSC-A": 31958.0,
+      "FITC-A": 46070.0,
+      "PE-A": 24410.0,
+      "APC-A": 10338.0
+     }
+    },
+    {
+     "id": "ev-010",
+     "raw": {
+      "FSC-A": 74369.0,
+      "SSC-A": 13885.0,
+      "FITC-A": 43045.0,
+      "PE-A": 28145.0,
+      "APC-A": 9515.0
+     }
+    },
+    {
+     "id": "ev-011",
+     "raw": {
+      "FSC-A": 65471.0,
+      "SSC-A": 29502.0,
+      "FITC-A": 37888.0,
+      "PE-A": 31054.0,
+      "APC-A": 11381.0
+     }
+    },
+    {
+     "id": "ev-012",
+     "raw": {
+      "FSC-A": 70404.0,
+      "SSC-A": 41525.0,
+      "FITC-A": 46569.0,
+      "PE-A": 28865.0,
+      "APC-A": 9052.0
+     }
+    },
+    {
+     "id": "ev-013",
+     "raw": {
+      "FSC-A": 66770.0,
+      "SSC-A": 25106.0,
+      "FITC-A": 37779.0,
+      "PE-A": 2132.0,
+      "APC-A": 921.0
+     }
+    },
+    {
+     "id": "ev-014",
+     "raw": {
+      "FSC-A": 54158.0,
+      "SSC-A": 40311.0,
+      "FITC-A": 29883.0,
+      "PE-A": 1737.0,
+      "APC-A": 823.0
+     }
+    },
+    {
+     "id": "ev-015",
+     "raw": {
+      "FSC-A": 75877.0,
+      "SSC-A": 34628.0,
+      "FITC-A": 30529.0,
+      "PE-A": 1697.0,
+      "APC-A": 837.0
+     }
+    },
+    {
+     "id": "ev-016",
+     "raw": {
+      "FSC-A": 51901.0,
+      "SSC-A": 21042.0,
+      "FITC-A": 44961.0,
+      "PE-A": 2667.0,
+      "APC-A": 1132.0
+     }
+    },
+    {
+     "id": "ev-017",
+     "raw": {
+      "FSC-A": 62704.0,
+      "SSC-A": 33475.0,
+      "FITC-A": 48039.0,
+      "PE-A": 2792.0,
+      "APC-A": 1209.0
+     }
+    },
+    {
+     "id": "ev-018",
+     "raw": {
+      "FSC-A": 66025.0,
+      "SSC-A": 17454.0,
+      "FITC-A": 46481.0,
+      "PE-A": 2737.0,
+      "APC-A": 1180.0
+     }
+    },
+    {
+     "id": "ev-019",
+     "raw": {
+      "FSC-A": 38287.0,
+      "SSC-A": 24931.0,
+      "FITC-A": 44248.0,
+      "PE-A": 2426.0,
+      "APC-A": 1087.0
+     }
+    },
+    {
+     "id": "ev-020",
+     "raw": {
+      "FSC-A": 71215.0,
+      "SSC-A": 19510.0,
+      "FITC-A": 48117.0,
+      "PE-A": 2784.0,
+      "APC-A": 1177.0
+     }
+    },
+    {
+     "id": "ev-021",
+     "raw": {
+      "FSC-A": 63574.0,
+      "SSC-A": 35199.0,
+      "FITC-A": 40675.0,
+      "PE-A": 2447.0,
+      "APC-A": 1006.0
+     }
+    },
+    {
+     "id": "ev-022",
+     "raw": {
+      "FSC-A": 55438.0,
+      "SSC-A": 38333.0,
+      "FITC-A": 40184.0,
+      "PE-A": 2299.0,
+      "APC-A": 1067.0
+     }
+    },
+    {
+     "id": "ev-023",
+     "raw": {
+      "FSC-A": 76120.0,
+      "SSC-A": 26441.0,
+      "FITC-A": 33158.0,
+      "PE-A": 1988.0,
+      "APC-A": 875.0
+     }
+    },
+    {
+     "id": "ev-024",
+     "raw": {
+      "FSC-A": 56722.0,
+      "SSC-A": 41238.0,
+      "FITC-A": 34939.0,
+      "PE-A": 2162.0,
+      "APC-A": 861.0
+     }
+    },
+    {
+     "id": "ev-025",
+     "raw": {
+      "FSC-A": 51343.0,
+      "SSC-A": 35052.0,
+      "FITC-A": 459.0,
+      "PE-A": 413.0,
+      "APC-A": 272.0
+     }
+    },
+    {
+     "id": "ev-026",
+     "raw": {
+      "FSC-A": 61566.0,
+      "SSC-A": 31220.0,
+      "FITC-A": 401.0,
+      "PE-A": 337.0,
+      "APC-A": 262.0
+     }
+    },
+    {
+     "id": "ev-027",
+     "raw": {
+      "FSC-A": 66300.0,
+      "SSC-A": 30007.0,
+      "FITC-A": 429.0,
+      "PE-A": 413.0,
+      "APC-A": 370.0
+     }
+    },
+    {
+     "id": "ev-028",
+     "raw": {
+      "FSC-A": 63574.0,
+      "SSC-A": 26579.0,
+      "FITC-A": 329.0,
+      "PE-A": 353.0,
+      "APC-A": 300.0
+     }
+    },
+    {
+     "id": "ev-029",
+     "raw": {
+      "FSC-A": 56298.0,
+      "SSC-A": 33087.0,
+      "FITC-A": 470.0,
+      "PE-A": 156.0,
+      "APC-A": 169.0
+     }
+    },
+    {
+     "id": "ev-030",
+     "raw": {
+      "FSC-A": 62683.0,
+      "SSC-A": 33187.0,
+      "FITC-A": 372.0,
+      "PE-A": 323.0,
+      "APC-A": 283.0
+     }
+    },
+    {
+     "id": "ev-031",
+     "raw": {
+      "FSC-A": 63103.0,
+      "SSC-A": 25824.0,
+      "FITC-A": 555.0,
+      "PE-A": 371.0,
+      "APC-A": 218.0
+     }
+    },
+    {
+     "id": "ev-032",
+     "raw": {
+      "FSC-A": 58906.0,
+      "SSC-A": 28195.0,
+      "FITC-A": 317.0,
+      "PE-A": 146.0,
+      "APC-A": 203.0
+     }
+    },
+    {
+     "id": "ev-033",
+     "raw": {
+      "FSC-A": 71094.0,
+      "SSC-A": 20652.0,
+      "FITC-A": 365.0,
+      "PE-A": 421.0,
+      "APC-A": 302.0
+     }
+    },
+    {
+     "id": "ev-034",
+     "raw": {
+      "FSC-A": 76402.0,
+      "SSC-A": 16389.0,
+      "FITC-A": 326.0,
+      "PE-A": 326.0,
+      "APC-A": 281.0
+     }
+    },
+    {
+     "id": "ev-035",
+     "raw": {
+      "FSC-A": 72010.0,
+      "SSC-A": 10000,
+      "FITC-A": 427.0,
+      "PE-A": 255.0,
+      "APC-A": 281.0
+     }
+    },
+    {
+     "id": "ev-036",
+     "raw": {
+      "FSC-A": 43586.0,
+      "SSC-A": 31407.0,
+      "FITC-A": 451.0,
+      "PE-A": 340.0,
+      "APC-A": 258.0
+     }
+    },
+    {
+     "id": "ev-037",
+     "raw": {
+      "FSC-A": 9754.0,
+      "SSC-A": 4184.0,
+      "FITC-A": 247.0,
+      "PE-A": 309.0,
+      "APC-A": 214.0
+     }
+    },
+    {
+     "id": "ev-038",
+     "raw": {
+      "FSC-A": 7354.0,
+      "SSC-A": 7569.0,
+      "FITC-A": 176.0,
+      "PE-A": 263.0,
+      "APC-A": 158.0
+     }
+    },
+    {
+     "id": "ev-039",
+     "raw": {
+      "FSC-A": 8291.0,
+      "SSC-A": 4917.0,
+      "FITC-A": 254.0,
+      "PE-A": 242.0,
+      "APC-A": 108.0
+     }
+    },
+    {
+     "id": "ev-040",
+     "raw": {
+      "FSC-A": 4679.0,
+      "SSC-A": 4799.0,
+      "FITC-A": 168.0,
+      "PE-A": 156.0,
+      "APC-A": 103.0
+     }
+    },
+    {
+     "id": "ev-041",
+     "raw": {
+      "FSC-A": 10786.0,
+      "SSC-A": 4971.0,
+      "FITC-A": 317.0,
+      "PE-A": 181.0,
+      "APC-A": 165.0
+     }
+    },
+    {
+     "id": "ev-042",
+     "raw": {
+      "FSC-A": 5491.0,
+      "SSC-A": 4996.0,
+      "FITC-A": 326.0,
+      "PE-A": 197.0,
+      "APC-A": 228.0
+     }
+    },
+    {
+     "id": "ev-043",
+     "raw": {
+      "FSC-A": 10174.0,
+      "SSC-A": 3769.0,
+      "FITC-A": 131.0,
+      "PE-A": 287.0,
+      "APC-A": 165.0
+     }
+    },
+    {
+     "id": "ev-044",
+     "raw": {
+      "FSC-A": 6674.0,
+      "SSC-A": 4519.0,
+      "FITC-A": 274.0,
+      "PE-A": 290.0,
+      "APC-A": 132.0
+     }
+    },
+    {
+     "id": "ev-045",
+     "raw": {
+      "FSC-A": 60000,
+      "SSC-A": 30000,
+      "FITC-A": 262143,
+      "PE-A": 2344.0,
+      "APC-A": 1021.0
+     },
+     "diagnostics": [
+      "saturated:FITC-A"
+     ]
+    },
+    {
+     "id": "ev-046",
+     "raw": {
+      "FSC-A": 61000,
+      "SSC-A": 31000,
+      "FITC-A": 40060.0,
+      "PE-A": 300000,
+      "APC-A": 1021.0
+     },
+     "diagnostics": [
+      "out_of_range:PE-A"
+     ]
+    },
+    {
+     "id": "ev-047",
+     "raw": {
+      "FSC-A": 59000,
+      "SSC-A": 29000,
+      "FITC-A": 40060.0,
+      "PE-A": 2344.0,
+      "APC-A": "OVERFLOW"
+     },
+     "diagnostics": [
+      "unconvertible:APC-A"
+     ]
+    },
+    {
+     "id": "ev-048",
+     "raw": {
+      "FSC-A": 65000,
+      "SSC-A": 9000,
+      "FITC-A": 357.0,
+      "PE-A": 343.4,
+      "APC-A": 245.6
+     },
+     "diagnostics": [
+      "boundary:gate:lymphocytes"
+     ]
+    },
+    {
+     "id": "ev-049",
+     "raw": {
+      "FSC-A": 60000,
+      "SSC-A": 20000,
+      "FITC-A": 6853.665,
+      "PE-A": 920.333,
+      "APC-A": 349.371
+     },
+     "diagnostics": [
+      "boundary:gate:cd3_pos"
+     ]
+    }
+   ]
+  },
+  "spillover": {
+   "series": "meta:spillover",
+   "kind": "SpilloverMeta",
+   "label": "spillover 元数据",
+   "unit": "ratio (detector/fluorophore)",
+   "basis": "median of single-stain controls",
+   "controls": [
+    {
+     "fluorophore": "FITC",
+     "detector": "FITC-A",
+     "samples": [
+      40909.0,
+      41189.9,
+      41161.8,
+      39855.5,
+      39404.8
+     ]
+    },
+    {
+     "fluorophore": "PE",
+     "detector": "PE-A",
+     "samples": [
+      30611.1,
+      30069.1,
+      30074.5,
+      30854.5,
+      29841.9
+     ]
+    },
+    {
+     "fluorophore": "APC",
+     "detector": "APC-A",
+     "samples": [
+      18851.6,
+      19806.4,
+      19073.0,
+      20409.4,
+      20158.5
+     ]
+    }
+   ],
+   "coefficients": [
+    [
+     1.0,
+     0.18,
+     0.03
+    ],
+    [
+     0.05,
+     1.0,
+     0.22
+    ],
+    [
+     0.02,
+     0.07,
+     1.0
+    ]
+   ]
+  },
+  "matrix": {
+   "series": "matrix:comp",
+   "kind": "CompensationMatrix",
+   "label": "补偿矩阵",
+   "unit": "ratio",
+   "basis": "observed = matrix @ true",
+   "channels": [
+    "FITC-A",
+    "PE-A",
+    "APC-A"
+   ],
+   "matrix": [
+    [
+     1.0,
+     0.18,
+     0.03
+    ],
+    [
+     0.05,
+     1.0,
+     0.22
+    ],
+    [
+     0.02,
+     0.07,
+     1.0
+    ]
+   ]
+  },
+  "transform": {
+   "series": "xform:arcsinh",
+   "kind": "TransformParams",
+   "label": "变换参数",
+   "unit": "arcsinh intensity",
+   "basis": "arcsinh(x/cofactor)",
+   "kind_name": "arcsinh",
+   "cofactor": 150.0
+  },
+  "gates": [
+   {
+    "series": "gate:lymphocytes",
+    "kind": "GatePolygon",
+    "label": "Lymphocytes",
+    "axes": [
+     "FSC-A",
+     "SSC-A"
+    ],
+    "polygon": [
+     [
+      25000,
+      8000
+     ],
+     [
+      105000,
+      10000
+     ],
+     [
+      115000,
+      55000
+     ],
+     [
+      55000,
+      65000
+     ],
+     [
+      20000,
+      35000
+     ]
+    ],
+    "axes_basis": "raw",
+    "unit": "ADC channel (18-bit, 0-262143)",
+    "basis": "linear acquisition scale"
+   },
+   {
+    "series": "gate:cd3_pos",
+    "kind": "GatePolygon",
+    "label": "CD3+",
+    "axes": [
+     "FITC-A",
+     "PE-A"
+    ],
+    "polygon": [
+     [
+      4.5,
+      0.0
+     ],
+     [
+      7.5,
+      0.0
+     ],
+     [
+      7.5,
+      7.0
+     ],
+     [
+      4.5,
+      7.0
+     ]
+    ],
+    "axes_basis": "transformed",
+    "unit": "arcsinh intensity",
+    "basis": "arcsinh(x/cofactor)"
+   },
+   {
+    "series": "gate:cd4_pos",
+    "kind": "GatePolygon",
+    "label": "CD4+",
+    "axes": [
+     "PE-A",
+     "APC-A"
+    ],
+    "polygon": [
+     [
+      3.5,
+      1.0
+     ],
+     [
+      7.0,
+      1.0
+     ],
+     [
+      7.0,
+      5.5
+     ],
+     [
+      3.5,
+      5.5
+     ]
+    ],
+    "axes_basis": "transformed",
+    "unit": "arcsinh intensity",
+    "basis": "arcsinh(x/cofactor)"
+   }
+  ],
+  "hierarchy": {
+   "series": "tree:hierarchy",
+   "kind": "GateHierarchy",
+   "label": "父子关系",
+   "unit": "n/a",
+   "basis": "gate series references",
+   "nodes": [
+    {
+     "gate": "gate:lymphocytes",
+     "parent": null
+    },
+    {
+     "gate": "gate:cd3_pos",
+     "parent": "gate:lymphocytes"
+    },
+    {
+     "gate": "gate:cd4_pos",
+     "parent": "gate:cd3_pos"
+    }
+   ]
+  }
+ },
+ "replay": [
+  {
+   "id": "revise_transform",
+   "kind": "revise_transform",
+   "series": "xform:arcsinh",
+   "cofactor": 100.0,
+   "note": "参数修订：cofactor 150 -> 100，仅使依赖变换的群体过期"
+  },
+  {
+   "id": "revise_gate_local",
+   "kind": "revise_gate",
+   "series": "gate:cd4_pos",
+   "label": "CD4+",
+   "polygon": [
+    [
+     3.6,
+     1.0
+    ],
+    [
+     7.0,
+     1.0
+    ],
+    [
+     7.0,
+     5.6
+    ],
+    [
+     3.5,
+     5.6
+    ]
+   ],
+   "note": "只影响局部依赖的源数据改动：仅 cd4 群体过期"
+  },
+  {
+   "id": "rename_gate",
+   "kind": "rename_gate",
+   "series": "gate:cd4_pos",
+   "label": "CD4+ T cells",
+   "note": "门嵌套改名：稳定身份不变，不触发失效"
+  },
+  {
+   "id": "revise_gate_upstream",
+   "kind": "revise_gate",
+   "series": "gate:lymphocytes",
+   "label": "Lymphocytes",
+   "polygon": [
+    [
+     26000,
+     8000
+    ],
+    [
+     105000,
+     10000
+    ],
+    [
+     115000,
+     55000
+    ],
+    [
+     55000,
+     65000
+    ],
+    [
+     20000,
+     35000
+    ]
+   ],
+   "note": "上游过期传播：lymphocytes 及全部下游标记过期而不覆盖"
+  },
+  {
+   "id": "import_near_singular_matrix",
+   "kind": "import_matrix",
+   "series": "matrix:comp",
+   "label": "补偿矩阵 v2（近奇异）",
+   "channels": [
+    "FITC-A",
+    "PE-A",
+    "APC-A"
+   ],
+   "matrix": [
+    [
+     1.0,
+     0.18,
+     0.03
+    ],
+    [
+     0.05,
+     1.0,
+     0.22
+    ],
+    [
+     1.05,
+     1.18,
+     0.2500001
+    ]
+   ],
+   "note": "矩阵奇异：系统拒绝默默求逆，给出合法候选"
+  },
+  {
+   "id": "conflicting_rulings",
+   "kind": "conflicting_rulings",
+   "note": "互相冲突的人工决定：main 接受包含边界点，review-b 否定"
+  },
+  {
+   "id": "concurrent_save",
+   "kind": "concurrent_save",
+   "series": "gate:cd3_pos",
+   "note": "同版本并发修改：后提交者看到版本冲突及双方差异"
+  }
+ ]
+}
