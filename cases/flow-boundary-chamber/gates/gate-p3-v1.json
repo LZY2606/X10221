@@ -1,0 +1,26 @@
+{
+  "gate_id": "gate:p3-fl1pos",
+  "version": 1,
+  "name": "P3 FL1+",
+  "x_channel": "FL2-A",
+  "y_channel": "FL1-A",
+  "vertices": [
+    [
+      0.0,
+      3.6
+    ],
+    [
+      2.0,
+      3.6
+    ],
+    [
+      2.0,
+      5.0
+    ],
+    [
+      0.0,
+      5.0
+    ]
+  ],
+  "basis": "scatter=counts(raw passthrough); fluorescence=asinh(compensated counts/150)"
+}

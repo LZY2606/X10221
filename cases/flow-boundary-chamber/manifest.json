@@ -1,0 +1,132 @@
+{
+  "case_id": "flow-boundary-chamber",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "version": 1,
+  "domain": "flow-cytometry",
+  "narrative": [
+    "流式平台导入 FCS 事件、单染对照与门控草案；逐项核对原始通道值、spillover 元数据、补偿矩阵、变换参数、门多边形与父子关系（分开版本化）。",
+    "触发边界组合：近奇异矩阵、极端信号、边界点、门嵌套改名、上游过期传播、同版本并发修改，留下输入片段、判定状态与受影响对象。",
+    "第二分支检验近奇异矩阵不能被默默求逆、百分比分母钉住父群版本、上游修订后下游标记过期而不覆盖，并保留全部合法候选。",
+    "审阅页显示通道散点、门树、补偿前后差异与每个群体的分母来源，两个草案可并排；任何裁定生成新事件，回到旧事件恢复当时结论。"
+  ],
+  "files": {
+    "main_events": "fcs/sample-main.fcs",
+    "single_stain_controls": [
+      "fcs/control-fl1.fcs",
+      "fcs/control-fl2.fcs"
+    ],
+    "spillover": "spillover/spillover-v1.json",
+    "matrix_v1": "compensation/matrix-v1.json",
+    "matrix_near_singular": "compensation/matrix-nearsingular.json",
+    "transform_v1": "transforms/asinh-v1.json",
+    "gates": [
+      "gates/gate-p1-v1.json",
+      "gates/gate-p2-v1.json",
+      "gates/gate-p3-v1.json"
+    ],
+    "tree_v1": "gates/tree-v1.json",
+    "revisions": [
+      "revisions/asinh-v2.json",
+      "revisions/tree-v2-rename.json",
+      "revisions/gate-p3-v2.json",
+      "revisions/gate-p1-v2.json",
+      "revisions/conflict-a.json",
+      "revisions/conflict-b.json"
+    ]
+  },
+  "baseline_versions": {
+    "spillover:main": 1,
+    "matrix:comp-main": 1,
+    "transform:asinh-main": 1,
+    "gate:p1-lymph": 1,
+    "gate:p2-live": 1,
+    "gate:p3-fl1pos": 1,
+    "tree:main": 1
+  },
+  "judgments": [
+    {
+      "rule": "comp.near_singular.no_silent_inverse",
+      "when": "matrix:comp-main@v2",
+      "expect_status": "near_singular",
+      "expect_candidates": [
+        "damped-pseudoinverse",
+        "use-previous-version",
+        "reject-compensation"
+      ],
+      "assertion": "逆矩阵字段不得出现在 ready 结果中；必须由人工选择候选"
+    },
+    {
+      "rule": "gate.boundary.ambiguous",
+      "when": "gate:p1-lymph@v1 / sample-main 行5",
+      "expect_candidates": [
+        "include-boundary",
+        "exclude-boundary"
+      ],
+      "assertion": "精确落在门边上的点保留 include/exclude 两个合法候选"
+    },
+    {
+      "rule": "popstat.denominator.pinned_to_parent_version",
+      "when": "每次群体统计",
+      "assertion": "denom_source 显式给出父群 stat id+version；父群修订后旧统计分母不变"
+    },
+    {
+      "rule": "upstream.gate.revision.marks.downstream.stale.without.overwrite",
+      "when": "gate:p1-lymph@v2",
+      "assertion": "P1/P2/P3 旧版本统计标记 stale，行不删除、数字不覆盖"
+    },
+    {
+      "rule": "tree.rename_does_not_invalidate_derived",
+      "when": "tree:main@v2",
+      "assertion": "仅名称变化时 affected 列表为空"
+    },
+    {
+      "rule": "concurrency.same_branch_conflict",
+      "when": "同一 head 连续提交 conflict-a/conflict-b",
+      "assertion": "后提交得到 409 与双方差异事件 conflict.detected"
+    },
+    {
+      "rule": "raw.extreme_value.preserved",
+      "when": "sample-main 行7 FL1-A=400000 > $P3R=262144",
+      "assertion": "原始字节/数值保留在 events_raw，诊断 event.exceeds_range 挂在该事件上"
+    }
+  ],
+  "steps": [
+    {
+      "id": "import",
+      "label": "初始导入（基线，全部 v1）"
+    },
+    {
+      "id": "matrix_singular",
+      "label": "登记近奇异矩阵并尝试补偿",
+      "material": "compensation/matrix-nearsingular.json"
+    },
+    {
+      "id": "branch_strict",
+      "label": "新分支拒绝补偿；主分支回退上一版矩阵"
+    },
+    {
+      "id": "boundary",
+      "label": "复核 P1 边界点，两个审阅者各持 include/exclude"
+    },
+    {
+      "id": "rename",
+      "label": "门嵌套改名（P2/P3），确认无失效"
+    },
+    {
+      "id": "local_change",
+      "label": "修订叶门 P3 多边形，确认仅局部失效"
+    },
+    {
+      "id": "upstream_stale",
+      "label": "修订上游门 P1，确认整支 stale 而不覆盖"
+    },
+    {
+      "id": "parameter_revision",
+      "label": "修订 cofactor 150→200，确认下游按依赖失效"
+    },
+    {
+      "id": "conflict",
+      "label": "同版本并发修改，后提交者看到冲突与双方差异"
+    }
+  ]
+}

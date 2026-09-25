@@ -1,0 +1,13 @@
+{
+  "transform_id": "transform:asinh-main",
+  "version": 2,
+  "method": "asinh",
+  "channels": [
+    "FL1-A",
+    "FL2-A"
+  ],
+  "cofactor": 200.0,
+  "unit": "fluorescence",
+  "basis": "y = asinh(x / 200)，审阅者将 cofactor 从 150 改为 200（参数修订）",
+  "revision_kind": "parameter"
+}

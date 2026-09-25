@@ -1,0 +1,29 @@
+{
+  "gate_id": "gate:p1-lymph",
+  "version": 1,
+  "name": "P1 Lymphocytes",
+  "x_channel": "FSC-A",
+  "y_channel": "SSC-A",
+  "vertices": [
+    [
+      100.0,
+      200.0
+    ],
+    [
+      900.0,
+      200.0
+    ],
+    [
+      900.0,
+      800.0
+    ],
+    [
+      100.0,
+      800.0
+    ]
+  ],
+  "basis": "scatter=counts(raw passthrough); fluorescence=asinh(compensated counts/150)",
+  "notes": [
+    "sample-main.fcs 行5 (400,200) 精确落在下边缘，是 boundary 测试点"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "tree_id": "tree:main",
+  "version": 1,
+  "file_id": "file:fcs:sample-main",
+  "root": "gate:root",
+  "nodes": [
+    {
+      "gate_id": "gate:root",
+      "gate_version": 1,
+      "name": "All Events"
+    },
+    {
+      "gate_id": "gate:p1-lymph",
+      "gate_version": 1,
+      "name": "P1 Lymphocytes"
+    },
+    {
+      "gate_id": "gate:p2-live",
+      "gate_version": 1,
+      "name": "P2 Live"
+    },
+    {
+      "gate_id": "gate:p3-fl1pos",
+      "gate_version": 1,
+      "name": "P3 FL1+"
+    }
+  ],
+  "edges": [
+    [
+      "gate:root",
+      "gate:p1-lymph"
+    ],
+    [
+      "gate:p1-lymph",
+      "gate:p2-live"
+    ],
+    [
+      "gate:p2-live",
+      "gate:p3-fl1pos"
+    ]
+  ]
+}

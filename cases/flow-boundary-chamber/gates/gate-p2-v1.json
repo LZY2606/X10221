@@ -1,0 +1,26 @@
+{
+  "gate_id": "gate:p2-live",
+  "version": 1,
+  "name": "P2 Live",
+  "x_channel": "FL2-A",
+  "y_channel": "FL1-A",
+  "vertices": [
+    [
+      0.0,
+      2.5
+    ],
+    [
+      3.0,
+      2.5
+    ],
+    [
+      3.0,
+      5.0
+    ],
+    [
+      0.0,
+      5.0
+    ]
+  ],
+  "basis": "scatter=counts(raw passthrough); fluorescence=asinh(compensated counts/150)"
+}

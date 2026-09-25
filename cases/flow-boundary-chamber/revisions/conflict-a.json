@@ -1,0 +1,7 @@
+{
+  "branch_id": "branch:main",
+  "subject_id": "derived:gate:gate:p1-lymph@v1",
+  "decision": "include-boundary",
+  "label": "审阅者甲：边界点纳入 P1",
+  "revision_kind": "concurrent-edit"
+}

@@ -1,0 +1,35 @@
+{
+  "spillover_id": "spillover:main",
+  "version": 1,
+  "channels": [
+    "FL1-A",
+    "FL2-A"
+  ],
+  "coefficients": {
+    "FL1-A": {
+      "FL2-A": 0.12
+    },
+    "FL2-A": {
+      "FL1-A": 0.02
+    }
+  },
+  "unit": "ratio",
+  "basis": "单染对照阳性峰中位荧光比值：control-fl1.fcs、control-fl2.fcs（每孔 20 事件，单位 counts）",
+  "controls": [
+    {
+      "file": "fcs/control-fl1.fcs",
+      "stain": "FITC",
+      "positive_median_FL1": 8000,
+      "positive_median_FL2": 960
+    },
+    {
+      "file": "fcs/control-fl2.fcs",
+      "stain": "PE",
+      "positive_median_FL1": 160,
+      "positive_median_FL2": 8000
+    }
+  ],
+  "notes": [
+    "FL2-A 通道缺少 $P4G，增益未知，按原始 counts 比较，未做增益归一化"
+  ]
+}

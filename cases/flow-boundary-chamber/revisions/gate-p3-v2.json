@@ -1,0 +1,37 @@
+{
+  "gate_id": "gate:p3-fl1pos",
+  "version": 2,
+  "name": "P3 FL1+",
+  "x_channel": "FL2-A",
+  "y_channel": "FL1-A",
+  "vertices": [
+    [
+      0.0,
+      3.9
+    ],
+    [
+      2.5,
+      3.9
+    ],
+    [
+      2.5,
+      5.0
+    ],
+    [
+      0.0,
+      5.0
+    ]
+  ],
+  "basis": "scatter=counts(raw passthrough); fluorescence=asinh(compensated counts/150)",
+  "revision_kind": "local-source-change",
+  "expect": {
+    "invalidated_popstats_prefix": [
+      "popstat:gate:p3-fl1pos"
+    ],
+    "untouched_prefix": [
+      "popstat:gate:p1-lymph",
+      "popstat:gate:p2-live"
+    ],
+    "rule": "invalidation.scoped_by_dependency_graph"
+  }
+}

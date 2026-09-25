@@ -1,0 +1,35 @@
+{
+  "gate_id": "gate:p1-lymph",
+  "version": 2,
+  "name": "P1 Lymphocytes",
+  "x_channel": "FSC-A",
+  "y_channel": "SSC-A",
+  "vertices": [
+    [
+      350.0,
+      350.0
+    ],
+    [
+      700.0,
+      350.0
+    ],
+    [
+      700.0,
+      600.0
+    ],
+    [
+      350.0,
+      600.0
+    ]
+  ],
+  "basis": "scatter=counts(raw passthrough); fluorescence=asinh(compensated counts/150)",
+  "revision_kind": "upstream-gate-change",
+  "expect": {
+    "invalidated_popstats_prefix": [
+      "popstat:gate:p1-lymph",
+      "popstat:gate:p2-live",
+      "popstat:gate:p3-fl1pos"
+    ],
+    "rule": "upstream.gate.revision.marks.downstream.stale.without.overwrite"
+  }
+}

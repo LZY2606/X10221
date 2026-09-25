@@ -1,0 +1,31 @@
+{
+  "matrix_id": "matrix:comp-main",
+  "version": 2,
+  "channels": [
+    "FL1-A",
+    "FL2-A"
+  ],
+  "rows": [
+    [
+      1.0,
+      0.9999999999999
+    ],
+    [
+      0.9999999999999,
+      1.0
+    ]
+  ],
+  "unit": "ratio",
+  "basis": "模拟两通道补偿系数被错误地设为几乎完全相关（仪器串扰标定失败）",
+  "source": "manual edit during review",
+  "expect": {
+    "rule": "comp.near_singular.no_silent_inverse",
+    "status": "near_singular",
+    "cond_threshold": 1000000000000.0,
+    "candidate_ids": [
+      "damped-pseudoinverse",
+      "use-previous-version",
+      "reject-compensation"
+    ]
+  }
+}

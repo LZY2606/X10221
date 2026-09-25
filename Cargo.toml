@@ -1,0 +1,24 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "流式边界室：补偿矩阵、门控系谱与细胞群不确定性 —— 流式细胞术/补偿/门控谱系复核工具"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "signal"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+anyhow = "1"
+sha2 = "0.10"
+chrono = { version = "0.4", features = ["serde"] }
+clap = { version = "4", features = ["derive"] }
+include_dir = "0.7"
+tower-http = { version = "0.6", features = ["fs"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+tempfile = "3"

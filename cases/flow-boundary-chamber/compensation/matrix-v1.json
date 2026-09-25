@@ -1,0 +1,21 @@
+{
+  "matrix_id": "matrix:comp-main",
+  "version": 1,
+  "channels": [
+    "FL1-A",
+    "FL2-A"
+  ],
+  "rows": [
+    [
+      1.0,
+      0.12
+    ],
+    [
+      0.02,
+      1.0
+    ]
+  ],
+  "unit": "ratio",
+  "basis": "spillover:main@v1：行=接收通道，列=发射通道；y=M^{-1}x",
+  "source": "spillover:main@v1"
+}
