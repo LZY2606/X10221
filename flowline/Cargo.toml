@@ -1,0 +1,23 @@
+[package]
+name = "flowline"
+version = "0.1.0"
+edition = "2021"
+description = "流式细胞术补偿/门控谱系复核工具（事件溯源、分支裁定、离线边界案例包）"
+
+[lib]
+name = "flowline"
+path = "src/lib.rs"
+
+[[bin]]
+name = "flowline"
+path = "src/main.rs"
+
+[dependencies]
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["full"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+# 端到端测试通过真实 HTTP（hyper client 已随 axum 引入）驱动运行中的服务
