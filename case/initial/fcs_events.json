@@ -1,0 +1,74 @@
+{
+  "schema": "flow-lineage/raw-events/v1",
+  "material_id": "fcs-events",
+  "version": 1,
+  "coordinate_basis": "instrument detector pulse area",
+  "events": [
+    {
+      "event_id": "E01",
+      "channels": {
+        "FSC-A": { "raw_text": "100", "value": 100.0, "unit": "ADC count", "basis": "FSC detector area" },
+        "SSC-A": { "raw_text": "100", "value": 100.0, "unit": "ADC count", "basis": "SSC detector area" },
+        "FITC-A": { "raw_text": "100", "value": 100.0, "unit": "ADC count", "basis": "FITC detector area" },
+        "PE-A": { "raw_text": "120", "value": 120.0, "unit": "ADC count", "basis": "PE detector area" },
+        "PerCP-A": { "raw_text": "40", "value": 40.0, "unit": "ADC count", "basis": "PerCP detector area" }
+      }
+    },
+    {
+      "event_id": "E02",
+      "channels": {
+        "FSC-A": { "raw_text": "130", "value": 130.0, "unit": "ADC count", "basis": "FSC detector area" },
+        "SSC-A": { "raw_text": "120", "value": 120.0, "unit": "ADC count", "basis": "SSC detector area" },
+        "FITC-A": { "raw_text": "900", "value": 900.0, "unit": "ADC count", "basis": "FITC detector area" },
+        "PE-A": { "raw_text": "200", "value": 200.0, "unit": "ADC count", "basis": "PE detector area" },
+        "PerCP-A": { "raw_text": "50", "value": 50.0, "unit": "ADC count", "basis": "PerCP detector area" }
+      }
+    },
+    {
+      "event_id": "E03",
+      "channels": {
+        "FSC-A": { "raw_text": "150", "value": 150.0, "unit": "ADC count", "basis": "FSC detector area" },
+        "SSC-A": { "raw_text": "160", "value": 160.0, "unit": "ADC count", "basis": "SSC detector area; boundary point in G01" },
+        "FITC-A": { "raw_text": "250", "value": 250.0, "unit": "ADC count", "basis": "FITC detector area" },
+        "PE-A": { "raw_text": "800", "value": 800.0, "unit": "ADC count", "basis": "PE detector area" },
+        "PerCP-A": { "raw_text": "30", "value": 30.0, "unit": "ADC count", "basis": "PerCP detector area" }
+      }
+    },
+    {
+      "event_id": "E04",
+      "channels": {
+        "FSC-A": { "raw_text": "180", "value": 180.0, "unit": "ADC count", "basis": "FSC detector area" },
+        "SSC-A": { "raw_text": "170", "value": 170.0, "unit": "ADC count", "basis": "SSC detector area" },
+        "FITC-A": { "raw_text": "1200", "value": 1200.0, "unit": "ADC count", "basis": "FITC detector area" },
+        "PE-A": { "raw_text": "1300", "value": 1300.0, "unit": "ADC count", "basis": "PE detector area" },
+        "PerCP-A": { "raw_text": "200", "value": 200.0, "unit": "ADC count", "basis": "PerCP detector area" }
+      }
+    },
+    {
+      "event_id": "E05",
+      "channels": {
+        "FSC-A": { "raw_text": "120", "value": 120.0, "unit": "ADC count", "basis": "FSC detector area" },
+        "SSC-A": { "raw_text": "110", "value": 110.0, "unit": "ADC count", "basis": "SSC detector area" },
+        "FITC-A": { "raw_text": "100000", "value": 100000.0, "unit": "ADC count", "basis": "FITC detector area; retained extreme saturation-range signal" },
+        "PE-A": { "raw_text": "300", "value": 300.0, "unit": "ADC count", "basis": "PE detector area" },
+        "PerCP-A": { "raw_text": "45", "value": 45.0, "unit": "ADC count", "basis": "PerCP detector area" }
+      }
+    },
+    {
+      "event_id": "E06",
+      "channels": {
+        "FSC-A": { "raw_text": "115", "value": 115.0, "unit": "ADC count", "basis": "FSC detector area" },
+        "SSC-A": { "raw_text": "105", "value": 105.0, "unit": "ADC count", "basis": "SSC detector area" },
+        "FITC-A": {
+          "raw_text": "OVRFLW",
+          "value": null,
+          "unit": "ADC count",
+          "basis": "FITC detector area",
+          "diagnostics": [{ "code": "UNCONVERTIBLE_VALUE_PRESERVED", "severity": "warning", "message": "Instrument sentinel cannot be converted to a numeric detector value." }]
+        },
+        "PE-A": { "raw_text": "950", "value": 950.0, "unit": "ADC count", "basis": "PE detector area" },
+        "PerCP-A": { "raw_text": "25", "value": 25.0, "unit": "ADC count", "basis": "PerCP detector area" }
+      }
+    }
+  ]
+}

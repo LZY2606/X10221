@@ -1,0 +1,15 @@
+{
+  "schema": "flow-lineage/spillover-metadata/v1",
+  "material_id": "spillover-metadata",
+  "version": 1,
+  "coordinate_basis": "single-stain detector spillover",
+  "unit": "dimensionless fraction",
+  "detectors": ["FITC-A", "PE-A", "PerCP-A"],
+  "fluorochromes": ["FITC", "PE", "PerCP"],
+  "single_stain_controls": [
+    { "control_id": "SS-FITC-01", "fluorochrome": "FITC", "primary_detector": "FITC-A" },
+    { "control_id": "SS-PE-01", "fluorochrome": "PE", "primary_detector": "PE-A" },
+    { "control_id": "SS-PerCP-01", "fluorochrome": "PerCP", "primary_detector": "PerCP-A" }
+  ],
+  "spillover_matrix_reference": "compensation-matrix@v1"
+}

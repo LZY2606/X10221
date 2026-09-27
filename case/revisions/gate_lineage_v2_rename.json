@@ -1,0 +1,11 @@
+{
+  "schema": "flow-lineage/gate-lineage/v1",
+  "material_id": "gate-lineage",
+  "version": 2,
+  "coordinate_basis": "immutable gate identities and versioned parent-child edges",
+  "nodes": [
+    { "node_id": "L01", "gate_id": "G01", "name": "Lymphocytes", "parent_node_id": null },
+    { "node_id": "L02", "gate_id": "G02", "name": "FITC+ events", "parent_node_id": "L01" },
+    { "node_id": "L03", "gate_id": "G03", "name": "PE-positive", "parent_node_id": "L02" }
+  ]
+}

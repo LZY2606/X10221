@@ -1,0 +1,17 @@
+{
+  "schema": "flow-lineage/gate-polygons/v1",
+  "material_id": "gate-polygons",
+  "version": 2,
+  "coordinate_basis": "channel coordinates named by each polygon",
+  "polygons": [
+    {
+      "gate_id": "G01",
+      "name": "Lymphocytes",
+      "x_channel": "FSC-A",
+      "y_channel": "SSC-A",
+      "coordinate_basis": "raw-linear detector area",
+      "unit": "ADC count",
+      "vertices": [[90, 80], [190, 80], [190, 155], [90, 155]]
+    }
+  ]
+}

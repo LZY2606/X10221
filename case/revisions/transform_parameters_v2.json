@@ -1,0 +1,13 @@
+{
+  "schema": "flow-lineage/transform-parameters/v1",
+  "material_id": "transform-parameters",
+  "version": 2,
+  "coordinate_basis": "compensated fluorescence",
+  "method": "asinh",
+  "output_unit": "asinh band-width",
+  "parameters": [
+    { "channel": "FITC-A", "parameter": "cofactor", "value": 120.0, "unit": "ADC count" },
+    { "channel": "PE-A", "parameter": "cofactor", "value": 120.0, "unit": "ADC count" },
+    { "channel": "PerCP-A", "parameter": "cofactor", "value": 120.0, "unit": "ADC count" }
+  ]
+}

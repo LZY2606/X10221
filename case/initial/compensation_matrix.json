@@ -1,0 +1,13 @@
+{
+  "schema": "flow-lineage/compensation-matrix/v1",
+  "material_id": "compensation-matrix",
+  "version": 1,
+  "coordinate_basis": "spillover fractions measured from single-stain controls",
+  "unit": "dimensionless",
+  "channels": ["FITC-A", "PE-A", "PerCP-A"],
+  "values": [
+    [1.0, 0.995, 0.0],
+    [0.995, 1.0, 0.0],
+    [0.0, 0.0, 1.0]
+  ]
+}
