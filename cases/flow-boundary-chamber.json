@@ -1,0 +1,993 @@
+{
+  "schema": "flowline.case/1",
+  "case_id": "flow-boundary-chamber",
+  "title": "Flow Boundary Chamber: compensation matrix, gating lineage and population uncertainty",
+  "domain": "flow-cytometry",
+  "panel": {
+    "coordinate_basis": "FSC/SSC in raw linear channel units [0,262144]; fluorescence shown raw and compensated; optional asinh display transform",
+    "channels": [
+      {
+        "name": "FSC-A",
+        "marker": "FSC",
+        "detector": "forward scatter area",
+        "unit": "channel unit (linear scale 0..262144)",
+        "space": "raw linear"
+      },
+      {
+        "name": "FSC-H",
+        "marker": "FSC",
+        "detector": "forward scatter height",
+        "unit": "channel unit (linear scale 0..262144)",
+        "space": "raw linear"
+      },
+      {
+        "name": "SSC-A",
+        "marker": "SSC",
+        "detector": "side scatter area",
+        "unit": "channel unit (linear scale 0..262144)",
+        "space": "raw linear"
+      },
+      {
+        "name": "FITC-A",
+        "marker": "CD3",
+        "detector": "530/30 nm",
+        "unit": "channel unit (linear scale 0..262144)",
+        "space": "raw linear"
+      },
+      {
+        "name": "PE-A",
+        "marker": "CD4",
+        "detector": "575/25 nm",
+        "unit": "channel unit (linear scale 0..262144)",
+        "space": "raw linear"
+      },
+      {
+        "name": "APC-A",
+        "marker": "CD8",
+        "detector": "660/20 nm",
+        "unit": "channel unit (linear scale 0..262144)",
+        "space": "raw linear"
+      }
+    ]
+  },
+  "artifacts": {
+    "events_v1": {
+      "kind": "events",
+      "version": 1,
+      "source": "FCS export: platform 'CyLab-X2', tube T-042, $FIL='T-042.fcs', byte range events 2228..9812",
+      "source_encoding": "fcs3.1/text-keyword+binary-events (re-serialized as domain JSON)",
+      "doc": {
+        "events": [
+          {
+            "id": "E01",
+            "index": 1,
+            "values": {
+              "FSC-A": {
+                "repr": 120,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 120.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 110,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 110.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 90,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 90.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 13.06,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 13.06,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 9.02,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 9.02,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 6.92,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 6.92,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E02",
+            "index": 2,
+            "values": {
+              "FSC-A": {
+                "repr": 140,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 140.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 138,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 138.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 120,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 120.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 983.24,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 983.24,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 89.4,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 89.4,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 62.2,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 62.2,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E03",
+            "index": 3,
+            "values": {
+              "FSC-A": {
+                "repr": 150,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 150.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 149,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 149.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 270,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 270.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 166.4,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 166.4,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 1503.7,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 1503.7,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 82.25,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 82.25,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E04",
+            "index": 4,
+            "values": {
+              "FSC-A": {
+                "repr": 130,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 130.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 128,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 128.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 110,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 110.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 246.4,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 246.4,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 188.6,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 188.6,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 2605.2,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 2605.2,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E05",
+            "index": 5,
+            "values": {
+              "FSC-A": {
+                "repr": 95,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 95.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 94,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 94.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 60,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 60.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 11.5,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 11.5,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 11.1,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 11.1,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 10.9,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 10.9,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E06",
+            "index": 6,
+            "values": {
+              "FSC-A": {
+                "repr": 150,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 150.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 148,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 148.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 180,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 180.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 541.2,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 541.2,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 512.0,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 512.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 84.2,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 84.2,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E07",
+            "index": 7,
+            "values": {
+              "FSC-A": {
+                "repr": 150,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 150.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 148,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 148.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 180,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 180.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 541.2,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 541.2,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 512.0,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 512.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 84.2,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 84.2,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E08",
+            "index": 8,
+            "values": {
+              "FSC-A": {
+                "repr": 150,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 150.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 148,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 148.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 180,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 180.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 522.8,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 522.8,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 530.8,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 530.8,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 84.0,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 84.0,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E09",
+            "index": 9,
+            "values": {
+              "FSC-A": {
+                "repr": 150,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 150.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 148,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 148.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 180,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 180.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 902.8,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 902.8,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 5032.0,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 5032.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 265.0,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 265.0,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E10",
+            "index": 10,
+            "values": {
+              "FSC-A": {
+                "repr": 150,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 150.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 147,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 147.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 180,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 180.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 439.6,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 439.6,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 237.2,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 237.2,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 69.4,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 69.4,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E11",
+            "index": 11,
+            "values": {
+              "FSC-A": {
+                "repr": 130,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 130.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 104,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 104.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 140,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 140.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": 111.4,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 111.4,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "PE-A": {
+                "repr": 632.2,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 632.2,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "APC-A": {
+                "repr": 645.0,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 645.0,
+                "convertible": true,
+                "diagnostic": null
+              }
+            }
+          },
+          {
+            "id": "E12",
+            "index": 12,
+            "values": {
+              "FSC-A": {
+                "repr": 260,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 260.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FSC-H": {
+                "repr": 255,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 255.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "SSC-A": {
+                "repr": 200,
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": 200.0,
+                "convertible": true,
+                "diagnostic": null
+              },
+              "FITC-A": {
+                "repr": "OVR",
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": null,
+                "convertible": false,
+                "diagnostic": "unconvertible raw representation retained at source; excluded from numeric derivation"
+              },
+              "PE-A": {
+                "repr": "OVR",
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": null,
+                "convertible": false,
+                "diagnostic": "unconvertible raw representation retained at source; excluded from numeric derivation"
+              },
+              "APC-A": {
+                "repr": "OVR",
+                "unit": "channel unit (linear scale 0..262144)",
+                "numeric": null,
+                "convertible": false,
+                "diagnostic": "unconvertible raw representation retained at source; excluded from numeric derivation"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "spillover_v1": {
+      "kind": "spillover",
+      "version": 1,
+      "source": "single-stain controls 2026-09-22 (FITC/PE/APC beads); keyword $SPILL in T-042.fcs",
+      "source_encoding": "fcs3.1/$SPILL keyword text",
+      "doc": {
+        "channels": [
+          "FITC-A",
+          "PE-A",
+          "APC-A"
+        ],
+        "matrix": [
+          [
+            1,
+            0.95,
+            0.05
+          ],
+          [
+            0.95,
+            1,
+            0.1
+          ],
+          [
+            0.05,
+            0.1,
+            1
+          ]
+        ],
+        "unit": "fraction of source detector signal",
+        "method": "single-stain control least squares (platform auto)",
+        "note": "auto-generated matrix; row/column dependence suspected"
+      }
+    },
+    "transform_v1": {
+      "kind": "transform",
+      "version": 1,
+      "source": "lab SOP-FLOW-07 rev.3 display transform",
+      "source_encoding": "sop parameter table",
+      "doc": {
+        "params": {
+          "FITC-A": {
+            "method": "asinh",
+            "unit": "normalized asinh unit (t = 1000 channel units)",
+            "basis": "transformed fluorescence",
+            "t": 1000.0,
+            "m": 0.0
+          },
+          "PE-A": {
+            "method": "asinh",
+            "unit": "normalized asinh unit (t = 1000 channel units)",
+            "basis": "transformed fluorescence",
+            "t": 1000.0,
+            "m": 0.0
+          },
+          "APC-A": {
+            "method": "asinh",
+            "unit": "normalized asinh unit (t = 1000 channel units)",
+            "basis": "transformed fluorescence",
+            "t": 1000.0,
+            "m": 0.0
+          }
+        }
+      }
+    },
+    "gates_v1": {
+      "kind": "gates",
+      "version": 1,
+      "source": "draft template 'lymphoid-panel-draft.gatingml' (platform import)",
+      "source_encoding": "Gating-ML 2.0 subset",
+      "doc": {
+        "gates": [
+          {
+            "id": "g_lymph",
+            "label": "Lymphocytes",
+            "space": "raw",
+            "x_channel": "FSC-A",
+            "y_channel": "SSC-A",
+            "kind": "polygon",
+            "vertices": [
+              [
+                100,
+                80
+              ],
+              [
+                170,
+                80
+              ],
+              [
+                170,
+                250
+              ],
+              [
+                130,
+                290
+              ],
+              [
+                90,
+                250
+              ],
+              [
+                90,
+                120
+              ]
+            ],
+            "boundary_rule": "half_open_edge_included"
+          },
+          {
+            "id": "g_singlet",
+            "label": "Singlets",
+            "space": "raw",
+            "x_channel": "FSC-A",
+            "y_channel": "FSC-H",
+            "kind": "polygon",
+            "vertices": [
+              [
+                100,
+                110
+              ],
+              [
+                165,
+                110
+              ],
+              [
+                165,
+                165
+              ],
+              [
+                100,
+                165
+              ]
+            ],
+            "boundary_rule": "half_open_edge_included"
+          },
+          {
+            "id": "g_cd3_t",
+            "label": "CD3+ T cells",
+            "space": "raw",
+            "x_channel": "FITC-A",
+            "y_channel": "PE-A",
+            "kind": "polygon",
+            "vertices": [
+              [
+                541.2,
+                512.0
+              ],
+              [
+                600,
+                512.0
+              ],
+              [
+                600,
+                600
+              ],
+              [
+                541.2,
+                600
+              ]
+            ],
+            "boundary_rule": "half_open_edge_included"
+          },
+          {
+            "id": "g_cd4",
+            "label": "CD4+ Helpers",
+            "space": "raw",
+            "x_channel": "PE-A",
+            "y_channel": "APC-A",
+            "kind": "polygon",
+            "vertices": [
+              [
+                512.0,
+                60.0
+              ],
+              [
+                600,
+                60.0
+              ],
+              [
+                600,
+                130
+              ],
+              [
+                512.0,
+                130
+              ]
+            ],
+            "boundary_rule": "half_open_edge_included"
+          },
+          {
+            "id": "g_cd8",
+            "label": "CD8+ CTL",
+            "space": "raw",
+            "x_channel": "FITC-A",
+            "y_channel": "APC-A",
+            "kind": "polygon",
+            "vertices": [
+              [
+                246.4,
+                600.0
+              ],
+              [
+                600,
+                600.0
+              ],
+              [
+                600,
+                2700
+              ],
+              [
+                246.4,
+                2700
+              ]
+            ],
+            "boundary_rule": "half_open_edge_included"
+          }
+        ]
+      }
+    },
+    "relations_v1": {
+      "kind": "relations",
+      "version": 1,
+      "source": "draft template parent/child edges",
+      "source_encoding": "Gating-ML 2.0 subset",
+      "doc": {
+        "root": "__root__",
+        "edges": [
+          {
+            "parent": "__root__",
+            "child": "g_lymph"
+          },
+          {
+            "parent": "g_lymph",
+            "child": "g_singlet"
+          },
+          {
+            "parent": "g_singlet",
+            "child": "g_cd3_t"
+          },
+          {
+            "parent": "g_cd3_t",
+            "child": "g_cd4"
+          },
+          {
+            "parent": "g_singlet",
+            "child": "g_cd8"
+          }
+        ]
+      }
+    }
+  },
+  "steps": [
+    {
+      "seq": 1,
+      "trigger": "initial import",
+      "description": "Import FCS events, spillover metadata and gating draft as six separately versioned artifacts; rollback-only on failure.",
+      "action": {
+        "type": "import_initial"
+      }
+    },
+    {
+      "seq": 2,
+      "trigger": "matrix singularity check",
+      "description": "Near-singular spillover matrix must not be silently inverted; branch the adjudication and retain every legal inverse candidate.",
+      "action": {
+        "type": "fork",
+        "branch": "b_singular_investigation",
+        "reason": "review det(S) before accepting compensation"
+      }
+    },
+    {
+      "seq": 3,
+      "trigger": "adjudicate compensation",
+      "description": "Reject the near-singular matrix and publish the corrected spillover v2 from the re-run single-stain controls.",
+      "action": {
+        "type": "adjudicate",
+        "target": "compensation_matrix",
+        "decision": "reject_near_singular_publish_corrected",
+        "reason": "min pivot 0.0475 below threshold 0.05; candidate inverses unstable (condition ~21)"
+      }
+    },
+    {
+      "seq": 4,
+      "trigger": "publish corrected matrix",
+      "description": "Corrected spillover v2 replaces v1 only inside this branch; v1 bytes remain readable.",
+      "action": {
+        "type": "publish_artifact",
+        "kind": "spillover",
+        "version": 2,
+        "reason": "recomputed from bead controls with corrected PE compensation control"
+      }
+    },
+    {
+      "seq": 5,
+      "trigger": "acknowledge extreme/unconvertible signals",
+      "description": "E09 extreme compensated amplitude and E12 overflow tokens are retained in place with diagnostics, not dropped for plotting.",
+      "action": {
+        "type": "adjudicate",
+        "target": "signal_quality",
+        "decision": "retain_with_diagnostics",
+        "reason": "unconvertible and extreme values stay at source; downstream gate membership marks them excluded_with_diagnostic"
+      }
+    },
+    {
+      "seq": 6,
+      "trigger": "gate rename inside nesting",
+      "description": "Rename the CD4 gate label; stable id g_cd4 and parent/child relations must remain intact.",
+      "action": {
+        "type": "rename_gate",
+        "gate_id": "g_cd4",
+        "new_label": "CD4+ Helper T"
+      }
+    },
+    {
+      "seq": 7,
+      "trigger": "publish gates v2 with rename",
+      "description": "Gate document v2 carries the renamed label; lineage identity is by gate id.",
+      "action": {
+        "type": "publish_artifact",
+        "kind": "gates",
+        "version": 3,
+        "reason": "label-only revision"
+      }
+    },
+    {
+      "seq": 8,
+      "trigger": "revise upstream gate",
+      "description": "Widen the CD3 gate left edge (541.2 -> 522.8) so boundary-adjacent E08 enters; existing downstream CD4/CD8 results are marked stale but never overwritten.",
+      "action": {
+        "type": "revise_gate",
+        "gate_id": "g_cd3_t",
+        "version": 2
+      }
+    },
+    {
+      "seq": 9,
+      "trigger": "local source-data change",
+      "description": "Re-read E10 FITC-A as 541.2 (events v2); dependency analysis limits invalidation to CD3 and its downstream CD4 only.",
+      "action": {
+        "type": "publish_artifact",
+        "kind": "events",
+        "version": 2,
+        "reason": "re-exported event E10 after acquisition correction"
+      }
+    },
+    {
+      "seq": 10,
+      "trigger": "conflicting human decision",
+      "description": "A second window commits against the old branch head; the later submitter sees a version conflict with both diffs, and nothing is auto-merged.",
+      "action": {
+        "type": "concurrent_commit",
+        "branch": "main"
+      }
+    }
+  ]
+}
