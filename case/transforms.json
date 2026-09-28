@@ -1,0 +1,13 @@
+{
+  "artifact_id": "transform-parameters",
+  "version": 1,
+  "coordinate_basis": "display coordinates after compensation",
+  "transforms": [
+    {"channel": "FSC-A", "family": "linear", "scale": 1.0, "offset": 0.0, "input_unit": "detector count", "output_unit": "linear scatter coordinate"},
+    {"channel": "SSC-A", "family": "linear", "scale": 1.0, "offset": 0.0, "input_unit": "detector count", "output_unit": "linear scatter coordinate"},
+    {"channel": "FL1-A", "family": "asinh", "scale": 1000.0, "offset": 0.0, "input_unit": "compensated detector count", "output_unit": "asinh fluorescence coordinate"},
+    {"channel": "FL2-A", "family": "asinh", "scale": 1000.0, "offset": 0.0, "input_unit": "compensated detector count", "output_unit": "asinh fluorescence coordinate"},
+    {"channel": "FL3-A", "family": "asinh", "scale": 1000.0, "offset": 0.0, "input_unit": "compensated detector count", "output_unit": "asinh fluorescence coordinate"},
+    {"channel": "FL4-A", "family": "asinh", "scale": 1000.0, "offset": 0.0, "input_unit": "compensated detector count", "output_unit": "asinh fluorescence coordinate"}
+  ]
+}

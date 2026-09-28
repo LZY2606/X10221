@@ -1,0 +1,15 @@
+{
+  "artifact_id": "compensation-matrix",
+  "version": 1,
+  "coordinate_basis": "raw detector counts; y = M x where x is compensated signal and y is observed signal",
+  "input_unit": "detector count",
+  "output_unit": "compensated detector count",
+  "channels": ["FL1-A", "FL2-A", "FL3-A", "FL4-A"],
+  "matrix": [
+    [1.0, 0.12, 0.0, 0.0],
+    [0.08, 1.0, 0.0, 0.0],
+    [0.0, 0.0, 1.0, 0.0],
+    [0.0, 0.0, 0.0, 1.0]
+  ],
+  "source": {"spillover_metadata": "spillover-controls/v1"}
+}

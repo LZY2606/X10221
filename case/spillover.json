@@ -1,0 +1,22 @@
+{
+  "artifact_id": "spillover-controls",
+  "version": 1,
+  "units": {"signal": "detector count", "coefficient": "fraction of source detector response"},
+  "single_stain_controls": [
+    {
+      "control_id": "ss-FITC",
+      "stained_channel": "FL1-A",
+      "coordinate_basis": "raw detector counts before compensation",
+      "observed_spillover": [{"into": "FL2-A", "value": 0.08, "unit": "fraction"}],
+      "source_window": {"time": {"min": 0.10, "max": 0.20, "unit": "ms"}}
+    },
+    {
+      "control_id": "ss-PE",
+      "stained_channel": "FL2-A",
+      "coordinate_basis": "raw detector counts before compensation",
+      "observed_spillover": [{"into": "FL1-A", "value": 0.12, "unit": "fraction"}],
+      "source_window": {"time": {"min": 0.10, "max": 0.20, "unit": "ms"}}
+    }
+  ],
+  "notes": "Spillover observations are provenance only; the separately versioned compensation matrix chooses how observations are used."
+}

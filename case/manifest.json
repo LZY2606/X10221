@@ -1,0 +1,21 @@
+{
+  "package_id": "flow-boundary-room-v1",
+  "title": "流式边界室：补偿矩阵、门控系谱与细胞群不确定性",
+  "format_version": 1,
+  "coordinate_policy": "raw values retain source representation and units; compensation and transforms create separately versioned derived coordinates",
+  "materials": [
+    {"path": "events.fcs", "kind": "fcs_events", "artifact_id": "fcs-events", "version": 1},
+    {"path": "spillover.json", "kind": "spillover_metadata", "artifact_id": "spillover-controls", "version": 1},
+    {"path": "compensation.matrix.json", "kind": "compensation_matrix", "artifact_id": "compensation-matrix", "version": 1},
+    {"path": "transforms.json", "kind": "transform_parameters", "artifact_id": "transform-parameters", "version": 1},
+    {"path": "gates.json", "kind": "gate_polygons_and_edges", "artifact_id": "gate-tree", "version": 1}
+  ],
+  "scenarios": [
+    "near_singular_compensation",
+    "extreme_and_unconvertible_signals",
+    "polygon_boundary_points",
+    "nested_gate_rename",
+    "upstream_staleness_propagation",
+    "same_version_concurrent_decision"
+  ]
+}

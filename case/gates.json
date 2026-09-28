@@ -1,0 +1,33 @@
+{
+  "artifact_id": "gate-tree",
+  "version": 1,
+  "coordinate_system": {"space": "compensated transformed display coordinates", "polygon_order": "counterclockwise"},
+  "polygons": [
+    {
+      "gate_id": "G10",
+      "stable_name": "lymphocytes",
+      "x_channel": "FSC-A",
+      "y_channel": "SSC-A",
+      "vertices": [[50000, 40000], [150000, 40000], [150000, 90000], [50000, 90000]]
+    },
+    {
+      "gate_id": "G20",
+      "stable_name": "FITC-positive",
+      "x_channel": "FL1-A",
+      "y_channel": "FL2-A",
+      "vertices": [[2.0, -1.0], [5.0, -1.0], [5.0, 3.0], [2.0, 3.0]]
+    },
+    {
+      "gate_id": "G30",
+      "stable_name": "APC-helper",
+      "x_channel": "FL3-A",
+      "y_channel": "FL4-A",
+      "vertices": [[2.3, 0.8], [4.0, 0.8], [4.0, 3.5], [2.3, 3.5]]
+    }
+  ],
+  "parent_child_edges": [
+    {"edge_id": "edge-root-G10", "parent": "ROOT", "child": "G10"},
+    {"edge_id": "edge-G10-G20", "parent": "G10", "child": "G20"},
+    {"edge_id": "edge-G20-G30", "parent": "G20", "child": "G30"}
+  ]
+}
